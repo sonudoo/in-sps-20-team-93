@@ -5,3 +5,4 @@
 ## Project Members
 
 1. Sushant Gupta (@sonudoo) - Project Advisor
+2. Akhil Binani (@sadreactsonly) - Project Member
