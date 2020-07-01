@@ -5,4 +5,4 @@
 ## Project Members
 
 1. Sushant Gupta (@sonudoo) - Project Advisor
-2. Samiksha Kapoor (@samii9914) - Mentee
+2. Samiksha Kapoor (@samii9914) - Project Member
