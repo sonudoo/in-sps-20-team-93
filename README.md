@@ -7,3 +7,4 @@
 1. Sushant Gupta (@sonudoo) - Project Advisor
 2. Samiksha Kapoor (@samii9914) - Project Member
 3. Shradha Khapra (@shradha-khapra) - Project Member
+4. Akhil Binani (@sadreactsonly) - Project Member
