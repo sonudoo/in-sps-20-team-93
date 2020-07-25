@@ -16,4 +16,4 @@ TODO: Update the details here.
 
 |        Pipeline        |            Status            |
 |------------------------|------------------------------|
-|      Build & Test      | [![Actions Status](https://github.com/sonudoo/in-sps-20-team-93/workflows/Java%20Build%20and%Test/badge.svg)](https://github.com/sonudoo/in-sps-20-team-93/actions)     |
+|      Build & Test      | [![Actions Status](https://github.com/sonudoo/in-sps-20-team-93/workflows/Java%20Build%20and%20Test/badge.svg)](https://github.com/sonudoo/in-sps-20-team-93/actions)     |
