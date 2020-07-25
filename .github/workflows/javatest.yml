@@ -3,7 +3,7 @@ name: Java Build and Test
 on: [push]
 
 jobs:
-  build:
+  maven:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
