@@ -18,23 +18,13 @@ package com.google.sps.lib;
  * Class to get greeting message.
  */
 public class Greetings {
-  private static final String DEFAULT_MESSAGE = "Hey There!";
+  private final DatabaseReader databaseReader;
 
-  private final String message;
-
-  private Greetings() {
-    message = DEFAULT_MESSAGE;
+  public Greetings(DatabaseReader databaseReader) {
+    this.databaseReader = databaseReader;
   }
 
-  Greetings(String message) {
-    this.message = message;
-  }
-
-  public static Greetings getDefaultInstance() {
-    return new Greetings();
-  }
-
-  public String getMessage() {
-    return message;
+  public String getGreetings(String language) {
+    return this.databaseReader.readMessageFromDatabase(language);
   }
 }

@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.sps.lib.DatabaseReader;
 import com.google.sps.lib.Greetings;
 
 /**
@@ -36,8 +37,9 @@ public class HelloWorldServlet extends HttpServlet {
    * Handles server side GET requests.
    */
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.getWriter().write(Greetings.getDefaultInstance().getMessage());
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException 
+  {
+    response.getWriter().write(new Greetings(new DatabaseReader()).getGreetings("Hindi"));
     response.getWriter().flush();
     response.getWriter().close();
   }
