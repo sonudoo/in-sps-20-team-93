@@ -12,11 +12,9 @@ jobs:
       - name: Authenticate into Google Cloud Platform
         uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
-          service_account_email: ${{ secrets.GCLOUD_EMAIL }}
+          version: '290.0.1'
+          project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
           service_account_key: ${{ secrets.GCLOUD_AUTH }}
-
-      - name: Run auth
-        run: gcloud auth activate-service-account --quiet
 
       - name: Set up JDK 1.8
         uses: actions/setup-java@v1
