@@ -14,23 +14,19 @@
 
 package com.google.sps.lib;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import java.util.Map;
+import java.util.HashMap;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+public class MockDatabaseReader extends DatabaseReader {
 
-@RunWith(JUnit4.class)
-public final class GreetingsTest {
+  private Map <String, String> greetings = new HashMap<>();
 
-  @Test
-  public void getGreetings_greetingIsReadFromDatabase() {
-    MockDatabaseReader mockDatabaseReader = new MockDatabaseReader();
-    mockDatabaseReader.addMessage("Jintreting", "theGarage");
+  public void addMessage(String language, String greeting) {
+    greetings.put(language, greeting);
+  }
 
-    String greeting = new Greetings(mockDatabaseReader).getGreetings("Jintreting");
-
-    assertEquals("theGarage", greeting);
+  @Override
+  public String readMessageFromDatabase(String language) {
+    return greetings.get(language);
   }
 }
