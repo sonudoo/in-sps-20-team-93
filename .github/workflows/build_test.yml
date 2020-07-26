@@ -23,14 +23,14 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.1
 
-      - name: Change to frontend directory
-        run: cd src/deliveryrouting
-      
       - name: Install node modules
+        working-directory: ./src/deliveryrouting
         run: npm install
 
       - name: Build frontend with NPM
+        working-directory: ./src/deliveryrouting
         run: npm run build
-      
+
       - name: Test frontend with NPM
+        working-directory: ./src/deliveryrouting
         run: npm test -- --watchAll=false
