@@ -12,14 +12,32 @@ jobs:
       - name: Authenticate into Google Cloud Platform
         uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
-          version: '290.0.1'
+          version: "290.0.1"
           project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
           service_account_key: ${{ secrets.GCLOUD_AUTH }}
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.1.1
+
+      - name: Install node modules
+        working-directory: ./src/deliveryrouting
+        run: npm install
+
+      - name: Build frontend with NPM
+        working-directory: ./src/deliveryrouting
+        run: npm run build
+
+      - name: Test frontend with NPM
+        working-directory: ./src/deliveryrouting
+        run: npm test -- --watchAll=false
+
+      - name: Copy the frontend artifacts to webapp
+        run: cp -a /src/deliveryrouting/build/. /src/main/webapp/
 
       - name: Set up JDK 1.8
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
 
-      - name: Build with Maven
+      - name: Build, Test and Deploy with Maven
         run: mvn package appengine:deploy
