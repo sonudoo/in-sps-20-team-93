@@ -18,7 +18,7 @@ package com.google.sps.lib;
  * Class to get greeting message.
  */
 public class Greetings {
-  private static final String DEFAULT_MESSAGE = "";
+  private static final String DEFAULT_MESSAGE = "Hey There!";
 
   private final String message;
 
