@@ -3,7 +3,7 @@ name: Cloud Deploy
 on: [push]
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
@@ -39,5 +39,5 @@ jobs:
         with:
           java-version: 1.8
 
-      - name: Build, Test and Deploy with Maven
+      - name: Build, Test and Deploy application with Maven
         run: mvn package appengine:deploy
