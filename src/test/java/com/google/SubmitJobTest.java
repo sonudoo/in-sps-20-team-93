@@ -23,36 +23,17 @@ import org.junit.runners.JUnit4;
 import java.lang.Exception;
 import com.google.sps.lib.ErrorResponse;
 import com.google.sps.lib.Job;
-import org.springframework.mock.web.MockHttpServletRequest;
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
 
 @RunWith(JUnit4.class)
 public final class SubmitJobTest {
 
   @Test
   public void addJobToDataStore_jobIsAddedToDataStore() throws Exception{
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    MockHttpServletRequest request = new MockHttpServletRequest();
-    request.addParameter("name", "MockUser");
-    request.addParameter("phone", "991");
-    request.addParameter("date", "27/7/2020");
-    request.addParameter("start_latitude", "67.09");
-    request.addParameter("start_longitude", "23.65");
-    request.addParameter("end_latitude", "98.7");
-    request.addParameter("end_longitude", "22.3");
-
-    ErrorResponse errResponse = new Job().addJobToDataStore(request, datastore);
-
-    assertEquals(errResponse, null);
+    // TODO(shradha-khapra): Add the test here.
   }
 
   @Test
   public void convertToJsonUsingGson_stringIsReturned() {
-    ErrorResponse errResponse = new ErrorResponse(false, "no error");
-
-    String errJson = new Job().convertToJsonUsingGson(errResponse);
-
-    assertFalse(errJson.isEmpty());
+    // TODO(shradha-khapra): Add the test here.
   }
 }

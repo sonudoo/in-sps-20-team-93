@@ -16,13 +16,17 @@ package com.google.sps.lib;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
-@RunWith(JUnit4.class)
+@RunWith(MockitoJUnitRunner.class)
 public final class GreetingsTest {
+  @Mock
+  DatabaseReader mockitoDatabaseReader;
 
   @Test
   public void getGreetings_greetingIsReadFromDatabase() {
@@ -30,6 +34,15 @@ public final class GreetingsTest {
     mockDatabaseReader.addMessage("Jintreting", "theGarage");
 
     String greeting = new Greetings(mockDatabaseReader).getGreetings("Jintreting");
+
+    assertEquals("theGarage", greeting);
+  }
+
+  @Test
+  public void getGreetings_greetingIsReadFromDatabase_usingMockito() {
+    when(mockitoDatabaseReader.readMessageFromDatabase("Jintreting")).thenReturn("theGarage");
+
+    String greeting = new Greetings(mockitoDatabaseReader).getGreetings("Jintreting");
 
     assertEquals("theGarage", greeting);
   }
