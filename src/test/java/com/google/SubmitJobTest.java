@@ -14,8 +14,9 @@
 
 package com.google.sps.lib;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,28 +24,31 @@ import org.junit.runners.JUnit4;
 import java.lang.Exception;
 import com.google.sps.lib.ErrorResponse;
 import com.google.sps.lib.Job;
-import org.springframework.mock.web.MockHttpServletRequest;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+import javax.servlet.http.HttpServletRequest;
 
-@RunWith(JUnit4.class)
+@RunWith(MockitoJUnitRunner.class)
 public final class SubmitJobTest {
+  @Mock
+  HttpServletRequest request;
 
   @Test
   public void addJobToDataStore_jobIsAddedToDataStore() throws Exception{
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    MockHttpServletRequest request = new MockHttpServletRequest();
-    request.addParameter("name", "MockUser");
-    request.addParameter("phone", "991");
-    request.addParameter("date", "27/7/2020");
-    request.addParameter("start_latitude", "67.09");
-    request.addParameter("start_longitude", "23.65");
-    request.addParameter("end_latitude", "98.7");
-    request.addParameter("end_longitude", "22.3");
+    when(request.getParameter("name")).thenReturn("MockUser");
+    when(request.getParameter("phone")).thenReturn("911");
+    when(request.getParameter("date")).thenReturn("27/7/2020");
+    when(request.getParameter("start_latitude")).thenReturn("67.09");
+    when(request.getParameter("start_longitude")).thenReturn("23.65");
+    when(request.getParameter("end_latitude")).thenReturn("s98.7");
+    when(request.getParameter("end_longitude")).thenReturn("22.3");
 
     ErrorResponse errResponse = new Job().addJobToDataStore(request, datastore);
 
-    assertEquals(errResponse, null);
+    assertNotNull(errResponse); 
   }
 
   @Test

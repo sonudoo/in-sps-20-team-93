@@ -63,7 +63,7 @@ public class Job {
       nJob.setProperty(ENTITY_END_LONG_PROPERTY_NAME, nEndLong);
     
       datastore.put(nJob);
-      return null;
+      return new ErrorResponse(false, "no error");
     } 
 
     catch(Exception e) {

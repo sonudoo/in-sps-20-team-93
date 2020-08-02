@@ -40,9 +40,6 @@ public class SubmitJobServlet extends HttpServlet {
     Job job = new Job();
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     ErrorResponse errResponse = job.addJobToDataStore(request, datastore);
-    if (errResponse == null) {
-      errResponse = new ErrorResponse(false, "no error");
-    }
     
     String errJson = job.convertToJsonUsingGson(errResponse);
     response.setContentType("application/json;");
