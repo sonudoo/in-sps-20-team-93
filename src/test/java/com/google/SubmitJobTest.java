@@ -43,7 +43,7 @@ public final class SubmitJobTest {
     when(request.getParameter("date")).thenReturn("27/7/2020");
     when(request.getParameter("start_latitude")).thenReturn("67.09");
     when(request.getParameter("start_longitude")).thenReturn("23.65");
-    when(request.getParameter("end_latitude")).thenReturn("s98.7");
+    when(request.getParameter("end_latitude")).thenReturn("98.7");
     when(request.getParameter("end_longitude")).thenReturn("22.3");
 
     ErrorResponse errResponse = new Job().addJobToDataStore(request, datastore);
