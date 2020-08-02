@@ -14,26 +14,30 @@
 
 package com.google.sps.lib;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import javax.servlet.http.HttpServletResponse;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
-import java.lang.Exception;
-import com.google.sps.lib.ErrorResponse;
-import com.google.sps.lib.Job;
+/**
+ * Represents an bad request response.
+ */
+class BadRequestErrorResponse implements IResponse {
 
-@RunWith(JUnit4.class)
-public final class SubmitJobTest {
+  private final static String RESPONSE_MESSAGE_TITLE = "Bad Request Format";
 
-  @Test
-  public void addJobToDataStore_jobIsAddedToDataStore() throws Exception{
-    // TODO(shradha-khapra): Add the test here.
+  private final int status;
+  private final ResponseMessage message;
+
+  BadRequestErrorResponse(String errorMessage) {
+    this.status = HttpServletResponse.SC_BAD_REQUEST;
+    this.message = ResponseMessage.create(RESPONSE_MESSAGE_TITLE, errorMessage);
   }
 
-  @Test
-  public void convertToJsonUsingGson_stringIsReturned() {
-    // TODO(shradha-khapra): Add the test here.
+  @Override
+  public int getStatus() {
+    return status;
+  }
+
+  @Override
+  public ResponseMessage getMessage() {
+    return message;
   }
 }

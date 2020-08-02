@@ -14,29 +14,21 @@
 
 package com.google.sps.lib;
 
-/** 
-   * This class represents an Error Response.
-   */  
-  public class ErrorResponse {
-    private final Boolean error;
-    private final String error_reason;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+import java.lang.Exception;
 
-    public ErrorResponse(Boolean error, String error_reason) {
-      this.error = error;
-      this.error_reason = error_reason;
-    }
-    
-    /**
-     * Getter for Error.
-     */
-    public Boolean getError() {
-      return this.error;
-    }
+@RunWith(JUnit4.class)
+public final class JobTest {
 
-    /**
-     * Getter for Error Reason.
-     */
-    public String getErrorReason() {
-      return this.error_reason;
-    }
+  @Test
+  public void addJobToDataStore_jobIsAddedToDataStore() throws Exception{
+    // TODO(shradha-khapra): Add the test here.
   }
+
+  @Test
+  public void convertToJsonUsingGson_stringIsReturned() {
+    // TODO(shradha-khapra): Add the test here.
+  }
+}

@@ -21,9 +21,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import com.google.sps.lib.ErrorResponse;
+import com.google.sps.lib.IResponse;
 import com.google.sps.lib.Job;
+import com.google.sps.lib.LibUtils;
 
 /**
  * Submits job provided by user to Database.
@@ -35,17 +35,13 @@ public class SubmitJobServlet extends HttpServlet {
    * Handles server side POST requests.
    */
   @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException 
-  {
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Job job = new Job();
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    ErrorResponse errResponse = job.addJobToDataStore(request, datastore);
-    if (errResponse == null) {
-      errResponse = new ErrorResponse(false, "no error");
-    }
-    
-    String errJson = job.convertToJsonUsingGson(errResponse);
+    IResponse handlerResponse = job.addJobToDataStore(request, datastore);
+    String responseJson = LibUtils.convertResponseToJson(handlerResponse);
+    response.setStatus(handlerResponse.getStatus());
     response.setContentType("application/json;");
-    response.getWriter().println(errJson);
-  } 
+    response.getWriter().println(responseJson);
+  }
 }
