@@ -1,52 +1,64 @@
+// Copyright 2019 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package com.google.sps.lib;
 
 import java.util.List;
 
 /**
- * creates a graph with distance between the adjacent locations
+ * Creates a graph showing distance between the adjacent locations.
  */
 public class Graph {
-  private List<Task> TaskList;
-  private final int ListSize;
-  double[][] DistanceMatrix;
+  private final List<Task> taskList;
+  private final int listSize;
+  private boolean isGraphCreated;
+  private double[][] distanceMatrix;
 
-  public Graph(List<Task> TaskList) {
-    this.TaskList = TaskList;
-    ListSize = TaskList.size();
-    DistanceMatrix = createGraph();
+  public Graph(List<Task> taskList) {
+    this.taskList = taskList;
+    this.listSize = taskList.size();
+    this.isGraphCreated = false;
   }
 
- /**
-  * Getter for DistanceMatrix
-  */
+  /**
+   * Getter for distanceMatrix.
+   */
   public double[][] getGraph() {
-    return this.DistanceMatrix;
+    if (!this.isGraphCreated) {
+      this.distanceMatrix = createGraph();
+      this.isGraphCreated = true;
+    }
+    return this.distanceMatrix;
   }
 
- /**
-  * Creates an initial graph
-  */
-  public double[][] createGraph() {
-    double[][] InitialDistanceMatrix = new double[ListSize][ListSize];
+  private double[][] createGraph() {
+    double[][] initialDistanceMatrix = new double[listSize][listSize];
 
-    for (int i = 1; i < InitialDistanceMatrix.length; i++) {
-      for (int j = 1; j < InitialDistanceMatrix[1].length; j++) {
+    for (int i = 1; i <= initialDistanceMatrix.length; i++) {
+      for (int j = 1; j <= initialDistanceMatrix[1].length; j++) {
         if (i != j) {
-          InitialDistanceMatrix[i - 1][j - 1] = findDistance(i, j);
+          initialDistanceMatrix[i - 1][j - 1] = findDistance(i, j);
         }
       }
     }
-    return InitialDistanceMatrix;
+    return initialDistanceMatrix;
   }
 
- /**
-  * Calculates the euclidean distance between two locations
-  * @param i
-  * @param j
-  */
-  public double findDistance(int i, int j) {
-    // TODO: Try to use Map API to calculate Distance
-    return Math.sqrt(Math.pow((TaskList.get(i - 1).getStartLatitude() - TaskList.get(j - 1).getStartLatitude()), 2)
-                     + Math.pow((TaskList.get(i - 1).getStartLongitude() - TaskList.get(j - 1).getStartLongitude()), 2));
+  private double findDistance(int i, int j) {
+    // TODO[samii9914]: Try to use Map API to calculate Distance
+    double xCoordinate = this.taskList.get(i - 1).getStartLatitude() - this.taskList.get(j - 1).getStartLatitude();
+    double yCoordinate = this.taskList.get(i - 1).getStartLongitude() - this.taskList.get(j - 1).getStartLongitude();
+    return Math.sqrt(((xCoordinate * xCoordinate) + (yCoordinate * yCoordinate)));
   }
 }
