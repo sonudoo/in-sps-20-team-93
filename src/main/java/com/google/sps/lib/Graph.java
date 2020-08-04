@@ -21,47 +21,31 @@ import java.util.List;
  */
 public class Graph {
   private final List<Task> taskList;
-  private final int listSize;
   private boolean isGraphCreated;
   private double[][] distanceMatrix;
-  ICalculateDistance distance;
+  IDistanceCalculator distanceCalculator;
+  ITSPAlgorithm tspAlgorithm;
 
   public Graph(List<Task> taskList) {
     this.taskList = taskList;
-    this.listSize = taskList.size();
     this.isGraphCreated = false;
+    this.distanceCalculator = new EuclideanDistanceCalculator();
   }
 
-  /**
-   * Getter for distanceMatrix.
-   */
-  public double[][] getGraph() {
+  public List<String> getMinimumPath() {
     if (!this.isGraphCreated) {
-      this.distanceMatrix = createGraph();
+      this.distanceMatrix = calculateDistance();
       this.isGraphCreated = true;
     }
-    return this.distanceMatrix;
-  }
-
-  private void setCalculateDistanceMethod(ICalculateDistance distance) {
-    this.distance = distance;
-  }
-
-  private double calculateDistance(int i, int j) {
-    setCalculateDistanceMethod(new calculateDistanceUsingEuclidean());
-    return distance.findDistance(taskList, i, j);
-  }
-
-  private double[][] createGraph() {
-    double[][] initialDistanceMatrix = new double[listSize][listSize];
-
-    for (int i = 1; i <= initialDistanceMatrix.length; i++) {
-      for (int j = 1; j <= initialDistanceMatrix[1].length; j++) {
-        if (i != j) {
-          initialDistanceMatrix[i - 1][j - 1] = calculateDistance(i, j);
-        }
-      }
+    if(taskList.size() <= 15) {
+      tspAlgorithm = new TSPDynamicProgrammingAlgorithm();
+    } else {
+      tspAlgorithm = new TSPGreedyAlgorithm();
     }
-    return initialDistanceMatrix;
+    return tspAlgorithm.findShortestPath(distanceMatrix);
+  }
+
+  private double[][] calculateDistance() {
+    return distanceCalculator.findDistance(taskList);
   }
 }

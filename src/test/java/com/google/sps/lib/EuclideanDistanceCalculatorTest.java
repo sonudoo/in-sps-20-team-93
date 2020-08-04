@@ -14,31 +14,36 @@
 
 package com.google.sps.lib;
 
-import static org.junit.Assert.assertEquals;
-
+import static org.junit.Assert.assertArrayEquals;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-
 @RunWith(JUnit4.class)
 
-public class CalculateDistanceTest {
+public class EuclideanDistanceCalculatorTest {
 
   @Test
-  public void calculateDistanceUsingEuclideanTest() {
-    List<Task> list = new ArrayList<>();
-    Task task1 = new Task("1", 67.09, 23.65, 98.7, 22.3);
-    Task task2 = new Task("2", 68.34, 24.5, 99.7, 23.65);
-    Task task3 = new Task("3", 68.38, 26.4, 98.6, 23.67);
-    list.add(task1);
-    list.add(task2);
-    list.add(task3);
+  public void findDistanceTest() {
 
-    ICalculateDistance distanceActual = new calculateDistanceUsingEuclidean();
-    double distance = distanceActual.findDistance(list, 2, 3);
-    double testDistance = 1.100727032;
-    assertEquals(testDistance, distance, 0.00000001);
+    List<Task> list = new ArrayList<>(Arrays.asList(
+      new Task("1", 67.09, 23.65, 98.7, 22.3),
+      new Task("2", 68.34, 24.5, 99.7, 23.65),
+      new Task("3", 68.38, 26.4, 98.6, 23.67)
+    ));
+    IDistanceCalculator distanceCalculator = new EuclideanDistanceCalculator();
+    double[][] testMatrix = { 
+      {0, 1.600781059, 1.293870164}, 
+      {1.600781059, 0, 1.100727032}, 
+      {1.293870164, 1.100727032, 0} 
+    };
+
+    double[][] distanceMatrix = distanceCalculator.findDistance(list);
+
+    for (int i = 0; i < testMatrix.length; i++) {
+      assertArrayEquals(testMatrix[i], distanceMatrix[i], 0.00000001);
+    }
   }
 }

@@ -24,7 +24,8 @@ public class Task {
   private final double startLongitudes;
   private final double endLongitudes;
 
-  public Task(String taskId, double startLatitudes, double endLatitudes, double startLongitudes, double endLongitudes) {
+  public Task(String taskId, double startLatitudes, double endLatitudes, 
+  double startLongitudes, double endLongitudes) {
     this.taskId = taskId;
     this.startLatitudes = startLatitudes;
     this.startLongitudes = startLongitudes;
@@ -32,37 +33,22 @@ public class Task {
     this.endLongitudes = endLongitudes;
   }
 
-  /**
-   * Getter for taskId.
-   */
   public String getTaskId() {
     return this.taskId;
   }
 
-  /**
-   * Getter for startLatitudes.
-   */
   public double getStartLatitude() {
     return this.startLatitudes;
   }
 
-  /**
-   * Getter for startLongitudes.
-   */
   public double getStartLongitude() {
     return this.startLongitudes;
   }
 
-  /**
-   * Getter for endLatitudes.
-   */
   public double getEndLatitude() {
     return this.endLatitudes;
   }
 
- /**
-  * Getter for endLongitudes.
-  */
   public double getEndLongitude() {
     return this.endLongitudes;
   }
