@@ -24,6 +24,7 @@ public class Graph {
   private final int listSize;
   private boolean isGraphCreated;
   private double[][] distanceMatrix;
+  ICalculateDistance distance;
 
   public Graph(List<Task> taskList) {
     this.taskList = taskList;
@@ -42,23 +43,25 @@ public class Graph {
     return this.distanceMatrix;
   }
 
+  private void setCalculateDistanceMethod(ICalculateDistance distance) {
+    this.distance = distance;
+  }
+
+  private double calculateDistance(int i, int j) {
+    setCalculateDistanceMethod(new calculateDistanceUsingEuclidean());
+    return distance.findDistance(taskList, i, j);
+  }
+
   private double[][] createGraph() {
     double[][] initialDistanceMatrix = new double[listSize][listSize];
 
     for (int i = 1; i <= initialDistanceMatrix.length; i++) {
       for (int j = 1; j <= initialDistanceMatrix[1].length; j++) {
         if (i != j) {
-          initialDistanceMatrix[i - 1][j - 1] = findDistance(i, j);
+          initialDistanceMatrix[i - 1][j - 1] = calculateDistance(i, j);
         }
       }
     }
     return initialDistanceMatrix;
-  }
-
-  private double findDistance(int i, int j) {
-    // TODO[samii9914]: Try to use Map API to calculate Distance
-    double xCoordinate = this.taskList.get(i - 1).getStartLatitude() - this.taskList.get(j - 1).getStartLatitude();
-    double yCoordinate = this.taskList.get(i - 1).getStartLongitude() - this.taskList.get(j - 1).getStartLongitude();
-    return Math.sqrt(((xCoordinate * xCoordinate) + (yCoordinate * yCoordinate)));
   }
 }

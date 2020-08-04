@@ -14,7 +14,8 @@
 
 package com.google.sps.lib;
 
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
@@ -23,10 +24,10 @@ import org.junit.runners.JUnit4;
 
 @RunWith(JUnit4.class)
 
-public class GraphTest {
+public class CalculateDistanceTest {
 
   @Test
-  public void getGraphTest() {
+  public void calculateDistanceUsingEuclideanTest() {
     List<Task> list = new ArrayList<>();
     Task task1 = new Task("1", 67.09, 23.65, 98.7, 22.3);
     Task task2 = new Task("2", 68.34, 24.5, 99.7, 23.65);
@@ -35,12 +36,9 @@ public class GraphTest {
     list.add(task2);
     list.add(task3);
 
-    Graph graph = new Graph(list);
-    double[][] distanceMatrix = graph.getGraph();
-    double[][] testMatrix = { { 0, 1.600781059, 1.293870164 }, { 1.600781059, 0, 1.100727032 }, { 1.293870164, 1.100727032, 0 } };
-    double delta = 0.00000001;
-    for (int i = 0; i < testMatrix.length; i++) {
-      assertArrayEquals(testMatrix[i], distanceMatrix[i], delta);
-    }
+    ICalculateDistance distanceActual = new calculateDistanceUsingEuclidean();
+    double distance = distanceActual.findDistance(list, 2, 3);
+    double testDistance = 1.100727032;
+    assertEquals(testDistance, distance, 0.00000001);
   }
 }
