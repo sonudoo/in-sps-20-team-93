@@ -14,29 +14,27 @@
 
 package com.google.sps.lib;
 
-/** 
-   * This class represents an Error Response.
-   */  
-  public class ErrorResponse {
-    private final Boolean error;
-    private final String error_reason;
+/**
+ * Represents a request validation status.
+ */
+public class ValidationStatus {
+  private final String message;
+  private final int status;
 
-    public ErrorResponse(Boolean error, String error_reason) {
-      this.error = error;
-      this.error_reason = error_reason;
-    }
-    
-    /**
-     * Getter for Error.
-     */
-    public Boolean getError() {
-      return this.error;
-    }
-
-    /**
-     * Getter for Error Reason.
-     */
-    public String getErrorReason() {
-      return this.error_reason;
-    }
+  private ValidationStatus(String message, int status) {
+    this.message = message;
+    this.status = status;
   }
+
+  public static ValidationStatus create(String message, int status) {
+    return new ValidationStatus(message, status);
+  }
+
+  public int getStatus() {
+    return this.status;
+  }
+
+  public String getMessage() {
+    return this.message;
+  }
+}

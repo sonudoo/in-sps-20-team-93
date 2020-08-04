@@ -14,69 +14,57 @@
 
 package com.google.sps.lib;
 
-import java.lang.Exception;
-import com.google.gson.Gson;
 import javax.servlet.http.HttpServletRequest;
 import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import java.util.UUID;
-import com.google.sps.lib.ErrorResponse;
 
-/** 
- * This class contains essential functions for a new Job.
- */  
+/**
+ * Contains essential functions for a new Job.
+ */
 public class Job {
 
-  private static final String ENTITY_JOBID__PROPERTY_NAME = "jobId";
-  private static final String ENTITY_USER_PROPERTY_NAME = "name";
-  private static final String ENTITY_PHONE_PROPERTY_NAME = "phone";
-  private static final String ENTITY_DATE_PROPERTY_NAME = "date";
-  private static final String ENTITY_START_LAT_PROPERTY_NAME = "start_latitude";
-  private static final String ENTITY_START_LONG_PROPERTY_NAME = "start_longitude";
-  private static final String ENTITY_END_LAT_PROPERTY_NAME = "end_latitude";
-  private static final String ENTITY_END_LONG_PROPERTY_NAME = "end_longitude";
-  private static final String ENTITY_NAME = "Job";
+  public static final String ENTITY_JOBID_PROPERTY_NAME = "JobId";
+  public static final String ENTITY_USER_PROPERTY_NAME = "Name";
+  public static final String ENTITY_PHONE_PROPERTY_NAME = "Phone";
+  public static final String ENTITY_DATE_PROPERTY_NAME = "Date";
+  public static final String ENTITY_START_LAT_PROPERTY_NAME = "StartLatitude";
+  public static final String ENTITY_START_LONG_PROPERTY_NAME = "StartLongitude";
+  public static final String ENTITY_END_LAT_PROPERTY_NAME = "EndLatitude";
+  public static final String ENTITY_END_LONG_PROPERTY_NAME = "EndLongitude";
+  public static final String ENTITY_NAME = "Job";
 
   /**
    * Adds the Job to Datastore.
    */
-  public ErrorResponse addJobToDataStore(HttpServletRequest request, DatastoreService datastore) {
-    try {
-      String nName = request.getParameter(ENTITY_USER_PROPERTY_NAME);
-      String nPhone = request.getParameter(ENTITY_PHONE_PROPERTY_NAME);
-      String nDate = request.getParameter(ENTITY_DATE_PROPERTY_NAME);
-      float nStartLat = Float.parseFloat(request.getParameter(ENTITY_START_LAT_PROPERTY_NAME));
-      float nStartLong = Float.parseFloat(request.getParameter(ENTITY_START_LONG_PROPERTY_NAME));
-      float nEndLat = Float.parseFloat(request.getParameter(ENTITY_END_LAT_PROPERTY_NAME));
-      float nEndLong = Float.parseFloat(request.getParameter(ENTITY_END_LONG_PROPERTY_NAME));
-      String nJobId = UUID.randomUUID().toString();
-
-      Entity nJob = new Entity(ENTITY_NAME);
-      nJob.setProperty(ENTITY_JOBID__PROPERTY_NAME, nJobId);
-      nJob.setProperty(ENTITY_USER_PROPERTY_NAME, nName);
-      nJob.setProperty(ENTITY_PHONE_PROPERTY_NAME, nPhone);
-      nJob.setProperty(ENTITY_DATE_PROPERTY_NAME, nDate);
-      nJob.setProperty(ENTITY_START_LAT_PROPERTY_NAME, nStartLat);
-      nJob.setProperty(ENTITY_START_LONG_PROPERTY_NAME, nStartLong);
-      nJob.setProperty(ENTITY_END_LAT_PROPERTY_NAME, nEndLat);
-      nJob.setProperty(ENTITY_END_LONG_PROPERTY_NAME, nEndLong);
+  public IResponse addJobToDataStore(HttpServletRequest request, DatastoreService datastore, SubmitJobValidator requestValidator) {
     
-      datastore.put(nJob);
-      return new ErrorResponse(false, "no error");
-    } 
-
-    catch(Exception e) {
-      return new ErrorResponse(true, "error occurred while adding to database");
+    ValidationStatus validationStatus = requestValidator.validate(request);
+    if(validationStatus.getStatus() == 1) {
+      return new BadRequestErrorResponse(validationStatus.getMessage());
     }
-  }
+    
+    String nName = request.getParameter(ENTITY_USER_PROPERTY_NAME);
+    String nPhone = request.getParameter(ENTITY_PHONE_PROPERTY_NAME);
+    String nDate = request.getParameter(ENTITY_DATE_PROPERTY_NAME);
+    float nStartLat = Float.parseFloat(request.getParameter(ENTITY_START_LAT_PROPERTY_NAME));
+    float nStartLong = Float.parseFloat(request.getParameter(ENTITY_START_LONG_PROPERTY_NAME));
+    float nEndLat = Float.parseFloat(request.getParameter(ENTITY_END_LAT_PROPERTY_NAME));
+    float nEndLong = Float.parseFloat(request.getParameter(ENTITY_END_LONG_PROPERTY_NAME));
 
-  /**
-   * Converts response into a JSON string using the Gson library.
-   */
-  public String convertToJsonUsingGson(ErrorResponse errResponse) {
-    Gson gson = new Gson();
-    String json = gson.toJson(errResponse);
-    return json;
+    String nJobId = UUID.randomUUID().toString();
+
+    Entity nJob = new Entity(ENTITY_NAME);
+    nJob.setProperty(ENTITY_JOBID_PROPERTY_NAME, nJobId);
+    nJob.setProperty(ENTITY_USER_PROPERTY_NAME, nName);
+    nJob.setProperty(ENTITY_PHONE_PROPERTY_NAME, nPhone);
+    nJob.setProperty(ENTITY_DATE_PROPERTY_NAME, nDate);
+    nJob.setProperty(ENTITY_START_LAT_PROPERTY_NAME, nStartLat);
+    nJob.setProperty(ENTITY_START_LONG_PROPERTY_NAME, nStartLong);
+    nJob.setProperty(ENTITY_END_LAT_PROPERTY_NAME, nEndLat);
+    nJob.setProperty(ENTITY_END_LONG_PROPERTY_NAME, nEndLong);
+
+    datastore.put(nJob);
+    return new SuccessResponse();
   }
 }
