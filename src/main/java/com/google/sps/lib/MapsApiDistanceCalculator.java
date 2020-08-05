@@ -15,22 +15,15 @@
 package com.google.sps.lib;
 
 import java.util.List;
-import com.google.gson.Gson;
 
 /**
- * Represents library utilities required in application.
+ * Calculates the distance between every node using google maps API.
  */
-public class LibUtils {
-  /**
-   * Converts response to json format.
-   */
-  public static String convertResponseToJson(IResponse response) {
-    return new Gson().toJson(response);
+public class MapsApiDistanceCalculator implements IDistanceCalculator {
 
-  /**
-   * Converts list to json format.
-   */
-  public static String convertPathToJson(List<String> taskOrder) {
-    return new Gson().toJson(taskOrder);
+  // TODO[samii9914]: Implement findDistance using Maps Api.
+  @Override
+  public double[][] findDistance(List<Task> taskList) {
+    return null;
   }
 }
