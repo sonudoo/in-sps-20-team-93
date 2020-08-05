@@ -14,27 +14,7 @@
 
 package com.google.sps.lib;
 
-/**
- * Represents a request validation status.
- */
-public class ValidationStatus {
-  private final String message;
-  private final ValidationStatusCode status;
-
-  private ValidationStatus(ValidationStatusCode status, String message) {
-    this.message = message;
-    this.status = status;
-  }
-
-  public static ValidationStatus create(ValidationStatusCode status, String message) {
-    return new ValidationStatus(status, message);
-  }
-
-  public ValidationStatusCode getStatus() {
-    return this.status;
-  }
-
-  public String getMessage() {
-    return this.message;
-  }
+public enum ValidationStatusCode {
+  VALIDATIONSUCCESS,
+  VALIDATIONFAILURE,
 }

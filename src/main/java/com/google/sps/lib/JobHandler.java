@@ -22,14 +22,14 @@ import java.util.UUID;
 /**
  * Contains essential functions for a new Job.
  */
-public class Job {
+public class JobHandler {
   /**
    * Adds the Job to Datastore.
    */
   public IResponse addJobToDataStore(HttpServletRequest request, DatastoreService datastore, SubmitJobValidator requestValidator) {
     
     ValidationStatus validationStatus = requestValidator.validate(request);
-    if(validationStatus.getStatus() == 1) {
+    if(validationStatus.getStatus() == ValidationStatusCode.VALIDATIONFAILURE) {
       return new BadRequestErrorResponse(validationStatus.getMessage());
     }
     

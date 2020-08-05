@@ -14,27 +14,20 @@
 
 package com.google.sps.lib;
 
-/**
- * Represents a request validation status.
- */
-public class ValidationStatus {
-  private final String message;
-  private final ValidationStatusCode status;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import java.lang.Exception;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+import javax.servlet.http.HttpServletRequest;
 
-  private ValidationStatus(ValidationStatusCode status, String message) {
-    this.message = message;
-    this.status = status;
-  }
+@RunWith(MockitoJUnitRunner.class)
+public final class JobHandlerTest {
+  @Mock
+  HttpServletRequest dataStoreRequest;
 
-  public static ValidationStatus create(ValidationStatusCode status, String message) {
-    return new ValidationStatus(status, message);
-  }
-
-  public ValidationStatusCode getStatus() {
-    return this.status;
-  }
-
-  public String getMessage() {
-    return this.message;
+  @Test
+  public void addJobToDataStore_jobIsAddedToDataStore() throws Exception {
+    
   }
 }

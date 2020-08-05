@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.sps.lib.IResponse;
-import com.google.sps.lib.Job;
+import com.google.sps.lib.JobHandler;
 import com.google.sps.lib.LibUtils;
 import com.google.sps.lib.SubmitJobValidator;
 
@@ -37,11 +37,11 @@ public class SubmitJobServlet extends HttpServlet {
    */
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Job job = new Job();
+    JobHandler jobHandler = new JobHandler();
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     SubmitJobValidator requestValidator = new SubmitJobValidator();
 
-    IResponse handlerResponse = job.addJobToDataStore(request, datastore, requestValidator);
+    IResponse handlerResponse = jobHandler.addJobToDataStore(request, datastore, requestValidator);
     String responseJson = LibUtils.convertResponseToJson(handlerResponse);
     response.setStatus(handlerResponse.getStatus());
     response.setContentType("application/json;");
