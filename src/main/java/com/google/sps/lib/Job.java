@@ -23,17 +23,6 @@ import java.util.UUID;
  * Contains essential functions for a new Job.
  */
 public class Job {
-
-  public static final String ENTITY_JOBID_PROPERTY_NAME = "JobId";
-  public static final String ENTITY_USER_PROPERTY_NAME = "Name";
-  public static final String ENTITY_PHONE_PROPERTY_NAME = "Phone";
-  public static final String ENTITY_DATE_PROPERTY_NAME = "Date";
-  public static final String ENTITY_START_LAT_PROPERTY_NAME = "StartLatitude";
-  public static final String ENTITY_START_LONG_PROPERTY_NAME = "StartLongitude";
-  public static final String ENTITY_END_LAT_PROPERTY_NAME = "EndLatitude";
-  public static final String ENTITY_END_LONG_PROPERTY_NAME = "EndLongitude";
-  public static final String ENTITY_NAME = "Job";
-
   /**
    * Adds the Job to Datastore.
    */
@@ -44,25 +33,25 @@ public class Job {
       return new BadRequestErrorResponse(validationStatus.getMessage());
     }
     
-    String nName = request.getParameter(ENTITY_USER_PROPERTY_NAME);
-    String nPhone = request.getParameter(ENTITY_PHONE_PROPERTY_NAME);
-    String nDate = request.getParameter(ENTITY_DATE_PROPERTY_NAME);
-    float nStartLat = Float.parseFloat(request.getParameter(ENTITY_START_LAT_PROPERTY_NAME));
-    float nStartLong = Float.parseFloat(request.getParameter(ENTITY_START_LONG_PROPERTY_NAME));
-    float nEndLat = Float.parseFloat(request.getParameter(ENTITY_END_LAT_PROPERTY_NAME));
-    float nEndLong = Float.parseFloat(request.getParameter(ENTITY_END_LONG_PROPERTY_NAME));
+    String nName = request.getParameter(DataStoreEntityParams.ENTITY_USER_PROPERTY_NAME);
+    String nPhone = request.getParameter(DataStoreEntityParams.ENTITY_PHONE_PROPERTY_NAME);
+    String nDate = request.getParameter(DataStoreEntityParams.ENTITY_DATE_PROPERTY_NAME);
+    float nStartLat = Float.parseFloat(request.getParameter(DataStoreEntityParams.ENTITY_START_LAT_PROPERTY_NAME));
+    float nStartLong = Float.parseFloat(request.getParameter(DataStoreEntityParams.ENTITY_START_LONG_PROPERTY_NAME));
+    float nEndLat = Float.parseFloat(request.getParameter(DataStoreEntityParams.ENTITY_END_LAT_PROPERTY_NAME));
+    float nEndLong = Float.parseFloat(request.getParameter(DataStoreEntityParams.ENTITY_END_LONG_PROPERTY_NAME));
 
     String nJobId = UUID.randomUUID().toString();
 
-    Entity nJob = new Entity(ENTITY_NAME);
-    nJob.setProperty(ENTITY_JOBID_PROPERTY_NAME, nJobId);
-    nJob.setProperty(ENTITY_USER_PROPERTY_NAME, nName);
-    nJob.setProperty(ENTITY_PHONE_PROPERTY_NAME, nPhone);
-    nJob.setProperty(ENTITY_DATE_PROPERTY_NAME, nDate);
-    nJob.setProperty(ENTITY_START_LAT_PROPERTY_NAME, nStartLat);
-    nJob.setProperty(ENTITY_START_LONG_PROPERTY_NAME, nStartLong);
-    nJob.setProperty(ENTITY_END_LAT_PROPERTY_NAME, nEndLat);
-    nJob.setProperty(ENTITY_END_LONG_PROPERTY_NAME, nEndLong);
+    Entity nJob = new Entity(DataStoreEntityParams.ENTITY_NAME);
+    nJob.setProperty(DataStoreEntityParams.ENTITY_JOBID_PROPERTY_NAME, nJobId);
+    nJob.setProperty(DataStoreEntityParams.ENTITY_USER_PROPERTY_NAME, nName);
+    nJob.setProperty(DataStoreEntityParams.ENTITY_PHONE_PROPERTY_NAME, nPhone);
+    nJob.setProperty(DataStoreEntityParams.ENTITY_DATE_PROPERTY_NAME, nDate);
+    nJob.setProperty(DataStoreEntityParams.ENTITY_START_LAT_PROPERTY_NAME, nStartLat);
+    nJob.setProperty(DataStoreEntityParams.ENTITY_START_LONG_PROPERTY_NAME, nStartLong);
+    nJob.setProperty(DataStoreEntityParams.ENTITY_END_LAT_PROPERTY_NAME, nEndLat);
+    nJob.setProperty(DataStoreEntityParams.ENTITY_END_LONG_PROPERTY_NAME, nEndLong);
 
     datastore.put(nJob);
     return new SuccessResponse();

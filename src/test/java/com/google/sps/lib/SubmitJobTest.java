@@ -37,13 +37,13 @@ public final class SubmitJobTest {
   public void addJobToDataStore_jobIsAddedToDataStore() throws Exception {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
-    when(dataStoreRequest.getParameter(Job.ENTITY_USER_PROPERTY_NAME)).thenReturn("MockUser");
-    when(dataStoreRequest.getParameter(Job.ENTITY_PHONE_PROPERTY_NAME)).thenReturn("911");
-    when(dataStoreRequest.getParameter(Job.ENTITY_DATE_PROPERTY_NAME)).thenReturn("27/7/2020");
-    when(dataStoreRequest.getParameter(Job.ENTITY_START_LAT_PROPERTY_NAME)).thenReturn("67.09");
-    when(dataStoreRequest.getParameter(Job.ENTITY_START_LONG_PROPERTY_NAME)).thenReturn("23.65");
-    when(dataStoreRequest.getParameter(Job.ENTITY_END_LAT_PROPERTY_NAME)).thenReturn("88.7");
-    when(dataStoreRequest.getParameter(Job.ENTITY_END_LONG_PROPERTY_NAME)).thenReturn("22.3");
+    when(dataStoreRequest.getParameter(DataStoreEntityParams.ENTITY_USER_PROPERTY_NAME)).thenReturn("MockUser");
+    when(dataStoreRequest.getParameter(DataStoreEntityParams.ENTITY_PHONE_PROPERTY_NAME)).thenReturn("911");
+    when(dataStoreRequest.getParameter(DataStoreEntityParams.ENTITY_DATE_PROPERTY_NAME)).thenReturn("27/7/2020");
+    when(dataStoreRequest.getParameter(DataStoreEntityParams.ENTITY_START_LAT_PROPERTY_NAME)).thenReturn("67.09");
+    when(dataStoreRequest.getParameter(DataStoreEntityParams.ENTITY_START_LONG_PROPERTY_NAME)).thenReturn("23.65");
+    when(dataStoreRequest.getParameter(DataStoreEntityParams.ENTITY_END_LAT_PROPERTY_NAME)).thenReturn("88.7");
+    when(dataStoreRequest.getParameter(DataStoreEntityParams.ENTITY_END_LONG_PROPERTY_NAME)).thenReturn("22.3");
 
     SubmitJobValidator requestValidator = new SubmitJobValidator();
     
@@ -57,13 +57,13 @@ public final class SubmitJobTest {
 
   @Test
   public void validate_requestIsValidated() throws Exception {
-    when(validationRequest.getParameter(Job.ENTITY_USER_PROPERTY_NAME)).thenReturn("MockUser");
-    when(validationRequest.getParameter(Job.ENTITY_PHONE_PROPERTY_NAME)).thenReturn("911");
-    when(validationRequest.getParameter(Job.ENTITY_DATE_PROPERTY_NAME)).thenReturn("27/7/2020");
-    when(validationRequest.getParameter(Job.ENTITY_START_LAT_PROPERTY_NAME)).thenReturn("67.09");
-    when(validationRequest.getParameter(Job.ENTITY_START_LONG_PROPERTY_NAME)).thenReturn("23.65");
-    when(validationRequest.getParameter(Job.ENTITY_END_LAT_PROPERTY_NAME)).thenReturn("88.7");
-    when(validationRequest.getParameter(Job.ENTITY_END_LONG_PROPERTY_NAME)).thenReturn("22.7");
+    when(validationRequest.getParameter(DataStoreEntityParams.ENTITY_USER_PROPERTY_NAME)).thenReturn("MockUser");
+    when(validationRequest.getParameter(DataStoreEntityParams.ENTITY_PHONE_PROPERTY_NAME)).thenReturn("911");
+    when(validationRequest.getParameter(DataStoreEntityParams.ENTITY_DATE_PROPERTY_NAME)).thenReturn("27/7/2020");
+    when(validationRequest.getParameter(DataStoreEntityParams.ENTITY_START_LAT_PROPERTY_NAME)).thenReturn("67.09");
+    when(validationRequest.getParameter(DataStoreEntityParams.ENTITY_START_LONG_PROPERTY_NAME)).thenReturn("23.65");
+    when(validationRequest.getParameter(DataStoreEntityParams.ENTITY_END_LAT_PROPERTY_NAME)).thenReturn("88.7");
+    when(validationRequest.getParameter(DataStoreEntityParams.ENTITY_END_LONG_PROPERTY_NAME)).thenReturn("22.3");
 
     SubmitJobValidator requestValidator = new SubmitJobValidator();
     
