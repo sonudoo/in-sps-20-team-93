@@ -14,24 +14,20 @@
 
 package com.google.sps.lib;
 
-import java.util.List;
-import com.google.gson.Gson;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import java.lang.Exception;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+import javax.servlet.http.HttpServletRequest;
 
-/**
- * Represents library utilities required in application.
- */
-public class LibUtils {
-  /**
-   * Converts response to json format.
-   */
-  public static String convertResponseToJson(IResponse response) {
-    return new Gson().toJson(response);
-  }
+@RunWith(MockitoJUnitRunner.class)
+public final class JobHandlerTest {
+  @Mock
+  HttpServletRequest dataStoreRequest;
 
-  /**
-   * Converts list to json format.
-   */
-  public static String convertPathToJson(List<String> taskOrder) {
-    return new Gson().toJson(taskOrder);
+  @Test
+  public void addJobToDataStore_jobIsAddedToDataStore() throws Exception {
+    
   }
 }

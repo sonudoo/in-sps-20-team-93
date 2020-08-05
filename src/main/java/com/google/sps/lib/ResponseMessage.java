@@ -14,24 +14,19 @@
 
 package com.google.sps.lib;
 
-import java.util.List;
-import com.google.gson.Gson;
-
 /**
- * Represents library utilities required in application.
+ * Represents a response message.
  */
-public class LibUtils {
-  /**
-   * Converts response to json format.
-   */
-  public static String convertResponseToJson(IResponse response) {
-    return new Gson().toJson(response);
+public class ResponseMessage {
+  private final String messageTitle;
+  private final String messageBody;
+
+  private ResponseMessage(String messageTitle, String messageBody) {
+    this.messageTitle = messageTitle;
+    this.messageBody = messageBody;
   }
 
-  /**
-   * Converts list to json format.
-   */
-  public static String convertPathToJson(List<String> taskOrder) {
-    return new Gson().toJson(taskOrder);
+  public static ResponseMessage create(String messageTitle, String messageBody) {
+    return new ResponseMessage(messageTitle, messageBody);
   }
 }

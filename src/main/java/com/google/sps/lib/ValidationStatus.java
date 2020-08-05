@@ -14,24 +14,27 @@
 
 package com.google.sps.lib;
 
-import java.util.List;
-import com.google.gson.Gson;
-
 /**
- * Represents library utilities required in application.
+ * Represents a request validation status.
  */
-public class LibUtils {
-  /**
-   * Converts response to json format.
-   */
-  public static String convertResponseToJson(IResponse response) {
-    return new Gson().toJson(response);
+public class ValidationStatus {
+  private final String message;
+  private final ValidationStatusCode status;
+
+  private ValidationStatus(ValidationStatusCode status, String message) {
+    this.message = message;
+    this.status = status;
   }
 
-  /**
-   * Converts list to json format.
-   */
-  public static String convertPathToJson(List<String> taskOrder) {
-    return new Gson().toJson(taskOrder);
+  public static ValidationStatus create(ValidationStatusCode status, String message) {
+    return new ValidationStatus(status, message);
+  }
+
+  public ValidationStatusCode getStatus() {
+    return this.status;
+  }
+
+  public String getMessage() {
+    return this.message;
   }
 }

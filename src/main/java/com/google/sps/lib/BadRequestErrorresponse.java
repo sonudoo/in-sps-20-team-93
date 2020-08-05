@@ -14,24 +14,30 @@
 
 package com.google.sps.lib;
 
-import java.util.List;
-import com.google.gson.Gson;
+import javax.servlet.http.HttpServletResponse;
 
 /**
- * Represents library utilities required in application.
+ * Represents a bad request response.
  */
-public class LibUtils {
-  /**
-   * Converts response to json format.
-   */
-  public static String convertResponseToJson(IResponse response) {
-    return new Gson().toJson(response);
+class BadRequestErrorResponse implements IResponse {
+
+  private final static String RESPONSE_MESSAGE_TITLE = "Bad Request Format";
+
+  private final int status;
+  private final ResponseMessage message;
+
+  BadRequestErrorResponse(String errorMessage) {
+    this.status = HttpServletResponse.SC_BAD_REQUEST;
+    this.message = ResponseMessage.create(RESPONSE_MESSAGE_TITLE, errorMessage);
   }
 
-  /**
-   * Converts list to json format.
-   */
-  public static String convertPathToJson(List<String> taskOrder) {
-    return new Gson().toJson(taskOrder);
+  @Override
+  public int getStatus() {
+    return status;
+  }
+
+  @Override
+  public ResponseMessage getMessage() {
+    return message;
   }
 }

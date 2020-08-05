@@ -14,24 +14,30 @@
 
 package com.google.sps.lib;
 
-import java.util.List;
-import com.google.gson.Gson;
+import javax.servlet.http.HttpServletResponse;
 
 /**
- * Represents library utilities required in application.
+ * Represents a success response.
  */
-public class LibUtils {
-  /**
-   * Converts response to json format.
-   */
-  public static String convertResponseToJson(IResponse response) {
-    return new Gson().toJson(response);
+public class SuccessResponse implements IResponse {
+
+  private final static String RESPONSE_MESSAGE_TITLE = "Success";
+
+  private final int status;
+  private final ResponseMessage message;
+
+  public SuccessResponse() {
+    this.status = HttpServletResponse.SC_OK;
+    this.message = ResponseMessage.create(RESPONSE_MESSAGE_TITLE, "");
   }
 
-  /**
-   * Converts list to json format.
-   */
-  public static String convertPathToJson(List<String> taskOrder) {
-    return new Gson().toJson(taskOrder);
+  @Override
+  public int getStatus() {
+    return status;
+  }
+
+  @Override
+  public ResponseMessage getMessage() {
+    return message;
   }
 }

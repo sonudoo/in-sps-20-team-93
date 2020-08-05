@@ -14,24 +14,7 @@
 
 package com.google.sps.lib;
 
-import java.util.List;
-import com.google.gson.Gson;
-
-/**
- * Represents library utilities required in application.
- */
-public class LibUtils {
-  /**
-   * Converts response to json format.
-   */
-  public static String convertResponseToJson(IResponse response) {
-    return new Gson().toJson(response);
-  }
-
-  /**
-   * Converts list to json format.
-   */
-  public static String convertPathToJson(List<String> taskOrder) {
-    return new Gson().toJson(taskOrder);
-  }
+public enum ValidationStatusCode {
+  VALIDATIONSUCCESS,
+  VALIDATIONFAILURE,
 }

@@ -18,3 +18,4 @@ TODO: Update the details here.
 |------------------------|------------------------------|
 |      Build & Test      | ![Build and Test](https://github.com/sonudoo/in-sps-20-team-93/workflows/Build%20and%20Test/badge.svg)     |
 |      Cloud Deploy      | ![Cloud Deploy](https://github.com/sonudoo/in-sps-20-team-93/workflows/Cloud%20Deploy/badge.svg)     |
+
