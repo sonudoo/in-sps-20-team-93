@@ -22,7 +22,7 @@ import com.google.gson.Gson;
  */
 public class LibUtils {
 
-  public String convertPathToJson(List<String> taskOrder) {
+  public static String convertPathToJson(List<String> taskOrder) {
     return new Gson().toJson(taskOrder);
   }
 }

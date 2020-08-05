@@ -23,7 +23,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.sps.lib.Graph;
+import com.google.sps.lib.ITSPAlgorithm;
 import com.google.sps.lib.LibUtils;
+import com.google.sps.lib.TSPDynamicProgrammingAlgorithm;
 import com.google.sps.lib.Task;
 
 /**
@@ -45,8 +47,9 @@ public class GetPathServlet extends HttpServlet {
       new Task("3", 68.38, 26.4, 98.6, 23.67),
       new Task("4", 68.40, 26.5, 98.3, 23.69), 
       new Task("5", 68.42, 24.57, 98.7, 23.72)));
-    Graph initialGraph = new Graph(taskList);
-    String pathJson = new LibUtils().convertPathToJson(initialGraph.getMinimumPath());
+    ITSPAlgorithm tspAlgorithm = new TSPDynamicProgrammingAlgorithm();
+    Graph initialGraph = new Graph(taskList, tspAlgorithm);
+    String pathJson = LibUtils.convertPathToJson(initialGraph.getMinimumPath());
     response.setContentType("application/json;");
     response.getWriter().println(pathJson);
   }

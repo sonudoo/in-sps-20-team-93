@@ -26,21 +26,17 @@ public class Graph {
   IDistanceCalculator distanceCalculator;
   ITSPAlgorithm tspAlgorithm;
 
-  public Graph(List<Task> taskList) {
+  public Graph(List<Task> taskList,ITSPAlgorithm tspAlgorithm) {
     this.taskList = taskList;
     this.isGraphCreated = false;
     this.distanceCalculator = new EuclideanDistanceCalculator();
+    this.tspAlgorithm = tspAlgorithm;
   }
 
   public List<String> getMinimumPath() {
     if (!this.isGraphCreated) {
       this.distanceMatrix = calculateDistance();
       this.isGraphCreated = true;
-    }
-    if(taskList.size() <= 15) {
-      tspAlgorithm = new TSPDynamicProgrammingAlgorithm();
-    } else {
-      tspAlgorithm = new TSPGreedyAlgorithm();
     }
     return tspAlgorithm.findShortestPath(distanceMatrix);
   }

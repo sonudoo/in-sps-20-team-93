@@ -34,7 +34,7 @@ public class EuclideanDistanceCalculatorTest {
       new Task("3", 68.38, 26.4, 98.6, 23.67)
     ));
     IDistanceCalculator distanceCalculator = new EuclideanDistanceCalculator();
-    double[][] testMatrix = { 
+    double[][] expectedDistanceMatrix = { 
       {0, 1.600781059, 1.293870164}, 
       {1.600781059, 0, 1.100727032}, 
       {1.293870164, 1.100727032, 0} 
@@ -42,8 +42,8 @@ public class EuclideanDistanceCalculatorTest {
 
     double[][] distanceMatrix = distanceCalculator.findDistance(list);
 
-    for (int i = 0; i < testMatrix.length; i++) {
-      assertArrayEquals(testMatrix[i], distanceMatrix[i], 0.00000001);
+    for (int i = 0; i < expectedDistanceMatrix.length; i++) {
+      assertArrayEquals(expectedDistanceMatrix[i], distanceMatrix[i], /* delta = */ 0.00000001);
     }
   }
 }
