@@ -26,6 +26,7 @@ public class LibUtils {
    */
   public static String convertResponseToJson(IResponse response) {
     return new Gson().toJson(response);
+  }
 
   /**
    * Converts list to json format.
