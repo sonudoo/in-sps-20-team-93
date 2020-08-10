@@ -42,11 +42,11 @@ public class GetPathServlet extends HttpServlet {
 
     // TODO[samii9914]: to get tasks from database and form the List accordingly
     List<Task> taskList = new ArrayList<>(Arrays.asList(
-      new Task("1", 67.09, 23.65, 98.7, 22.3),
-      new Task("2", 68.34, 24.5, 99.7, 23.65), 
-      new Task("3", 68.38, 26.4, 98.6, 23.67),
-      new Task("4", 68.40, 26.5, 98.3, 23.69), 
-      new Task("5", 68.42, 24.57, 98.7, 23.72)));
+      new Task("1", 68.34, 23.65, 98.7, 22.3),
+      new Task("2", 68.34, 23.65, 99.7, 23.65), 
+      new Task("3", 68.34, 23.65, 98.6, 23.67),
+      new Task("4", 68.34, 23.65, 98.3, 23.69), 
+      new Task("5", 68.34, 23.65, 98.7, 23.72)));
     ITSPAlgorithm tspAlgorithm = new TSPDynamicProgrammingAlgorithm();
     Graph initialGraph = new Graph(taskList, tspAlgorithm);
     String pathJson = LibUtils.convertPathToJson(initialGraph.getMinimumPath());

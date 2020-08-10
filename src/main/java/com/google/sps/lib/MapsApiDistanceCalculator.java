@@ -15,15 +15,96 @@
 package com.google.sps.lib;
 
 import java.util.List;
+import java.net.URI;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.io.IOException;
+import java.lang.RuntimeException;
 
 /**
  * Calculates the distance between every node using google maps API.
  */
 public class MapsApiDistanceCalculator implements IDistanceCalculator {
 
-  // TODO[samii9914]: Implement findDistance using Maps Api.
+  private static final String MATRIX_API_URL = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial";
+  private static final String API_KEY = "YOUR_API_KEY";
+
   @Override
   public double[][] findDistance(List<Task> taskList) {
+    String matrixAPIResponse = getResponse(taskList);
+    String apiObject = jsonResponseParser(matrixAPIResponse); 
+    double distMatrix[][] = getDistanceMatrix(apiObject);
+    return distMatrix;
+  }  
+
+  /**
+   * Builds a request URL based on matrix URL and Task list.
+   */
+  private String findRequestURL(List<Task> taskList) {
+    String requestURL = MATRIX_API_URL;
+    StringBuilder origins = new StringBuilder("origins=");
+    StringBuilder destinations = new StringBuilder("destinations=");
+    boolean isWarehouseAdded[] = {false};       //Single Warehouse Origin point location
+
+    taskList.forEach((currTask) -> {
+      if(!isWarehouseAdded[0]) {
+        origins.append(currTask.getStartLatitude() + "," + currTask.getStartLongitude());
+        destinations.append(currTask.getStartLatitude() + "," + currTask.getStartLongitude());
+        isWarehouseAdded[0] = true;
+      }
+
+      origins.append("|" + currTask.getEndLatitude() + "," + currTask.getEndLongitude());
+      destinations.append("|" + currTask.getEndLatitude() + "," + currTask.getStartLongitude());
+    });
+
+    requestURL += "&" + origins.toString() + "&" + destinations.toString() + "&key=" + API_KEY;
+    return requestURL;
+  }
+
+  /**
+   * Parses API json response to Resposne object. 
+   */
+  private String jsonResponseParser(String response) {
     return null;
+  }
+
+  /**
+   * Builds a distance matrix from API response object.
+   */
+  private double[][] getDistanceMatrix(String apiObject) {
+    return null;
+  }
+
+  /**
+   * Calls the Matrix API and returns the response.
+   */
+  private String getResponse(List<Task> taskList) {
+    try {
+      String requestURL = findRequestURL(taskList);
+      URL urlObject = new URL(requestURL);
+		  HttpURLConnection connection = (HttpURLConnection) urlObject.openConnection();
+		  connection.setRequestMethod("GET");
+    
+      int responseCode = connection.getResponseCode();
+		  if (responseCode == HttpURLConnection.HTTP_OK) { 
+			  BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			  String inputLine;
+			  StringBuffer apiResponse = new StringBuffer();
+
+			  while ((inputLine = in.readLine()) != null) {
+			    apiResponse.append(inputLine);
+			  }
+        in.close();
+			  return apiResponse.toString();
+		  } else {
+			  return null;
+      }
+    }
+    catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 }
