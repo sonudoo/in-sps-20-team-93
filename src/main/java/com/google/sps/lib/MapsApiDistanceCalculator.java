@@ -93,8 +93,6 @@ public class MapsApiDistanceCalculator implements IDistanceCalculator {
 
       int responseCode = connection.getResponseCode();
       if (responseCode == HttpURLConnection.HTTP_OK) {
-		  if (responseCode == HttpURLConnection.HTTP_OK) { 
-      if (responseCode == HttpURLConnection.HTTP_OK) {
         BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String inputLine;
         StringBuffer apiResponse = new StringBuffer();
