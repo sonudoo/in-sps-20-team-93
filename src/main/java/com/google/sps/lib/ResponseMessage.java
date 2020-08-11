@@ -29,4 +29,12 @@ public class ResponseMessage {
   public static ResponseMessage create(String messageTitle, String messageBody) {
     return new ResponseMessage(messageTitle, messageBody);
   }
+
+  String getMessageTitle() {
+    return messageTitle;
+  }
+
+  String getMessageBody() {
+    return messageBody;
+  }
 }
