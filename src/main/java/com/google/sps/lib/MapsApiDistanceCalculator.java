@@ -34,8 +34,7 @@ import com.google.gson.JsonParser;
 public class MapsApiDistanceCalculator implements IDistanceCalculator {
 
   private static final String MATRIX_API_URL = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial";
-  //private static final String API_KEY = "YOUR_API_KEY";
-  private static final String API_KEY = "AIzaSyAMsHvuX0YkyiEtOebfy_JxuYpYtw_nTYg";
+  private static final String API_KEY = "YOUR_API_KEY";
 
   @Override
   public double[][] findDistance(List<Task> taskList) {
