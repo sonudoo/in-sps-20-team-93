@@ -24,18 +24,23 @@ import java.net.URL;
 import java.io.IOException;
 import java.lang.RuntimeException;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
+
 /**
  * Calculates the distance between every node using google maps API.
  */
 public class MapsApiDistanceCalculator implements IDistanceCalculator {
 
   private static final String MATRIX_API_URL = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial";
-  private static final String API_KEY = "YOUR_API_KEY";
+  //private static final String API_KEY = "YOUR_API_KEY";
+  private static final String API_KEY = "AIzaSyAMsHvuX0YkyiEtOebfy_JxuYpYtw_nTYg";
 
   @Override
   public double[][] findDistance(List<Task> taskList) {
     String matrixAPIResponse = getResponse(taskList);
-    String apiObject = jsonResponseParser(matrixAPIResponse); 
+    MatrixAPIResponse apiObject = jsonResponseParser(matrixAPIResponse); 
     double distMatrix[][] = getDistanceMatrix(apiObject);
     return distMatrix;
   }  
@@ -65,16 +70,20 @@ public class MapsApiDistanceCalculator implements IDistanceCalculator {
   }
 
   /**
-   * Parses API json response to Resposne object. 
+   * Parses API json response to Response object. 
    */
-  private String jsonResponseParser(String response) {
-    return null;
+  public MatrixAPIResponse jsonResponseParser(String response) {
+    MatrixAPIResponse apiResponseObj = new MatrixAPIResponse();
+    Gson gson = new Gson();
+
+    apiResponseObj = gson.fromJson(response, MatrixAPIResponse.class);
+    return apiResponseObj;
   }
 
   /**
    * Builds a distance matrix from API response object.
    */
-  private double[][] getDistanceMatrix(String apiObject) {
+  private double[][] getDistanceMatrix(MatrixAPIResponse apiObject) {
     return null;
   }
 
