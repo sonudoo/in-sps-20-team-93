@@ -21,7 +21,6 @@ import java.util.List;
  */
 public class MapsApiDistanceCalculator implements IDistanceCalculator {
 
-  // TODO[samii9914]: Implement findDistance using Maps Api.
   @Override
   public double[][] findDistance(List<Task> taskList) {
     return null;
