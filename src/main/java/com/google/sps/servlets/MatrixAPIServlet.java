@@ -45,8 +45,6 @@ public class MatrixAPIServlet extends HttpServlet {
       new Task("1", 28.7041, 19.0760, 77.1025, 72.8777), 
       new Task("2", 28.7041, 19.0760, 77.1025, 72.8777)));
       
-    //double matrixAPIResponse[][] = new MapsApiDistanceCalculator().findDistance(taskList);
-    
     response.getWriter().write(new Gson().toJson(new MapsApiDistanceCalculator().findDistance(taskList)));
     response.getWriter().flush();
     response.getWriter().close();

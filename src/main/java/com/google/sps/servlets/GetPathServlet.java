@@ -34,7 +34,7 @@ import com.google.sps.lib.Task;
 @WebServlet("/api/getpath")
 public class GetPathServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
-  
+
   /**
    * Handles server side GET requests.
    */

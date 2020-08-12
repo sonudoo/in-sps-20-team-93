@@ -15,9 +15,12 @@
 package com.google.sps.lib;
 
 import java.util.List;
+<<<<<<< HEAD
 
 import javax.lang.model.element.Element;
 
+=======
+>>>>>>> a535cc667a81e4a83c65e0ff5644002cd50525bf
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -36,11 +39,16 @@ public class MapsApiDistanceCalculator implements IDistanceCalculator {
 
   @Override
   public double[][] findDistance(List<Task> taskList) {
+<<<<<<< HEAD
     String matrixAPIResponse = getAPIResponse(taskList);
     MatrixAPIResponse apiObject = parseJsonResponse(matrixAPIResponse); 
+=======
+    String matrixAPIResponse = getResponse(taskList);
+    MatrixAPIResponse apiObject = parseJsonResponse(matrixAPIResponse);
+>>>>>>> a535cc667a81e4a83c65e0ff5644002cd50525bf
     double distMatrix[][] = getDistanceMatrix(apiObject);
     return distMatrix;
-  }  
+  }
 
   /**
    * Builds a request URL based on matrix URL and Task list.
@@ -49,9 +57,15 @@ public class MapsApiDistanceCalculator implements IDistanceCalculator {
     String requestURL = MATRIX_API_URL;
     StringBuilder origins = new StringBuilder("origins=");
     StringBuilder destinations = new StringBuilder("destinations=");
+<<<<<<< HEAD
     boolean isWarehouseAdded[] = { false }; //Single Warehouse Origin point location
 
     for (Task currTask : taskList) {
+=======
+    boolean isWarehouseAdded[] = { false }; // Single Warehouse Origin point location
+
+    taskList.forEach((currTask) -> {
+>>>>>>> a535cc667a81e4a83c65e0ff5644002cd50525bf
       if (!isWarehouseAdded[0]) {
         origins.append(currTask.getStartLatitude() + "," + currTask.getStartLongitude());
         destinations.append(currTask.getStartLatitude() + "," + currTask.getStartLongitude());
@@ -67,9 +81,13 @@ public class MapsApiDistanceCalculator implements IDistanceCalculator {
   }
 
   /**
-   * Parses API json response to Response object. 
+   * Parses API json response to Response object.
    */
+<<<<<<< HEAD
   private MatrixAPIResponse parseJsonResponse(String response) {
+=======
+  public MatrixAPIResponse parseJsonResponse(String response) {
+>>>>>>> a535cc667a81e4a83c65e0ff5644002cd50525bf
     MatrixAPIResponse apiResponseObj = new MatrixAPIResponse();
     Gson gson = new Gson();
     apiResponseObj = gson.fromJson(response, MatrixAPIResponse.class);
@@ -103,22 +121,22 @@ public class MapsApiDistanceCalculator implements IDistanceCalculator {
     try {
       String requestURL = findRequestURL(taskList);
       URL urlObject = new URL(requestURL);
-		  HttpURLConnection connection = (HttpURLConnection) urlObject.openConnection();
-		  connection.setRequestMethod("GET");
-    
-      int responseCode = connection.getResponseCode();
-		  if (responseCode == HttpURLConnection.HTTP_OK) { 
-			  BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-			  String inputLine;
-			  StringBuffer apiResponse = new StringBuffer();
+      HttpURLConnection connection = (HttpURLConnection) urlObject.openConnection();
+      connection.setRequestMethod("GET");
 
-			  while ((inputLine = in.readLine()) != null) {
-			    apiResponse.append(inputLine);
-			  }
+      int responseCode = connection.getResponseCode();
+      if (responseCode == HttpURLConnection.HTTP_OK) {
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String inputLine;
+        StringBuffer apiResponse = new StringBuffer();
+
+        while ((inputLine = in.readLine()) != null) {
+          apiResponse.append(inputLine);
+        }
         in.close();
-			  return apiResponse.toString();
-		  } else {
-			  return null;
+        return apiResponse.toString();
+      } else {
+        return null;
       }
     } catch (IOException e) {
       throw new RuntimeException(e);

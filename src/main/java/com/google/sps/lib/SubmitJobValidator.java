@@ -31,14 +31,19 @@ public class SubmitJobValidator {
 
   /**
    * Checks for float numberic values.
-   */  
+   */
   private boolean isNumericFloat(String value) {
     try {
+<<<<<<< HEAD
       float fValue = Float.parseFloat(value);
       return true;
+=======
+      Float.parseFloat(value);
+>>>>>>> a535cc667a81e4a83c65e0ff5644002cd50525bf
     } catch (NumberFormatException e) {
       return false;
     }
+    return true;
   }
 
   /**
@@ -46,11 +51,16 @@ public class SubmitJobValidator {
    */
   private boolean isNumericInt(String value) {
     try {
+<<<<<<< HEAD
       int fValue = Integer.parseInt(value);
       return true;
+=======
+      Integer.parseInt(value);
+>>>>>>> a535cc667a81e4a83c65e0ff5644002cd50525bf
     } catch (NumberFormatException e) {
       return false;
     }
+    return true;
   }
 
   /**
@@ -106,22 +116,23 @@ public class SubmitJobValidator {
     if (!isNullOrEmpty(startLat) || !isNumericFloat(startLat) || !isValidLatitude(Float.parseFloat(startLat))) {
       return ValidationStatus.create(ValidationStatusCode.VALIDATIONFAILURE, "Start Latitude should be a valid number");
     }
-   
+
     String startLong = request.getParameter(DataStoreEntityParams.ENTITY_START_LONG_PROPERTY_NAME);
     if (!isNullOrEmpty(startLong) || !isNumericFloat(startLong) || !isValidLongitude(Float.parseFloat(startLong))) {
-      return ValidationStatus.create(ValidationStatusCode.VALIDATIONFAILURE, "Start Longitude should be a valid number");
+      return ValidationStatus.create(ValidationStatusCode.VALIDATIONFAILURE,
+          "Start Longitude should be a valid number");
     }
-    
+
     String endLat = request.getParameter(DataStoreEntityParams.ENTITY_END_LAT_PROPERTY_NAME);
     if (!isNullOrEmpty(endLat) || !isNumericFloat(endLat) || !isValidLatitude(Float.parseFloat(endLat))) {
       return ValidationStatus.create(ValidationStatusCode.VALIDATIONFAILURE, "End Latitude should be a valid number");
     }
-    
+
     String endLong = request.getParameter(DataStoreEntityParams.ENTITY_END_LONG_PROPERTY_NAME);
     if (!isNullOrEmpty(endLong) || !isNumericFloat(endLong) || !isValidLongitude(Float.parseFloat(endLong))) {
       return ValidationStatus.create(ValidationStatusCode.VALIDATIONFAILURE, "End Longitude should be a valid number");
     }
-    
+
     return ValidationStatus.create(ValidationStatusCode.VALIDATIONSUCCESS, "");
   }
 }
