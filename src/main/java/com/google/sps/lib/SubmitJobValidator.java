@@ -36,8 +36,7 @@ public class SubmitJobValidator {
     try {
       float fValue = Float.parseFloat(value);
       return true;
-    }
-    catch(NumberFormatException e) {
+    } catch (NumberFormatException e) {
       return false;
     }
   }
@@ -49,8 +48,7 @@ public class SubmitJobValidator {
     try {
       int fValue = Integer.parseInt(value);
       return true;
-    }
-    catch(NumberFormatException e) {
+    } catch (NumberFormatException e) {
       return false;
     }
   }
@@ -59,7 +57,7 @@ public class SubmitJobValidator {
    * Checks for null or empty values.
    */
   private boolean isNullOrEmpty(String value) {
-    if(value == null || value.length() == 0) {
+    if (value == null || value.length() == 0) {
       return false;
     }
     return true;
@@ -69,7 +67,7 @@ public class SubmitJobValidator {
    * Checks for a valid latitude value.
    */
   private boolean isValidLatitude(float value) {
-    if(value >= -90 && value <= 90) {
+    if (value >= -90 && value <= 90) {
       return true;
     }
     return false;
@@ -79,7 +77,7 @@ public class SubmitJobValidator {
    * Checks for a valid longitude value.
    */
   private boolean isValidLongitude(float value) {
-    if(value >= -180 && value <= 180) {
+    if (value >= -180 && value <= 180) {
       return true;
     }
     return false;
@@ -90,37 +88,37 @@ public class SubmitJobValidator {
    */
   public ValidationStatus validate(HttpServletRequest request) {
     String nName = request.getParameter(DataStoreEntityParams.ENTITY_USER_PROPERTY_NAME);
-    if(!isNullOrEmpty(nName) || !isAlphabet(nName)) {
+    if (!isNullOrEmpty(nName) || !isAlphabet(nName)) {
       return ValidationStatus.create(ValidationStatusCode.VALIDATIONFAILURE, "Name should not be empty");
     }
 
     String nPhone = request.getParameter(DataStoreEntityParams.ENTITY_PHONE_PROPERTY_NAME);
-    if(!isNullOrEmpty(nPhone) || !isNumericInt(nPhone)) {
+    if (!isNullOrEmpty(nPhone) || !isNumericInt(nPhone)) {
       return ValidationStatus.create(ValidationStatusCode.VALIDATIONFAILURE, "Phone should not be empty");
     }
 
     String nDate = request.getParameter(DataStoreEntityParams.ENTITY_DATE_PROPERTY_NAME);
-    if(!isNullOrEmpty(nDate)) {
+    if (!isNullOrEmpty(nDate)) {
       return ValidationStatus.create(ValidationStatusCode.VALIDATIONFAILURE, "Date should not be empty");
     }
 
     String startLat = request.getParameter(DataStoreEntityParams.ENTITY_START_LAT_PROPERTY_NAME);
-    if(!isNullOrEmpty(startLat) || !isNumericFloat(startLat) || !isValidLatitude(Float.parseFloat(startLat))) {
+    if (!isNullOrEmpty(startLat) || !isNumericFloat(startLat) || !isValidLatitude(Float.parseFloat(startLat))) {
       return ValidationStatus.create(ValidationStatusCode.VALIDATIONFAILURE, "Start Latitude should be a valid number");
     }
    
     String startLong = request.getParameter(DataStoreEntityParams.ENTITY_START_LONG_PROPERTY_NAME);
-    if(!isNullOrEmpty(startLong) || !isNumericFloat(startLong) || !isValidLongitude(Float.parseFloat(startLong))) {
+    if (!isNullOrEmpty(startLong) || !isNumericFloat(startLong) || !isValidLongitude(Float.parseFloat(startLong))) {
       return ValidationStatus.create(ValidationStatusCode.VALIDATIONFAILURE, "Start Longitude should be a valid number");
     }
     
     String endLat = request.getParameter(DataStoreEntityParams.ENTITY_END_LAT_PROPERTY_NAME);
-    if(!isNullOrEmpty(endLat) || !isNumericFloat(endLat) || !isValidLatitude(Float.parseFloat(endLat))) {
+    if (!isNullOrEmpty(endLat) || !isNumericFloat(endLat) || !isValidLatitude(Float.parseFloat(endLat))) {
       return ValidationStatus.create(ValidationStatusCode.VALIDATIONFAILURE, "End Latitude should be a valid number");
     }
     
     String endLong = request.getParameter(DataStoreEntityParams.ENTITY_END_LONG_PROPERTY_NAME);
-    if(!isNullOrEmpty(endLong) || !isNumericFloat(endLong) || !isValidLongitude(Float.parseFloat(endLong))) {
+    if (!isNullOrEmpty(endLong) || !isNumericFloat(endLong) || !isValidLongitude(Float.parseFloat(endLong))) {
       return ValidationStatus.create(ValidationStatusCode.VALIDATIONFAILURE, "End Longitude should be a valid number");
     }
     

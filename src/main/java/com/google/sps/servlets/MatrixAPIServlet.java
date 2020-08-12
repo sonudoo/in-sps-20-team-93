@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.sps.lib.MapsApiDistanceCalculator;
 import com.google.sps.lib.Task;
 import com.google.sps.lib.MatrixAPIResponse;
+import com.google.gson.Gson;
 
 /**
  * This servlet is not part of the application & solely for testing Matrix API.
@@ -40,17 +41,13 @@ public class MatrixAPIServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException 
   {
-    // List<Task> taskList = new ArrayList<>(Arrays.asList(
-    //   new Task("1", 28.7041, 28.7041, 77.1025, 77.1025),
-    //   new Task("2", 28.7041, 28.7041, 77.1025, 77.1025), 
-    //   new Task("3", 28.7041, 28.7041, 77.1025, 77.1025),
-    //   new Task("4", 28.7041, 28.7041, 77.1025, 77.1025), 
-    //   new Task("5", 28.7041, 28.7041, 77.1025, 77.1025)));
+    List<Task> taskList = new ArrayList<>(Arrays.asList(
+      new Task("1", 28.7041, 19.0760, 77.1025, 72.8777), 
+      new Task("2", 28.7041, 19.0760, 77.1025, 72.8777)));
       
-    // double matrixAPIResponse[][] = new MapsApiDistanceCalculator().findDistance(taskList);
+    //double matrixAPIResponse[][] = new MapsApiDistanceCalculator().findDistance(taskList);
     
-    MatrixAPIResponse obj = new MapsApiDistanceCalculator().jsonResponseParser(json);
-    response.getWriter().write(obj.getResponseStatus());
+    response.getWriter().write(new Gson().toJson(new MapsApiDistanceCalculator().findDistance(taskList)));
     response.getWriter().flush();
     response.getWriter().close();
   }

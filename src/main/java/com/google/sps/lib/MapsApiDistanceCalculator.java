@@ -15,18 +15,16 @@
 package com.google.sps.lib;
 
 import java.util.List;
-import java.net.URI;
+
+import javax.lang.model.element.Element;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.io.IOException;
 import java.lang.RuntimeException;
-
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonParser;
 
 /**
  * Calculates the distance between every node using google maps API.
@@ -38,8 +36,8 @@ public class MapsApiDistanceCalculator implements IDistanceCalculator {
 
   @Override
   public double[][] findDistance(List<Task> taskList) {
-    String matrixAPIResponse = getResponse(taskList);
-    MatrixAPIResponse apiObject = jsonResponseParser(matrixAPIResponse); 
+    String matrixAPIResponse = getAPIResponse(taskList);
+    MatrixAPIResponse apiObject = parseJsonResponse(matrixAPIResponse); 
     double distMatrix[][] = getDistanceMatrix(apiObject);
     return distMatrix;
   }  
@@ -51,10 +49,10 @@ public class MapsApiDistanceCalculator implements IDistanceCalculator {
     String requestURL = MATRIX_API_URL;
     StringBuilder origins = new StringBuilder("origins=");
     StringBuilder destinations = new StringBuilder("destinations=");
-    boolean isWarehouseAdded[] = {false};       //Single Warehouse Origin point location
+    boolean isWarehouseAdded[] = { false }; //Single Warehouse Origin point location
 
-    taskList.forEach((currTask) -> {
-      if(!isWarehouseAdded[0]) {
+    for (Task currTask : taskList) {
+      if (!isWarehouseAdded[0]) {
         origins.append(currTask.getStartLatitude() + "," + currTask.getStartLongitude());
         destinations.append(currTask.getStartLatitude() + "," + currTask.getStartLongitude());
         isWarehouseAdded[0] = true;
@@ -62,7 +60,7 @@ public class MapsApiDistanceCalculator implements IDistanceCalculator {
 
       origins.append("|" + currTask.getEndLatitude() + "," + currTask.getEndLongitude());
       destinations.append("|" + currTask.getEndLatitude() + "," + currTask.getStartLongitude());
-    });
+    }
 
     requestURL += "&" + origins.toString() + "&" + destinations.toString() + "&key=" + API_KEY;
     return requestURL;
@@ -71,10 +69,9 @@ public class MapsApiDistanceCalculator implements IDistanceCalculator {
   /**
    * Parses API json response to Response object. 
    */
-  public MatrixAPIResponse jsonResponseParser(String response) {
+  private MatrixAPIResponse parseJsonResponse(String response) {
     MatrixAPIResponse apiResponseObj = new MatrixAPIResponse();
     Gson gson = new Gson();
-
     apiResponseObj = gson.fromJson(response, MatrixAPIResponse.class);
     return apiResponseObj;
   }
@@ -83,13 +80,26 @@ public class MapsApiDistanceCalculator implements IDistanceCalculator {
    * Builds a distance matrix from API response object.
    */
   private double[][] getDistanceMatrix(MatrixAPIResponse apiObject) {
-    return null;
+    int locationsSize = apiObject.getRows().size();
+    double distMatrix [][] = new double[locationsSize][locationsSize];
+    int row = 0, col = 0;
+
+    for (Rows currRow : apiObject.getRows()) {
+      col = 0;
+      for (Elements currElement : currRow.getElements()) {
+        distMatrix[row][col] = Double.parseDouble(currElement.getDistance().getValue());
+        col++;
+      }
+      row++;
+    }
+
+    return distMatrix;
   }
 
   /**
    * Calls the Matrix API and returns the response.
    */
-  private String getResponse(List<Task> taskList) {
+  private String getAPIResponse(List<Task> taskList) {
     try {
       String requestURL = findRequestURL(taskList);
       URL urlObject = new URL(requestURL);
@@ -110,8 +120,7 @@ public class MapsApiDistanceCalculator implements IDistanceCalculator {
 		  } else {
 			  return null;
       }
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       throw new RuntimeException(e);
     }
   }
