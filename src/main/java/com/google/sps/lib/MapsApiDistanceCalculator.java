@@ -15,12 +15,9 @@
 package com.google.sps.lib;
 
 import java.util.List;
-<<<<<<< HEAD
 
 import javax.lang.model.element.Element;
 
-=======
->>>>>>> a535cc667a81e4a83c65e0ff5644002cd50525bf
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -39,13 +36,8 @@ public class MapsApiDistanceCalculator implements IDistanceCalculator {
 
   @Override
   public double[][] findDistance(List<Task> taskList) {
-<<<<<<< HEAD
     String matrixAPIResponse = getAPIResponse(taskList);
     MatrixAPIResponse apiObject = parseJsonResponse(matrixAPIResponse); 
-=======
-    String matrixAPIResponse = getResponse(taskList);
-    MatrixAPIResponse apiObject = parseJsonResponse(matrixAPIResponse);
->>>>>>> a535cc667a81e4a83c65e0ff5644002cd50525bf
     double distMatrix[][] = getDistanceMatrix(apiObject);
     return distMatrix;
   }
@@ -57,15 +49,9 @@ public class MapsApiDistanceCalculator implements IDistanceCalculator {
     String requestURL = MATRIX_API_URL;
     StringBuilder origins = new StringBuilder("origins=");
     StringBuilder destinations = new StringBuilder("destinations=");
-<<<<<<< HEAD
     boolean isWarehouseAdded[] = { false }; //Single Warehouse Origin point location
 
     for (Task currTask : taskList) {
-=======
-    boolean isWarehouseAdded[] = { false }; // Single Warehouse Origin point location
-
-    taskList.forEach((currTask) -> {
->>>>>>> a535cc667a81e4a83c65e0ff5644002cd50525bf
       if (!isWarehouseAdded[0]) {
         origins.append(currTask.getStartLatitude() + "," + currTask.getStartLongitude());
         destinations.append(currTask.getStartLatitude() + "," + currTask.getStartLongitude());
@@ -83,11 +69,7 @@ public class MapsApiDistanceCalculator implements IDistanceCalculator {
   /**
    * Parses API json response to Response object.
    */
-<<<<<<< HEAD
   private MatrixAPIResponse parseJsonResponse(String response) {
-=======
-  public MatrixAPIResponse parseJsonResponse(String response) {
->>>>>>> a535cc667a81e4a83c65e0ff5644002cd50525bf
     MatrixAPIResponse apiResponseObj = new MatrixAPIResponse();
     Gson gson = new Gson();
     apiResponseObj = gson.fromJson(response, MatrixAPIResponse.class);

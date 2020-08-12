@@ -34,12 +34,7 @@ public class SubmitJobValidator {
    */
   private boolean isNumericFloat(String value) {
     try {
-<<<<<<< HEAD
-      float fValue = Float.parseFloat(value);
-      return true;
-=======
       Float.parseFloat(value);
->>>>>>> a535cc667a81e4a83c65e0ff5644002cd50525bf
     } catch (NumberFormatException e) {
       return false;
     }
@@ -51,12 +46,7 @@ public class SubmitJobValidator {
    */
   private boolean isNumericInt(String value) {
     try {
-<<<<<<< HEAD
-      int fValue = Integer.parseInt(value);
-      return true;
-=======
       Integer.parseInt(value);
->>>>>>> a535cc667a81e4a83c65e0ff5644002cd50525bf
     } catch (NumberFormatException e) {
       return false;
     }
