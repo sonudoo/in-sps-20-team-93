@@ -21,6 +21,7 @@ import javax.lang.model.element.Element;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.io.IOException;
 import java.lang.RuntimeException;
@@ -33,11 +34,16 @@ public class MapsApiDistanceCalculator implements IDistanceCalculator {
 
   private static final String MATRIX_API_URL = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial";
   private static final String API_KEY = "YOUR_API_KEY";
+  URLWrapper urlWrapper;
+
+  public MapsApiDistanceCalculator(URLWrapper urlWrapper) {
+    this.urlWrapper = urlWrapper;
+  }
 
   @Override
   public double[][] findDistance(List<Task> taskList) {
-    String matrixAPIResponse = getAPIResponse(taskList);
-    MatrixAPIResponse apiObject = parseJsonResponse(matrixAPIResponse); 
+    String matrixAPIResponse = getApiResponse(taskList);
+    MatrixAPIResponse apiObject = parseJsonResponse(matrixAPIResponse);
     double distMatrix[][] = getDistanceMatrix(apiObject);
     return distMatrix;
   }
@@ -45,11 +51,11 @@ public class MapsApiDistanceCalculator implements IDistanceCalculator {
   /**
    * Builds a request URL based on matrix URL and Task list.
    */
-  private String findRequestURL(List<Task> taskList) {
+  private String findRequestUrl(List<Task> taskList) {
     String requestURL = MATRIX_API_URL;
     StringBuilder origins = new StringBuilder("origins=");
     StringBuilder destinations = new StringBuilder("destinations=");
-    boolean isWarehouseAdded[] = { false }; //Single Warehouse Origin point location
+    boolean isWarehouseAdded[] = { false }; // Single Warehouse Origin point location
 
     for (Task currTask : taskList) {
       if (!isWarehouseAdded[0]) {
@@ -81,7 +87,7 @@ public class MapsApiDistanceCalculator implements IDistanceCalculator {
    */
   private double[][] getDistanceMatrix(MatrixAPIResponse apiObject) {
     int locationsSize = apiObject.getRows().size();
-    double distMatrix [][] = new double[locationsSize][locationsSize];
+    double distMatrix[][] = new double[locationsSize][locationsSize];
     int row = 0, col = 0;
 
     for (Rows currRow : apiObject.getRows()) {
@@ -99,26 +105,25 @@ public class MapsApiDistanceCalculator implements IDistanceCalculator {
   /**
    * Calls the Matrix API and returns the response.
    */
-  private String getAPIResponse(List<Task> taskList) {
-    try {
-      String requestURL = findRequestURL(taskList);
-      URL urlObject = new URL(requestURL);
-      HttpURLConnection connection = (HttpURLConnection) urlObject.openConnection();
-      connection.setRequestMethod("GET");
+  private String getApiResponse(List<Task> taskList) {
 
+    String requestUrl = findRequestUrl(taskList);
+    try {
+      HttpURLConnection connection = urlWrapper.openConnection(requestUrl);
+      connection.setRequestMethod("GET");
       int responseCode = connection.getResponseCode();
+
       if (responseCode == HttpURLConnection.HTTP_OK) {
+        StringBuffer apiResponse = new StringBuffer();
         BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String inputLine;
-        StringBuffer apiResponse = new StringBuffer();
-
         while ((inputLine = in.readLine()) != null) {
           apiResponse.append(inputLine);
         }
         in.close();
         return apiResponse.toString();
       } else {
-        return null;
+        return "";
       }
     } catch (IOException e) {
       throw new RuntimeException(e);

@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.sps.lib.MapsApiDistanceCalculator;
 import com.google.sps.lib.Task;
-import com.google.sps.lib.MatrixAPIResponse;
+import com.google.sps.lib.URLWrapper;
 import com.google.gson.Gson;
 
 /**
@@ -33,9 +33,13 @@ import com.google.gson.Gson;
  */
 @WebServlet("/api/matrix")
 public class MatrixAPIServlet extends HttpServlet {
-  private static final String json = "{ 'destination_addresses' : [ 'New York, NY, USA' ],'origin_addresses' : [ 'Washington, DC, USA' ],'rows' : [  {'elements' : [ {'distance' : {'text' : '225 mi','value' : '361715'},'duration' : {'text' : '3 hours 49 mins','value' : '13725' },'status' : 'OK'}]} ], 'status' : 'OK'}";
 
    /**
+   *
+   */
+  private static final long serialVersionUID = 2L;
+
+  /**
    * Handles server side GET requests.
    */
   @Override
@@ -45,7 +49,7 @@ public class MatrixAPIServlet extends HttpServlet {
       new Task("1", 28.7041, 19.0760, 77.1025, 72.8777), 
       new Task("2", 28.7041, 19.0760, 77.1025, 72.8777)));
       
-    response.getWriter().write(new Gson().toJson(new MapsApiDistanceCalculator().findDistance(taskList)));
+    response.getWriter().write(new Gson().toJson(new MapsApiDistanceCalculator(new URLWrapper()).findDistance(taskList)));
     response.getWriter().flush();
     response.getWriter().close();
   }
