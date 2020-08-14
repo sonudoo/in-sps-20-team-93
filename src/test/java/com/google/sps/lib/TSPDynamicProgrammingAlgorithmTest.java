@@ -27,9 +27,9 @@ public class TSPDynamicProgrammingAlgorithmTest {
   public void findShortestPathTest_trivialCase() {
 
     double[][] distanceMatrix = { 
-      { 0, 0, 0 }, 
-      { 0, 0, 0 }, 
-      { 0, 0, 0 } 
+      {0, 0, 0}, 
+      {0, 0, 0}, 
+      {0, 0, 0} 
     };
     ITSPAlgorithm tspAlgorithm = new TSPDynamicProgrammingAlgorithm();
     List<String> expectedPath = Arrays.asList("1", "2", "3", "1");
@@ -44,10 +44,10 @@ public class TSPDynamicProgrammingAlgorithmTest {
   public void findShortestPathTest_orderedPath() {
 
     double[][] distanceMatrix = { 
-      { 0, 20, 42, 25 }, 
-      { 20, 0, 30, 34 }, 
-      { 42, 30, 0, 10 }, 
-      { 25, 34, 10, 0 } 
+      {0, 20, 42, 25}, 
+      {20, 0, 30, 34}, 
+      {42, 30, 0, 10}, 
+      {25, 34, 10, 0} 
     };
     ITSPAlgorithm tspAlgorithm = new TSPDynamicProgrammingAlgorithm();
     List<String> expectedPath = Arrays.asList("1", "2", "3", "4", "1");
@@ -61,9 +61,9 @@ public class TSPDynamicProgrammingAlgorithmTest {
   public void findShortestPathTest_randomOrderedPath() {
 
     double[][] distanceMatrix = { 
-      { 0, 5000, 5000 }, 
-      { 1000, 0, 5000 }, 
-      { 1000, 1000, 0 } 
+      {0, 5000, 5000}, 
+      {1000, 0, 5000}, 
+      {1000, 1000, 0} 
     };
     ITSPAlgorithm tspAlgorithm = new TSPDynamicProgrammingAlgorithm();
     List<String> expectedPath = Arrays.asList("1", "3", "2", "1");
@@ -77,10 +77,10 @@ public class TSPDynamicProgrammingAlgorithmTest {
   public void findShortestPathTest_invalidRequest_negativeDistance() {
 
     double[][] distanceMatrix = { 
-      { 0, -20, -42, -25 }, 
-      { -20, 0, -30, -34 }, 
-      { -42, -30, 0, -10 },
-      { -25, -34, 10, 0 } 
+      {0, -20, -42, -25}, 
+      {-20, 0, -30, -34}, 
+      {-42, -30, 0, -10},
+      {-25, -34, 10, 0} 
     };
     ITSPAlgorithm tspAlgorithm = new TSPDynamicProgrammingAlgorithm();
     List<String> expectedPath = null;
