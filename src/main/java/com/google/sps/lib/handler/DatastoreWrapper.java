@@ -1,9 +1,12 @@
 package com.google.sps.lib.handler;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
 
 /**
  * The wrapper for database related operations.
@@ -35,12 +38,20 @@ class DatastoreWrapper {
   }
 
   /**
-   * Inserts a job to the database.
+   * Returns all the jobs from the datastore.
    */
   List<DatastoreJob> getAllJobs() {
-
-    // TODO(sonudoo): Implement this.
-    return null;
+    Query query = new Query(DatastoreJobEntityParams.ENTITY_NAME);
+    PreparedQuery results = datastore.prepare(query);
+    List<DatastoreJob> datastoreJobs = new ArrayList<>();
+    for (Entity entity : results.asIterable()) {
+      String jobId = (String) entity.getProperty(DatastoreJobEntityParams.ENTITY_JOBID_PROPERTY_NAME);
+      String name = (String) entity.getProperty(DatastoreJobEntityParams.ENTITY_NAME);
+      String phone = (String) entity.getProperty(DatastoreJobEntityParams.ENTITY_PHONE_PROPERTY_NAME);
+      double latitudes = (double) entity.getProperty(DatastoreJobEntityParams.ENTITY_LAT_PROPERTY_NAME);
+      double longitudes = (double) entity.getProperty(DatastoreJobEntityParams.ENTITY_LONG_PROPERTY_NAME);
+      datastoreJobs.add(new DatastoreJob(jobId, name, phone, latitudes, longitudes));
+    }
+    return datastoreJobs;
   }
-
 }

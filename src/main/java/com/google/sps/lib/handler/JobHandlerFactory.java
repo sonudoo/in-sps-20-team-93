@@ -25,4 +25,8 @@ public class JobHandlerFactory {
   public static SubmitJobHandler createSubmitJobHandler(HttpServletRequest request) {
     return new SubmitJobHandler(submitJobValidator, databaseWrapper, request);
   }
+
+  public static GetPathHandler createGetPathHandler(HttpServletRequest request) {
+    return new GetPathHandler(databaseWrapper);
+  }
 }

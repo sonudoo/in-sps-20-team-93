@@ -21,7 +21,7 @@ import com.google.sps.lib.validator.ValidationStatus;
 import com.google.sps.lib.validator.ValidationStatusCode;
 
 /**
- * Contains essential functions for a new Job.
+ * Handles new job submission.
  */
 public class SubmitJobHandler implements IRequestHandler {
 
