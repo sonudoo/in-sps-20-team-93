@@ -12,23 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.sps.lib;
+package com.google.sps.lib.handler;
 
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Represents a bad request response.
+ * Represents a success response.
  */
-class BadRequestErrorResponse implements IResponse {
+class SuccessResponse extends HandlerResponse {
 
-  private final static String RESPONSE_MESSAGE_TITLE = "Bad Request Format";
+  private final static String RESPONSE_MESSAGE_TITLE = "Success";
 
   private final int status;
   private final ResponseMessage message;
 
-  BadRequestErrorResponse(String errorMessage) {
-    this.status = HttpServletResponse.SC_BAD_REQUEST;
-    this.message = ResponseMessage.create(RESPONSE_MESSAGE_TITLE, errorMessage);
+  SuccessResponse() {
+    this.status = HttpServletResponse.SC_OK;
+    this.message = ResponseMessage.create(RESPONSE_MESSAGE_TITLE, "");
   }
 
   @Override

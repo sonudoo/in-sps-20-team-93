@@ -12,29 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.sps.lib;
+package com.google.sps.lib.algorithm.distance;
+
+import java.util.List;
 
 /**
- * Represents a request validation status.
+ * Calculates the distance between every node using google maps API.
  */
-public class ValidationStatus {
-  private final String message;
-  private final ValidationStatusCode status;
+public class MapsApiDistanceCalculator implements IDistanceCalculator {
 
-  private ValidationStatus(ValidationStatusCode status, String message) {
-    this.message = message;
-    this.status = status;
-  }
-
-  public static ValidationStatus create(ValidationStatusCode status, String message) {
-    return new ValidationStatus(status, message);
-  }
-
-  public ValidationStatusCode getStatus() {
-    return this.status;
-  }
-
-  public String getMessage() {
-    return this.message;
+  @Override
+  public double[][] findDistance(final List<Coordinate> taskList) {
+    throw new RuntimeException("This method is unimplemented.");
   }
 }

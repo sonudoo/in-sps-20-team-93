@@ -12,26 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.sps.lib;
+package com.google.sps.lib.handler;
 
-import java.util.List;
-import com.google.gson.Gson;
+import com.google.appengine.repackaged.com.google.gson.Gson;
 
 /**
- * Represents library utilities required in application.
+ * The handler response interface.
  */
-public class LibUtils {
+public abstract class HandlerResponse {
   /**
-   * Converts {@link IResponse} to json format.
+   * Returns HTTP response status.
    */
-  public static String convertResponseToJson(final IResponse response) {
-    return new Gson().toJson(response);
-  }
+  public abstract int getStatus();
 
   /**
-   * Converts list of strings to json format.
+   * Returns additional message with the response.
    */
-  public static String convertPathToJson(final List<String> taskOrder) {
-    return new Gson().toJson(taskOrder);
+  public abstract ResponseMessage getMessage();
+
+  /**
+   * Returns the object as Json.
+   */
+  public String getJson() {
+    return new Gson().toJson(this);
   }
 }

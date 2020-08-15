@@ -12,17 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.sps.lib;
-
-import java.util.List;
+package com.google.sps.lib.handler;
 
 /**
- * Calculates the distance between every node using google maps API.
+ * Represents Datastore parameters for an Entity.
  */
-public class MapsApiDistanceCalculator implements IDistanceCalculator {
+public class DatastoreJobEntityParams {
+  public static final String ENTITY_JOBID_PROPERTY_NAME = "JobId";
+  public static final String ENTITY_USER_PROPERTY_NAME = "Name";
+  public static final String ENTITY_PHONE_PROPERTY_NAME = "Phone";
+  public static final String ENTITY_LAT_PROPERTY_NAME = "Latitude";
+  public static final String ENTITY_LONG_PROPERTY_NAME = "Longitude";
+  public static final String ENTITY_NAME = "Job";
 
-  @Override
-  public double[][] findDistance(final List<Task> taskList) {
-    return null;
+  private DatastoreJobEntityParams() {
   }
 }

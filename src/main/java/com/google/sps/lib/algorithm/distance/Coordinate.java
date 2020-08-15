@@ -12,22 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.sps.lib;
+package com.google.sps.lib.algorithm.distance;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import java.lang.Exception;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-import javax.servlet.http.HttpServletRequest;
+/**
+ * The wrapper for latitudes and longitudes of a location.
+ */
+public class Coordinate {
+  private final double latitudes;
+  private final double longitudes;
 
-@RunWith(MockitoJUnitRunner.class)
-public final class JobHandlerTest {
-  @Mock
-  HttpServletRequest dataStoreRequest;
+  public Coordinate(final double latitudes, final double longitudes) {
+    this.latitudes = latitudes;
+    this.longitudes = longitudes;
+  }
 
-  @Test
-  public void addJobToDataStore_jobIsAddedToDataStore() throws Exception {
+  public double getLatutides() {
+    return latitudes;
+  }
 
+  public double getLongitudes() {
+    return longitudes;
   }
 }

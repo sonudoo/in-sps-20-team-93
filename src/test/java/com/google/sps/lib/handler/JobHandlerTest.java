@@ -12,9 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.sps.lib;
+package com.google.sps.lib.handler;
 
-public enum ValidationStatusCode {
-  VALIDATIONSUCCESS,
-  VALIDATIONFAILURE,
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+import javax.servlet.http.HttpServletRequest;
+
+@RunWith(MockitoJUnitRunner.class)
+public final class JobHandlerTest {
+  @Mock
+  HttpServletRequest submitJobRequest;
+
+  @Test
+  public void addJobToDataStore_jobIsAddedToDataStore() throws Exception {
+  }
 }

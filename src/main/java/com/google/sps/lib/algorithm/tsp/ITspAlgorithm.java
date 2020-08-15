@@ -12,13 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.sps.lib;
+package com.google.sps.lib.algorithm.tsp;
 
 import java.util.List;
 
 /**
  * Contains method to find shortest path using TSP Algorithm.
  */
-public interface ITSPAlgorithm {
-  List<String> findShortestPath(double[][] distanceMatrix);
+public interface ITspAlgorithm {
+
+  /**
+   * Returns an order of index (as list) that can be visited in such a way that
+   * all locations are visited and total distance travelled is minimized. The 0th
+   * index is assumed to be the starting location.
+   * 
+   * 
+   * @param distanceMatix The matrix representing distance between different
+   * locations that are required to be visited. 
+   */
+  List<Integer> findShortestPath(double[][] distanceMatrix) throws InvalidDistanceMatrixException;
 }

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.sps.lib;
+package com.google.sps.lib.algorithm.tsp;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,22 +26,22 @@ import java.util.List;
  * of all the paths that can be visited from that particular location and return
  * that path. Continue like this until all the locations are visited.
  */
-public class TSPDynamicProgrammingAlgorithm implements ITSPAlgorithm {
-  public static final String SOURCE_LOCATION_TASK_ID = "1";
+public class TspDynamicProgrammingAlgorithm implements ITspAlgorithm {
 
   @Override
-  public List<String> findShortestPath(double[][] distanceMatrix) {
-    Integer[][] path = new Integer[(1 << distanceMatrix.length)][distanceMatrix[0].length];
-    double[][] minCost = new double[(1 << distanceMatrix.length)][distanceMatrix[0].length];
+  public List<Integer> findShortestPath(final double[][] distanceMatrix) throws InvalidDistanceMatrixException {
+    final Integer[][] path = new Integer[(1 << distanceMatrix.length)][distanceMatrix[0].length];
+    final double[][] minCost = new double[(1 << distanceMatrix.length)][distanceMatrix[0].length];
     for (int i = 0; i < minCost.length; i++) {
       Arrays.fill(minCost[i], Double.MAX_VALUE);
     }
 
-    if (!checkNegativeDistance(distanceMatrix)) {
-      shortestPathDistanceCalculator(distanceMatrix, 1, 0, path, minCost);
-      return getShortestPath(path);
+    if (checkNegativeDistance(distanceMatrix)) {
+      throw new InvalidDistanceMatrixException("Distance matrix has a negative cycle.");
     }
-    return null;
+
+    shortestPathDistanceCalculator(distanceMatrix, /* state= */ 1, /* currentLocation= */ 0, path, minCost);
+    return getShortestPath(path);
   }
 
   /**
@@ -55,8 +55,8 @@ public class TSPDynamicProgrammingAlgorithm implements ITSPAlgorithm {
    *                        location at a particular state.
    * @param minCost
    */
-  private double shortestPathDistanceCalculator(double[][] distanceMatrix, int state, int currentLocation,
-      Integer[][] path, double[][] minCost) {
+  private double shortestPathDistanceCalculator(final double[][] distanceMatrix, final int state,
+      final int currentLocation, final Integer[][] path, final double[][] minCost) {
 
     // If all the locations have been visited then
     // return the distance from the current location
@@ -78,7 +78,7 @@ public class TSPDynamicProgrammingAlgorithm implements ITSPAlgorithm {
 
       // Checks if the location is visited or not.
       if ((state & (1 << location)) == 0) {
-        double newDistance = distanceMatrix[currentLocation][location]
+        final double newDistance = distanceMatrix[currentLocation][location]
             + shortestPathDistanceCalculator(distanceMatrix, (state | (1 << location)), location, path, minCost);
         if (newDistance < minimumDistance) {
           minimumDistance = newDistance;
@@ -101,27 +101,29 @@ public class TSPDynamicProgrammingAlgorithm implements ITSPAlgorithm {
    * 
    * @param path
    */
-  private List<String> getShortestPath(Integer[][] path) {
-    List<String> shortestDistancePath = new ArrayList<>();
+  private List<Integer> getShortestPath(final Integer[][] path) {
+    final List<Integer> shortestDistancePath = new ArrayList<>();
 
     // Represents the initial state when only starting location is visited.
     int state = 1;
 
-    int currentLocationTaskId = Integer.valueOf(SOURCE_LOCATION_TASK_ID);
+    int currentLocationIndex = 0;
 
     // Gets the next location to be visited from the path array.
     // If the next location exists then update the state.
     // Current location will be updated to next location to be visited.
     while (true) {
-      shortestDistancePath.add(String.valueOf(currentLocationTaskId));
-      Integer nextLocationTaskId = path[state][currentLocationTaskId - 1];
-      if (nextLocationTaskId == null) {
+      shortestDistancePath.add(currentLocationIndex);
+      final Integer nextLocationIndex = path[state][currentLocationIndex];
+      if (nextLocationIndex == null) {
         break;
       }
-      state = state | (1 << nextLocationTaskId);
-      currentLocationTaskId = nextLocationTaskId + 1;
+      state = state | (1 << nextLocationIndex);
+      currentLocationIndex = nextLocationIndex;
     }
-    shortestDistancePath.add(SOURCE_LOCATION_TASK_ID);
+
+    // Add back the starting index
+    shortestDistancePath.add(0);
 
     return shortestDistancePath;
   }
@@ -131,11 +133,11 @@ public class TSPDynamicProgrammingAlgorithm implements ITSPAlgorithm {
    * 
    * @param distanceMatrix
    */
-  private boolean checkNegativeDistance(double[][] distanceMatrix) {
+  private boolean checkNegativeDistance(final double[][] distanceMatrix) {
 
     // distance[][] is the matrix that will finally have the shortest distances
     // between every pair of vertices.
-    double[][] distance = distanceMatrix;
+    final double[][] distance = distanceMatrix;
 
     // Add all vertices one by one to the set of intermediate vertices.
     for (int k = 0; k < distance.length; k++) {

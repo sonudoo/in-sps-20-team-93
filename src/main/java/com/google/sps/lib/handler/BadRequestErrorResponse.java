@@ -12,25 +12,32 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.sps.servlets;
+package com.google.sps.lib.handler;
 
-import java.io.IOException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Gets the path to be followed.
+ * Represents a bad request response.
  */
-@WebServlet("/api/getPath")
-public class GetPathServlet extends HttpServlet {
+class BadRequestErrorResponse extends HandlerResponse {
 
-  private static final long serialVersionUID = 2L;
+  private final static String RESPONSE_MESSAGE_TITLE = "Bad Request Format";
+
+  private final int status;
+  private final ResponseMessage message;
+
+  BadRequestErrorResponse(final String errorMessage) {
+    this.status = HttpServletResponse.SC_BAD_REQUEST;
+    this.message = ResponseMessage.create(RESPONSE_MESSAGE_TITLE, errorMessage);
+  }
 
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("application/json;");
-    response.getWriter().println("");
+  public int getStatus() {
+    return status;
+  }
+
+  @Override
+  public ResponseMessage getMessage() {
+    return message;
   }
 }

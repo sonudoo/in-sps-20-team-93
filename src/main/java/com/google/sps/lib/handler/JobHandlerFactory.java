@@ -12,13 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.sps.lib;
+package com.google.sps.lib.handler;
 
-/**
- * Represents a server response.
- */
-public interface IResponse {
-  int getStatus();
+import javax.servlet.http.HttpServletRequest;
+import com.google.sps.lib.validator.SubmitJobValidator;
 
-  ResponseMessage getMessage();
+public class JobHandlerFactory {
+
+  private static final DatastoreWrapper databaseWrapper = new DatastoreWrapper();
+  private static final SubmitJobValidator submitJobValidator = new SubmitJobValidator();
+
+  public static SubmitJobHandler createSubmitJobHandler(HttpServletRequest request) {
+    return new SubmitJobHandler(submitJobValidator, databaseWrapper, request);
+  }
 }
