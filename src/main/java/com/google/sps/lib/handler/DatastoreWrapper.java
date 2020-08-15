@@ -46,7 +46,7 @@ class DatastoreWrapper {
     List<DatastoreJob> datastoreJobs = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
       String jobId = (String) entity.getProperty(DatastoreJobEntityParams.ENTITY_JOBID_PROPERTY_NAME);
-      String name = (String) entity.getProperty(DatastoreJobEntityParams.ENTITY_NAME);
+      String name = (String) entity.getProperty(DatastoreJobEntityParams.ENTITY_USER_PROPERTY_NAME);
       String phone = (String) entity.getProperty(DatastoreJobEntityParams.ENTITY_PHONE_PROPERTY_NAME);
       double latitudes = (double) entity.getProperty(DatastoreJobEntityParams.ENTITY_LAT_PROPERTY_NAME);
       double longitudes = (double) entity.getProperty(DatastoreJobEntityParams.ENTITY_LONG_PROPERTY_NAME);

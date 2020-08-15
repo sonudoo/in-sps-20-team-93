@@ -26,14 +26,12 @@ class GetPathResponse extends HandlerResponse {
 
   private final int status;
   private final ResponseMessage message;
-  private final List<Double> latitudes;
-  private final List<Double> longitudes;
+  private final List<ResponseJob> responseJobs;
 
-  GetPathResponse(List<Double> latitudes, List<Double> longitudes) {
+  GetPathResponse(List<ResponseJob> responseJobs) {
     this.status = HttpServletResponse.SC_OK;
     this.message = ResponseMessage.create(RESPONSE_MESSAGE_TITLE, "");
-    this.latitudes = latitudes;
-    this.longitudes = longitudes;
+    this.responseJobs = responseJobs;
   }
 
   @Override
@@ -46,11 +44,7 @@ class GetPathResponse extends HandlerResponse {
     return message;
   }
 
-  public List<Double> getLongitudes() {
-    return longitudes;
-  }
-
-  public List<Double> getLatitudes() {
-    return latitudes;
+  public List<ResponseJob> getResponseJobs() {
+    return responseJobs;
   }
 }

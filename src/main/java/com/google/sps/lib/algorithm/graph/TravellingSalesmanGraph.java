@@ -69,7 +69,7 @@ public class TravellingSalesmanGraph {
 
     // Skipping 0th and last index as they will be the home coordinates.
     for (int i = 1; i < shortestPathIndices.size() - 1; i++) {
-      minimumPathOrder.add(taskList.get(shortestPathIndices.get(i)));
+      minimumPathOrder.add(taskList.get(shortestPathIndices.get(i) - 1));
     }
     return minimumPathOrder;
   }
