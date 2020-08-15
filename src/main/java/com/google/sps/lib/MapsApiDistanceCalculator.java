@@ -22,7 +22,7 @@ import java.util.List;
 public class MapsApiDistanceCalculator implements IDistanceCalculator {
 
   @Override
-  public double[][] findDistance(List<Task> taskList) {
+  public double[][] findDistance(final List<Task> taskList) {
     return null;
   }
 }

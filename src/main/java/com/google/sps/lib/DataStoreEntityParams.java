@@ -29,6 +29,5 @@ public class DataStoreEntityParams {
   public static final String ENTITY_NAME = "Job";
 
   private DataStoreEntityParams() {
-
-  }    
+  }
 }

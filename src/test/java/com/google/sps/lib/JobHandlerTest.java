@@ -18,7 +18,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import java.lang.Exception;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import javax.servlet.http.HttpServletRequest;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -28,6 +28,6 @@ public final class JobHandlerTest {
 
   @Test
   public void addJobToDataStore_jobIsAddedToDataStore() throws Exception {
-    
+
   }
 }

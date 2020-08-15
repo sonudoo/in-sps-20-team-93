@@ -19,57 +19,55 @@ import java.lang.NumberFormatException;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Represents a submit job request validator.
+ * The validator for submit job requests.
  */
 public class SubmitJobValidator {
   /**
-   * Checks for strings with only alphabets.
+   * Checks that the string contains only alphabets (at least one).
    */
-  private boolean isAlphabet(String value) {
+  private boolean isAlphabetic(String value) {
     return Pattern.matches("[a-zA-Z]+", value);
   }
 
   /**
-   * Checks for float numberic values.
-   */  
-  private boolean isNumericFloat(String value) {
-    try {
-      float fValue = Float.parseFloat(value);
-      return true;
-    }
-    catch(NumberFormatException e) {
-      return false;
-    }
-  }
-
-  /**
-   * Checks for integer numberic values.
+   * Checks for double numeric value.
    */
-  private boolean isNumericInt(String value) {
+  private boolean isNumericDouble(String value) {
     try {
-      int fValue = Integer.parseInt(value);
+      Double.parseDouble(value);
       return true;
-    }
-    catch(NumberFormatException e) {
+    } catch (NumberFormatException e) {
       return false;
     }
   }
 
   /**
-   * Checks for null or empty values.
+   * Checks for long numeric value.
+   */
+  private boolean isNumericLong(String value) {
+    try {
+      Long.parseLong(value);
+      return true;
+    } catch (NumberFormatException e) {
+      return false;
+    }
+  }
+
+  /**
+   * Checks for null or empty string.
    */
   private boolean isNullOrEmpty(String value) {
-    if(value == null || value.length() == 0) {
+    if (value == null || value.length() == 0) {
       return false;
     }
     return true;
   }
 
   /**
-   * Checks for a valid latitude value.
+   * Checks for a valid latitude valu.
    */
-  private boolean isValidLatitude(float value) {
-    if(value >= -90 && value <= 90) {
+  private boolean isValidLatitude(double value) {
+    if (value >= -90 && value <= 90) {
       return true;
     }
     return false;
@@ -78,8 +76,8 @@ public class SubmitJobValidator {
   /**
    * Checks for a valid longitude value.
    */
-  private boolean isValidLongitude(float value) {
-    if(value >= -180 && value <= 180) {
+  private boolean isValidLongitude(double value) {
+    if (value >= -180 && value <= 180) {
       return true;
     }
     return false;
@@ -90,40 +88,36 @@ public class SubmitJobValidator {
    */
   public ValidationStatus validate(HttpServletRequest request) {
     String nName = request.getParameter(DataStoreEntityParams.ENTITY_USER_PROPERTY_NAME);
-    if(!isNullOrEmpty(nName) || !isAlphabet(nName)) {
+    if (!isNullOrEmpty(nName) || !isAlphabetic(nName)) {
       return ValidationStatus.create(ValidationStatusCode.VALIDATIONFAILURE, "Name should not be empty");
     }
 
     String nPhone = request.getParameter(DataStoreEntityParams.ENTITY_PHONE_PROPERTY_NAME);
-    if(!isNullOrEmpty(nPhone) || !isNumericInt(nPhone)) {
-      return ValidationStatus.create(ValidationStatusCode.VALIDATIONFAILURE, "Phone should not be empty");
-    }
-
-    String nDate = request.getParameter(DataStoreEntityParams.ENTITY_DATE_PROPERTY_NAME);
-    if(!isNullOrEmpty(nDate)) {
-      return ValidationStatus.create(ValidationStatusCode.VALIDATIONFAILURE, "Date should not be empty");
+    if (!isNullOrEmpty(nPhone) || !isNumericLong(nPhone)) {
+      return ValidationStatus.create(ValidationStatusCode.VALIDATIONFAILURE, "Phone is empty or incorrect");
     }
 
     String startLat = request.getParameter(DataStoreEntityParams.ENTITY_START_LAT_PROPERTY_NAME);
-    if(!isNullOrEmpty(startLat) || !isNumericFloat(startLat) || !isValidLatitude(Float.parseFloat(startLat))) {
+    if (!isNullOrEmpty(startLat) || !isNumericDouble(startLat) || !isValidLatitude(Double.parseDouble(startLat))) {
       return ValidationStatus.create(ValidationStatusCode.VALIDATIONFAILURE, "Start Latitude should be a valid number");
     }
-   
+
     String startLong = request.getParameter(DataStoreEntityParams.ENTITY_START_LONG_PROPERTY_NAME);
-    if(!isNullOrEmpty(startLong) || !isNumericFloat(startLong) || !isValidLongitude(Float.parseFloat(startLong))) {
-      return ValidationStatus.create(ValidationStatusCode.VALIDATIONFAILURE, "Start Longitude should be a valid number");
+    if (!isNullOrEmpty(startLong) || !isNumericDouble(startLong) || !isValidLongitude(Double.parseDouble(startLong))) {
+      return ValidationStatus.create(ValidationStatusCode.VALIDATIONFAILURE,
+          "Start Longitude should be a valid number");
     }
-    
+
     String endLat = request.getParameter(DataStoreEntityParams.ENTITY_END_LAT_PROPERTY_NAME);
-    if(!isNullOrEmpty(endLat) || !isNumericFloat(endLat) || !isValidLatitude(Float.parseFloat(endLat))) {
+    if (!isNullOrEmpty(endLat) || !isNumericDouble(endLat) || !isValidLatitude(Double.parseDouble(endLat))) {
       return ValidationStatus.create(ValidationStatusCode.VALIDATIONFAILURE, "End Latitude should be a valid number");
     }
-    
+
     String endLong = request.getParameter(DataStoreEntityParams.ENTITY_END_LONG_PROPERTY_NAME);
-    if(!isNullOrEmpty(endLong) || !isNumericFloat(endLong) || !isValidLongitude(Float.parseFloat(endLong))) {
+    if (!isNullOrEmpty(endLong) || !isNumericDouble(endLong) || !isValidLongitude(Double.parseDouble(endLong))) {
       return ValidationStatus.create(ValidationStatusCode.VALIDATIONFAILURE, "End Longitude should be a valid number");
     }
-    
+
     return ValidationStatus.create(ValidationStatusCode.VALIDATIONSUCCESS, "");
   }
 }

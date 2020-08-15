@@ -26,7 +26,7 @@ public class Graph {
   IDistanceCalculator distanceCalculator;
   ITSPAlgorithm tspAlgorithm;
 
-  public Graph(List<Task> taskList,ITSPAlgorithm tspAlgorithm) {
+  public Graph(List<Task> taskList, ITSPAlgorithm tspAlgorithm) {
     this.taskList = taskList;
     this.isGraphCreated = false;
     this.distanceCalculator = new EuclideanDistanceCalculator();

@@ -17,23 +17,22 @@ package com.google.sps.lib;
 import java.util.List;
 
 /**
- * Calculates the distance between every two nodes using Euclidean Method.
+ * The distance calculator between every two nodes using Euclidean distance
+ * method.
  */
 public class EuclideanDistanceCalculator implements IDistanceCalculator {
 
   @Override
-  public double[][] findDistance(List<Task> taskList) {
+  public double[][] findDistance(final List<Task> taskList) {
 
-    double[][] initialDistanceMatrix = new double[taskList.size()][taskList.size()];
+    final double[][] initialDistanceMatrix = new double[taskList.size()][taskList.size()];
 
     for (int i = 1; i <= initialDistanceMatrix.length; i++) {
       for (int j = 1; j <= initialDistanceMatrix[1].length; j++) {
         if (i != j) {
-          double xCoordinate = taskList.get(i - 1).getStartLatitude() - taskList.get(j - 1).getStartLatitude();
-          double yCoordinate = taskList.get(i - 1).getStartLongitude() - taskList.get(j - 1).getStartLongitude();
-          initialDistanceMatrix[i - 1][j - 1] = Math.sqrt(
-            ((xCoordinate * xCoordinate) + (yCoordinate * yCoordinate))
-            );
+          final double xCoordinate = taskList.get(i - 1).getStartLatitude() - taskList.get(j - 1).getStartLatitude();
+          final double yCoordinate = taskList.get(i - 1).getStartLongitude() - taskList.get(j - 1).getStartLongitude();
+          initialDistanceMatrix[i - 1][j - 1] = Math.sqrt(((xCoordinate * xCoordinate) + (yCoordinate * yCoordinate)));
         }
       }
     }

@@ -22,16 +22,16 @@ import com.google.gson.Gson;
  */
 public class LibUtils {
   /**
-   * Converts response to json format.
+   * Converts {@link IResponse} to json format.
    */
-  public static String convertResponseToJson(IResponse response) {
+  public static String convertResponseToJson(final IResponse response) {
     return new Gson().toJson(response);
   }
 
   /**
-   * Converts list to json format.
+   * Converts list of strings to json format.
    */
-  public static String convertPathToJson(List<String> taskOrder) {
+  public static String convertPathToJson(final List<String> taskOrder) {
     return new Gson().toJson(taskOrder);
   }
 }

@@ -21,7 +21,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import java.lang.Exception;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -40,7 +40,7 @@ public final class SubmitJobRequestValidatorTest {
     when(successRequest.getParameter(DataStoreEntityParams.ENTITY_END_LAT_PROPERTY_NAME)).thenReturn("88.7");
     when(successRequest.getParameter(DataStoreEntityParams.ENTITY_END_LONG_PROPERTY_NAME)).thenReturn("22.3");
     SubmitJobValidator requestValidator = new SubmitJobValidator();
-    
+
     ValidationStatus validationStatus = requestValidator.validate(successRequest);
 
     assertEquals(validationStatus.getStatus(), ValidationStatusCode.VALIDATIONSUCCESS);
@@ -52,7 +52,7 @@ public final class SubmitJobRequestValidatorTest {
   @Test
   public void validate_invalidRequest_validationFailure_missingName() throws Exception {
     SubmitJobValidator requestValidator = new SubmitJobValidator();
-    
+
     ValidationStatus validationStatus = requestValidator.validate(nameFailureRequest);
 
     assertEquals(validationStatus.getStatus(), ValidationStatusCode.VALIDATIONFAILURE);
@@ -65,7 +65,7 @@ public final class SubmitJobRequestValidatorTest {
   public void validate_invalidRequest_validationFailure_missingPhone() throws Exception {
     when(phoneFailureRequest.getParameter(DataStoreEntityParams.ENTITY_USER_PROPERTY_NAME)).thenReturn("MockUser");
     SubmitJobValidator requestValidator = new SubmitJobValidator();
-    
+
     ValidationStatus validationStatus = requestValidator.validate(phoneFailureRequest);
 
     assertEquals(validationStatus.getStatus(), ValidationStatusCode.VALIDATIONFAILURE);
@@ -79,7 +79,7 @@ public final class SubmitJobRequestValidatorTest {
     when(dateFailureRequest.getParameter(DataStoreEntityParams.ENTITY_USER_PROPERTY_NAME)).thenReturn("MockUser");
     when(dateFailureRequest.getParameter(DataStoreEntityParams.ENTITY_PHONE_PROPERTY_NAME)).thenReturn("911");
     SubmitJobValidator requestValidator = new SubmitJobValidator();
-    
+
     ValidationStatus validationStatus = requestValidator.validate(dateFailureRequest);
 
     assertEquals(validationStatus.getStatus(), ValidationStatusCode.VALIDATIONFAILURE);
@@ -94,7 +94,7 @@ public final class SubmitJobRequestValidatorTest {
     when(startLatFailureRequest.getParameter(DataStoreEntityParams.ENTITY_PHONE_PROPERTY_NAME)).thenReturn("911");
     when(startLatFailureRequest.getParameter(DataStoreEntityParams.ENTITY_DATE_PROPERTY_NAME)).thenReturn("27/7/2020");
     SubmitJobValidator requestValidator = new SubmitJobValidator();
-    
+
     ValidationStatus validationStatus = requestValidator.validate(startLatFailureRequest);
 
     assertEquals(validationStatus.getStatus(), ValidationStatusCode.VALIDATIONFAILURE);
@@ -108,9 +108,10 @@ public final class SubmitJobRequestValidatorTest {
     when(startLongFailureRequest.getParameter(DataStoreEntityParams.ENTITY_USER_PROPERTY_NAME)).thenReturn("MockUser");
     when(startLongFailureRequest.getParameter(DataStoreEntityParams.ENTITY_PHONE_PROPERTY_NAME)).thenReturn("911");
     when(startLongFailureRequest.getParameter(DataStoreEntityParams.ENTITY_DATE_PROPERTY_NAME)).thenReturn("27/7/2020");
-    when(startLongFailureRequest.getParameter(DataStoreEntityParams.ENTITY_START_LAT_PROPERTY_NAME)).thenReturn("67.09");
+    when(startLongFailureRequest.getParameter(DataStoreEntityParams.ENTITY_START_LAT_PROPERTY_NAME))
+        .thenReturn("67.09");
     SubmitJobValidator requestValidator = new SubmitJobValidator();
-    
+
     ValidationStatus validationStatus = requestValidator.validate(startLongFailureRequest);
 
     assertEquals(validationStatus.getStatus(), ValidationStatusCode.VALIDATIONFAILURE);
@@ -127,7 +128,7 @@ public final class SubmitJobRequestValidatorTest {
     when(endLatFailureRequest.getParameter(DataStoreEntityParams.ENTITY_START_LAT_PROPERTY_NAME)).thenReturn("67.09");
     when(endLatFailureRequest.getParameter(DataStoreEntityParams.ENTITY_START_LONG_PROPERTY_NAME)).thenReturn("23.65");
     SubmitJobValidator requestValidator = new SubmitJobValidator();
-    
+
     ValidationStatus validationStatus = requestValidator.validate(endLatFailureRequest);
 
     assertEquals(validationStatus.getStatus(), ValidationStatusCode.VALIDATIONFAILURE);
@@ -145,7 +146,7 @@ public final class SubmitJobRequestValidatorTest {
     when(endLongFailureRequest.getParameter(DataStoreEntityParams.ENTITY_START_LONG_PROPERTY_NAME)).thenReturn("23.65");
     when(endLongFailureRequest.getParameter(DataStoreEntityParams.ENTITY_END_LAT_PROPERTY_NAME)).thenReturn("88.7");
     SubmitJobValidator requestValidator = new SubmitJobValidator();
-    
+
     ValidationStatus validationStatus = requestValidator.validate(endLongFailureRequest);
 
     assertEquals(validationStatus.getStatus(), ValidationStatusCode.VALIDATIONFAILURE);

@@ -31,8 +31,10 @@ import com.google.sps.lib.Task;
 /**
  * Gets the path to be followed.
  */
-@WebServlet("/api/getpath")
+@WebServlet("/api/getPath")
 public class GetPathServlet extends HttpServlet {
+
+  private static final long serialVersionUID = 2L;
 
   /**
    * Handles server side GET requests.
@@ -40,12 +42,9 @@ public class GetPathServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-    List<Task> taskList = new ArrayList<>(Arrays.asList(
-      new Task("1", 67.09, 23.65, 98.7, 22.3),
-      new Task("2", 68.34, 24.5, 99.7, 23.65), 
-      new Task("3", 68.38, 26.4, 98.6, 23.67),
-      new Task("4", 68.40, 26.5, 98.3, 23.69), 
-      new Task("5", 68.42, 24.57, 98.7, 23.72)));
+    List<Task> taskList = new ArrayList<>(Arrays.asList(new Task("1", 67.09, 23.65, 98.7, 22.3),
+        new Task("2", 68.34, 24.5, 99.7, 23.65), new Task("3", 68.38, 26.4, 98.6, 23.67),
+        new Task("4", 68.40, 26.5, 98.3, 23.69), new Task("5", 68.42, 24.57, 98.7, 23.72)));
     ITSPAlgorithm tspAlgorithm = new TSPDynamicProgrammingAlgorithm();
     Graph initialGraph = new Graph(taskList, tspAlgorithm);
     String pathJson = LibUtils.convertPathToJson(initialGraph.getMinimumPath());

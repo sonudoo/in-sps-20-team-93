@@ -21,12 +21,20 @@ public class ResponseMessage {
   private final String messageTitle;
   private final String messageBody;
 
-  private ResponseMessage(String messageTitle, String messageBody) {
+  private ResponseMessage(final String messageTitle, final String messageBody) {
     this.messageTitle = messageTitle;
     this.messageBody = messageBody;
   }
 
-  public static ResponseMessage create(String messageTitle, String messageBody) {
+  public static ResponseMessage create(final String messageTitle, final String messageBody) {
     return new ResponseMessage(messageTitle, messageBody);
+  }
+
+  public String getMessageTitle() {
+    return messageTitle;
+  }
+
+  public String getMessageBody() {
+    return messageBody;
   }
 }

@@ -15,9 +15,6 @@
 package com.google.sps.lib;
 
 import javax.servlet.http.HttpServletRequest;
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.Entity;
-import java.util.UUID;
 
 /**
  * Contains essential functions for a new Job.
@@ -26,34 +23,24 @@ public class JobHandler {
   /**
    * Adds the Job to Datastore.
    */
-  public IResponse addJobToDataStore(HttpServletRequest request, DatastoreService datastore, SubmitJobValidator requestValidator) {
-    
-    ValidationStatus validationStatus = requestValidator.validate(request);
-    if(validationStatus.getStatus() == ValidationStatusCode.VALIDATIONFAILURE) {
+  public IResponse addJobToDataStore(final HttpServletRequest request, final DatabaseWrapper databaseWrapper,
+      final SubmitJobValidator requestValidator) {
+
+    final ValidationStatus validationStatus = requestValidator.validate(request);
+    if (validationStatus.getStatus() == ValidationStatusCode.VALIDATIONFAILURE) {
       return new BadRequestErrorResponse(validationStatus.getMessage());
     }
-    
-    String nName = request.getParameter(DataStoreEntityParams.ENTITY_USER_PROPERTY_NAME);
-    String nPhone = request.getParameter(DataStoreEntityParams.ENTITY_PHONE_PROPERTY_NAME);
-    String nDate = request.getParameter(DataStoreEntityParams.ENTITY_DATE_PROPERTY_NAME);
-    float nStartLat = Float.parseFloat(request.getParameter(DataStoreEntityParams.ENTITY_START_LAT_PROPERTY_NAME));
-    float nStartLong = Float.parseFloat(request.getParameter(DataStoreEntityParams.ENTITY_START_LONG_PROPERTY_NAME));
-    float nEndLat = Float.parseFloat(request.getParameter(DataStoreEntityParams.ENTITY_END_LAT_PROPERTY_NAME));
-    float nEndLong = Float.parseFloat(request.getParameter(DataStoreEntityParams.ENTITY_END_LONG_PROPERTY_NAME));
+    final String nName = request.getParameter(DataStoreEntityParams.ENTITY_USER_PROPERTY_NAME);
+    final String nPhone = request.getParameter(DataStoreEntityParams.ENTITY_PHONE_PROPERTY_NAME);
+    final double nStartLat = Double
+        .parseDouble(request.getParameter(DataStoreEntityParams.ENTITY_START_LAT_PROPERTY_NAME));
+    final double nStartLong = Double
+        .parseDouble(request.getParameter(DataStoreEntityParams.ENTITY_START_LONG_PROPERTY_NAME));
+    final double nEndLat = Double.parseDouble(request.getParameter(DataStoreEntityParams.ENTITY_END_LAT_PROPERTY_NAME));
+    final double nEndLong = Double
+        .parseDouble(request.getParameter(DataStoreEntityParams.ENTITY_END_LONG_PROPERTY_NAME));
 
-    String nJobId = UUID.randomUUID().toString();
-
-    Entity nJob = new Entity(DataStoreEntityParams.ENTITY_NAME);
-    nJob.setProperty(DataStoreEntityParams.ENTITY_JOBID_PROPERTY_NAME, nJobId);
-    nJob.setProperty(DataStoreEntityParams.ENTITY_USER_PROPERTY_NAME, nName);
-    nJob.setProperty(DataStoreEntityParams.ENTITY_PHONE_PROPERTY_NAME, nPhone);
-    nJob.setProperty(DataStoreEntityParams.ENTITY_DATE_PROPERTY_NAME, nDate);
-    nJob.setProperty(DataStoreEntityParams.ENTITY_START_LAT_PROPERTY_NAME, nStartLat);
-    nJob.setProperty(DataStoreEntityParams.ENTITY_START_LONG_PROPERTY_NAME, nStartLong);
-    nJob.setProperty(DataStoreEntityParams.ENTITY_END_LAT_PROPERTY_NAME, nEndLat);
-    nJob.setProperty(DataStoreEntityParams.ENTITY_END_LONG_PROPERTY_NAME, nEndLong);
-
-    datastore.put(nJob);
+    databaseWrapper.addJob(nName, nPhone, nStartLat, nStartLong, nEndLat, nEndLong);
     return new SuccessResponse();
   }
 }

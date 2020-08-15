@@ -19,16 +19,15 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Implements TSP algorithm in exponential time using dynamic programming.
- * From the source location, the salesman has to travel to all the locations 
- * only once and then come back to the source position.
- * So, from a particular location, check that going to which path will give the 
- * minimum distance out of all the paths that can be visited from that particular
- * location and return that path. 
- * Continue like this until all the locations are visited.
+ * Implements TSP algorithm in exponential time using dynamic programming. From
+ * the source location, the salesman has to travel to all the locations only
+ * once and then come back to the source position. So, from a particular
+ * location, check that going to which path will give the minimum distance out
+ * of all the paths that can be visited from that particular location and return
+ * that path. Continue like this until all the locations are visited.
  */
 public class TSPDynamicProgrammingAlgorithm implements ITSPAlgorithm {
-  public static final String SOURCE_LOCATION_TASK_ID="1";
+  public static final String SOURCE_LOCATION_TASK_ID = "1";
 
   @Override
   public List<String> findShortestPath(double[][] distanceMatrix) {
@@ -37,7 +36,7 @@ public class TSPDynamicProgrammingAlgorithm implements ITSPAlgorithm {
     for (int i = 0; i < minCost.length; i++) {
       Arrays.fill(minCost[i], Double.MAX_VALUE);
     }
-    
+
     if (!checkNegativeDistance(distanceMatrix)) {
       shortestPathDistanceCalculator(distanceMatrix, 1, 0, path, minCost);
       return getShortestPath(path);
@@ -46,17 +45,19 @@ public class TSPDynamicProgrammingAlgorithm implements ITSPAlgorithm {
   }
 
   /**
-   * Calculates the distance of the shortest path to be followed.  
+   * Calculates the distance of the shortest path to be followed.
+   * 
    * @param distanceMatrix
-   * @param state Represents state that what all locations have been visited.
-   * @param currentLocation Current location at which we are present.  
-   * @param path Represents next location to be visited from current location 
-   * at a particular state.
+   * @param state           Represents state that what all locations have been
+   *                        visited.
+   * @param currentLocation Current location at which we are present.
+   * @param path            Represents next location to be visited from current
+   *                        location at a particular state.
    * @param minCost
    */
-  private double shortestPathDistanceCalculator(double[][] distanceMatrix, int state, 
-  int currentLocation, Integer[][] path, double[][] minCost) {
-    
+  private double shortestPathDistanceCalculator(double[][] distanceMatrix, int state, int currentLocation,
+      Integer[][] path, double[][] minCost) {
+
     // If all the locations have been visited then
     // return the distance from the current location
     // to starting location(source).
@@ -77,15 +78,16 @@ public class TSPDynamicProgrammingAlgorithm implements ITSPAlgorithm {
 
       // Checks if the location is visited or not.
       if ((state & (1 << location)) == 0) {
-        double newDistance = distanceMatrix[currentLocation][location] + shortestPathDistanceCalculator(distanceMatrix, (state | (1 << location)), location, path, minCost);
+        double newDistance = distanceMatrix[currentLocation][location]
+            + shortestPathDistanceCalculator(distanceMatrix, (state | (1 << location)), location, path, minCost);
         if (newDistance < minimumDistance) {
           minimumDistance = newDistance;
           nextLocation = location;
         }
       }
     }
-    
-    // Storing next location to be visited from the current 
+
+    // Storing next location to be visited from the current
     // location at a particular state.
     path[state][currentLocation] = nextLocation;
 
@@ -96,6 +98,7 @@ public class TSPDynamicProgrammingAlgorithm implements ITSPAlgorithm {
 
   /**
    * Gets the path to be followed giving the minimum distance.
+   * 
    * @param path
    */
   private List<String> getShortestPath(Integer[][] path) {
@@ -107,55 +110,52 @@ public class TSPDynamicProgrammingAlgorithm implements ITSPAlgorithm {
     int currentLocationTaskId = Integer.valueOf(SOURCE_LOCATION_TASK_ID);
 
     // Gets the next location to be visited from the path array.
-    // If the next location exists then update the state. 
+    // If the next location exists then update the state.
     // Current location will be updated to next location to be visited.
     while (true) {
       shortestDistancePath.add(String.valueOf(currentLocationTaskId));
-      Integer nextLocationTaskId = path[state][currentLocationTaskId-1];
+      Integer nextLocationTaskId = path[state][currentLocationTaskId - 1];
       if (nextLocationTaskId == null) {
         break;
       }
       state = state | (1 << nextLocationTaskId);
-      currentLocationTaskId = nextLocationTaskId+1;
+      currentLocationTaskId = nextLocationTaskId + 1;
     }
     shortestDistancePath.add(SOURCE_LOCATION_TASK_ID);
-    
+
     return shortestDistancePath;
   }
 
   /**
    * Checks the negative distance cycle using floyd warshall algorithm.
+   * 
    * @param distanceMatrix
    */
   private boolean checkNegativeDistance(double[][] distanceMatrix) {
 
-    // distance[][] is the matrix that will  
-    // finally have the shortest  
-    // distances between every pair of vertices.
+    // distance[][] is the matrix that will finally have the shortest distances
+    // between every pair of vertices.
     double[][] distance = distanceMatrix;
 
-    // Add all vertices one by one to the set of  
-    // intermediate vertices. 
+    // Add all vertices one by one to the set of intermediate vertices.
     for (int k = 0; k < distance.length; k++) {
 
-      // Pick all vertices as source one by one. 
+      // Pick all vertices as source one by one.
       for (int i = 0; i < distance.length; i++) {
 
-        // Pick all vertices as destination for the 
-        // above picked source.
+        // Pick all vertices as destination for the above picked source.
         for (int j = 0; j < distance.length; j++) {
 
-          // If vertex k is on the shortest path from 
-          // i to j, then update the value of distance[i][j]
+          // If vertex k is on the shortest path from i to j, then update the value of
+          // distance[i][j]
           if (distance[i][k] + distance[k][j] < distance[i][j])
             distance[i][j] = distance[i][k] + distance[k][j];
         }
       }
     }
 
-    // If distance of any vertex from itself 
-    // becomes negative, then there is a negative 
-    // distance cycle. 
+    // If distance of any vertex from itself becomes negative, then there is a
+    // negative distance cycle.
     for (int i = 0; i < distance.length; i++) {
       if (distance[i][i] < 0) {
         return true;
