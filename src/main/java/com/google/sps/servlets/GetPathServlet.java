@@ -40,7 +40,6 @@ public class GetPathServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-    // TODO[samii9914]: to get tasks from database and form the List accordingly
     List<Task> taskList = new ArrayList<>(Arrays.asList(
       new Task("1", 67.09, 23.65, 98.7, 22.3),
       new Task("2", 68.34, 24.5, 99.7, 23.65), 
