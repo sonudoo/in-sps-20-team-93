@@ -12,29 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.sps.lib;
+package com.google.sps.lib.handler;
+
+import com.google.appengine.repackaged.com.google.gson.Gson;
 
 /**
- * Represents a request validation status.
+ * The handler response interface.
  */
-public class ValidationStatus {
-  private final String message;
-  private final ValidationStatusCode status;
+public abstract class HandlerResponse {
+  /**
+   * Returns HTTP response status.
+   */
+  public abstract int getStatus();
 
-  private ValidationStatus(ValidationStatusCode status, String message) {
-    this.message = message;
-    this.status = status;
-  }
+  /**
+   * Returns additional message with the response.
+   */
+  public abstract ResponseMessage getMessage();
 
-  public static ValidationStatus create(ValidationStatusCode status, String message) {
-    return new ValidationStatus(status, message);
-  }
-
-  public ValidationStatusCode getStatus() {
-    return this.status;
-  }
-
-  public String getMessage() {
-    return this.message;
+  /**
+   * Returns the object as Json.
+   */
+  public String getJson() {
+    return new Gson().toJson(this);
   }
 }

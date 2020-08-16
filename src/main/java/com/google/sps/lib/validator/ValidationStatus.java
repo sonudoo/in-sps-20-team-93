@@ -12,32 +12,29 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.sps.lib;
-
-import javax.servlet.http.HttpServletResponse;
+package com.google.sps.lib.validator;
 
 /**
- * Represents a success response.
+ * Represents a request validation status.
  */
-public class SuccessResponse implements IResponse {
+public class ValidationStatus {
+  private final String message;
+  private final ValidationStatusCode status;
 
-  private final static String RESPONSE_MESSAGE_TITLE = "Success";
-
-  private final int status;
-  private final ResponseMessage message;
-
-  public SuccessResponse() {
-    this.status = HttpServletResponse.SC_OK;
-    this.message = ResponseMessage.create(RESPONSE_MESSAGE_TITLE, "");
+  private ValidationStatus(ValidationStatusCode status, String message) {
+    this.message = message;
+    this.status = status;
   }
 
-  @Override
-  public int getStatus() {
-    return status;
+  public static ValidationStatus create(ValidationStatusCode status, String message) {
+    return new ValidationStatus(status, message);
   }
 
-  @Override
-  public ResponseMessage getMessage() {
-    return message;
+  public ValidationStatusCode getStatus() {
+    return this.status;
+  }
+
+  public String getMessage() {
+    return this.message;
   }
 }

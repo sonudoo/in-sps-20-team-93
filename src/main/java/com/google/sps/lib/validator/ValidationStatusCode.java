@@ -12,13 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.sps.lib;
+package com.google.sps.lib.validator;
 
-import java.util.List;
-
-/**
- * Contains method for calculating distance between the locations.
- */
-public interface IDistanceCalculator {
-  double[][] findDistance(List<Task> taskList);
+public enum ValidationStatusCode {
+  SUCCESS, FAILURE,
 }

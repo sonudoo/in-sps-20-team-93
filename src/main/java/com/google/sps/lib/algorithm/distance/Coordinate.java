@@ -12,29 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.sps.lib;
+package com.google.sps.lib.algorithm.distance;
 
 /**
- * Represents a response message.
+ * The wrapper for latitudes and longitudes of a location.
  */
-public class ResponseMessage {
-  private final String messageTitle;
-  private final String messageBody;
+public class Coordinate {
+  private final double latitudes;
+  private final double longitudes;
 
-  private ResponseMessage(String messageTitle, String messageBody) {
-    this.messageTitle = messageTitle;
-    this.messageBody = messageBody;
+  public Coordinate(final double latitudes, final double longitudes) {
+    this.latitudes = latitudes;
+    this.longitudes = longitudes;
   }
 
-  public static ResponseMessage create(String messageTitle, String messageBody) {
-    return new ResponseMessage(messageTitle, messageBody);
+  public double getLatutides() {
+    return latitudes;
   }
 
-  public String getMessageTitle() {
-    return this.messageTitle;
-  }
-
-  public String getMessageBody() {
-    return this.messageBody;
+  public double getLongitudes() {
+    return longitudes;
   }
 }

@@ -12,26 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.sps.lib;
+package com.google.sps.lib.handler;
 
-import java.util.List;
-import com.google.gson.Gson;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+import javax.servlet.http.HttpServletRequest;
 
-/**
- * Represents library utilities required in application.
- */
-public class LibUtils {
-  /**
-   * Converts response to json format.
-   */
-  public static String convertResponseToJson(IResponse response) {
-    return new Gson().toJson(response);
-  }
+@RunWith(MockitoJUnitRunner.class)
+public final class JobHandlerTest {
+  @Mock
+  HttpServletRequest submitJobRequest;
 
-  /**
-   * Converts list to json format.
-   */
-  public static String convertPathToJson(List<String> taskOrder) {
-    return new Gson().toJson(taskOrder);
+  @Test
+  public void addJobToDataStore_jobIsAddedToDataStore() throws Exception {
   }
 }

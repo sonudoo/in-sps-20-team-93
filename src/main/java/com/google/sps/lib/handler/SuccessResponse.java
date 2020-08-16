@@ -12,13 +12,32 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.sps.lib;
+package com.google.sps.lib.handler;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
- * Represents a server response.
+ * Represents a success response.
  */
-public interface IResponse {
-  int getStatus();
+class SuccessResponse extends HandlerResponse {
 
-  ResponseMessage getMessage();
+  private final static String RESPONSE_MESSAGE_TITLE = "Success";
+
+  private final int status;
+  private final ResponseMessage message;
+
+  SuccessResponse() {
+    this.status = HttpServletResponse.SC_OK;
+    this.message = ResponseMessage.create(RESPONSE_MESSAGE_TITLE, "");
+  }
+
+  @Override
+  public int getStatus() {
+    return status;
+  }
+
+  @Override
+  public ResponseMessage getMessage() {
+    return message;
+  }
 }

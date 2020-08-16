@@ -12,22 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.sps.lib;
+package com.google.sps.lib.handler;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import java.lang.Exception;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 import javax.servlet.http.HttpServletRequest;
+import com.google.sps.lib.validator.SubmitJobValidator;
 
-@RunWith(MockitoJUnitRunner.class)
-public final class JobHandlerTest {
-  @Mock
-  HttpServletRequest dataStoreRequest;
+public class JobHandlerFactory {
 
-  @Test
-  public void addJobToDataStore_jobIsAddedToDataStore() throws Exception {
-    
+  private static final DatastoreWrapper databaseWrapper = new DatastoreWrapper();
+  private static final SubmitJobValidator submitJobValidator = new SubmitJobValidator();
+
+  public static SubmitJobHandler createSubmitJobHandler(HttpServletRequest request) {
+    return new SubmitJobHandler(submitJobValidator, databaseWrapper, request);
+  }
+
+  public static GetPathHandler createGetPathHandler(HttpServletRequest request) {
+    return new GetPathHandler(databaseWrapper);
   }
 }

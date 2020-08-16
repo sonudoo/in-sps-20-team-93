@@ -12,9 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.sps.lib;
+package com.google.sps.lib.algorithm.tsp;
 
-public enum ValidationStatusCode {
-  VALIDATIONSUCCESS,
-  VALIDATIONFAILURE,
+import java.util.List;
+
+/**
+ * Implements TSP algorithm using minimum spanning tree (MST).
+ */
+public class TspGreedyAlgorithm implements ITspAlgorithm {
+
+  @Override
+  public List<Integer> findShortestPath(double[][] distanceMatrix) {
+    throw new RuntimeException("This method is unimplemented.");
+  }
 }

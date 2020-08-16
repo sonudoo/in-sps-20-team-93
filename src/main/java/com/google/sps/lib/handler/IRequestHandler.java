@@ -12,17 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.sps.lib;
-
-import java.util.List;
+package com.google.sps.lib.handler;
 
 /**
- * Implements TSP algorithm using minimum spanning tree(MST).
+ * Interface for all request handlers.
  */
-public class TSPGreedyAlgorithm implements ITSPAlgorithm {
-
-  @Override
-  public List<String> findShortestPath(double[][] distanceMatrix) {
-    return null;
-  }
+public interface IRequestHandler {
+  HandlerResponse getResponse();
 }

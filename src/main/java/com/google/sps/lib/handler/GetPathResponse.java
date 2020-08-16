@@ -12,23 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.sps.lib;
+package com.google.sps.lib.handler;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
- * Represents a bad request response.
+ * Represents a path list response.
  */
-class BadRequestErrorResponse implements IResponse {
+class GetPathResponse extends HandlerResponse {
 
-  private final static String RESPONSE_MESSAGE_TITLE = "Bad Request Format";
+  private final static String RESPONSE_MESSAGE_TITLE = "Success";
 
   private final int status;
   private final ResponseMessage message;
+  private final List<ResponseJob> responseJobs;
 
-  BadRequestErrorResponse(String errorMessage) {
-    this.status = HttpServletResponse.SC_BAD_REQUEST;
-    this.message = ResponseMessage.create(RESPONSE_MESSAGE_TITLE, errorMessage);
+  GetPathResponse(List<ResponseJob> responseJobs) {
+    this.status = HttpServletResponse.SC_OK;
+    this.message = ResponseMessage.create(RESPONSE_MESSAGE_TITLE, "");
+    this.responseJobs = responseJobs;
   }
 
   @Override
@@ -39,5 +42,9 @@ class BadRequestErrorResponse implements IResponse {
   @Override
   public ResponseMessage getMessage() {
     return message;
+  }
+
+  public List<ResponseJob> getResponseJobs() {
+    return responseJobs;
   }
 }
