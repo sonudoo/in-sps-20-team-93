@@ -57,7 +57,7 @@ public class MapsApiDistanceCalculatorTest {
   }
 
   @Test(expected = RuntimeException.class)
-  public void findDistance_failureResponse_RuntimeException_noApiResponse() throws Exception {
+  public void findDistance_failureResponse_noApiResponse_RuntimeException() throws Exception {
     when(mockUrlWrapper.openConnection(any())).thenReturn(mockConnection);
     when(mockConnection.getResponseCode()).thenReturn(200);
     String apiResponse = "";
