@@ -16,7 +16,8 @@ package com.google.sps.lib.handler;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.google.sps.lib.algorithm.distance.EuclideanDistanceCalculator;
+import com.google.sps.lib.algorithm.distance.MapsApiDistanceCalculator;
+import com.google.sps.lib.algorithm.distance.URLWrapper;
 import com.google.sps.lib.algorithm.graph.TravellingSalesmanGraph;
 import com.google.sps.lib.algorithm.graph.TravellingSalesmanTask;
 import com.google.sps.lib.algorithm.tsp.TspDynamicProgrammingAlgorithm;
@@ -43,12 +44,14 @@ public class GetPathHandler implements IRequestHandler {
     List<DatastoreJob> datastoreJobs = datastoreWrapper.getAllJobs();
     List<TravellingSalesmanTask> travellingSalesmanTasks = new ArrayList<>();
     for (int i = 0; i < datastoreJobs.size(); i++) {
-      travellingSalesmanTasks.add(new TravellingSalesmanTask(/* taskId= */i, datastoreJobs.get(i).getLatitude(),
+      travellingSalesmanTasks.add(new TravellingSalesmanTask(/* taskId= */ i, datastoreJobs.get(i).getLatitude(),
           datastoreJobs.get(i).getLongitude()));
     }
     TravellingSalesmanGraph graph = new TravellingSalesmanGraph(travellingSalesmanTasks,
-        new TspDynamicProgrammingAlgorithm(), new EuclideanDistanceCalculator(), HOME_LATITUDES, HOME_LONGITUDES);
+        new TspDynamicProgrammingAlgorithm(), new MapsApiDistanceCalculator(new URLWrapper()), HOME_LATITUDES,
+        HOME_LONGITUDES);
     List<TravellingSalesmanTask> optimumTasks = graph.getMinimumPath();
+
     List<ResponseJob> responseJobs = new ArrayList<>();
     responseJobs.add(new ResponseJob(HOME_NAME, "", HOME_LATITUDES, HOME_LONGITUDES));
     for (int i = 0; i < optimumTasks.size(); i++) {
