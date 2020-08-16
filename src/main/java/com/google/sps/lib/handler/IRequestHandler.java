@@ -15,8 +15,13 @@
 package com.google.sps.lib.handler;
 
 /**
- * Interface for all request handlers.
+ * Interface for all request handlers. All implementation are required to
+ * process the {@link javax.servlet.http.HttpServletRequest} object and
+ * implement the method that returns the response as {@link HandlerResponse}.
  */
 public interface IRequestHandler {
+  /**
+   * Returns the response object of the processed request.
+   */
   HandlerResponse getResponse();
 }

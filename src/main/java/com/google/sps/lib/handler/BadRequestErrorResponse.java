@@ -26,6 +26,10 @@ class BadRequestErrorResponse extends HandlerResponse {
   private final int status;
   private final ResponseMessage message;
 
+  /**
+   * The constructor is package-private because its instance can only be created
+   * by request handlers.
+   */
   BadRequestErrorResponse(final String errorMessage) {
     this.status = HttpServletResponse.SC_BAD_REQUEST;
     this.message = ResponseMessage.create(RESPONSE_MESSAGE_TITLE, errorMessage);

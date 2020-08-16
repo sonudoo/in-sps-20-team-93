@@ -15,7 +15,8 @@
 package com.google.sps.lib.handler;
 
 /**
- * The job object in response.
+ * The job object in response. The class (and its methods) are implementation
+ * details of the handler and must not be accessed from outside.
  */
 class ResponseJob {
   private final String name;
@@ -30,19 +31,19 @@ class ResponseJob {
     this.longitude = longitude;
   }
 
-  public String getName() {
+  String getName() {
     return name;
   }
 
-  public String getPhone() {
+  String getPhone() {
     return phone;
   }
 
-  public double getLatitude() {
+  double getLatitude() {
     return latitude;
   }
 
-  public double getLongitude() {
+  double getLongitude() {
     return longitude;
   }
 }

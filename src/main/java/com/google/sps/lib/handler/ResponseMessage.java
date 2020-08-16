@@ -15,9 +15,11 @@
 package com.google.sps.lib.handler;
 
 /**
- * Represents a response message.
+ * Represents a response message. The objects of this class forms a part of
+ * {@link HandlerResponse} and so the visibility rules are same as that of
+ * concrete implementations of {@link HandlerResponse}.
  */
-public class ResponseMessage {
+class ResponseMessage {
   private final String messageTitle;
   private final String messageBody;
 
@@ -30,11 +32,11 @@ public class ResponseMessage {
     return new ResponseMessage(messageTitle, messageBody);
   }
 
-  public String getMessageTitle() {
+  String getMessageTitle() {
     return messageTitle;
   }
 
-  public String getMessageBody() {
+  String getMessageBody() {
     return messageBody;
   }
 }

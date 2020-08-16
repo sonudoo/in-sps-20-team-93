@@ -67,10 +67,8 @@ public class TspDynamicProgrammingAlgorithm implements ITspAlgorithm {
     if (minCost[state][currentLocation] != Double.MAX_VALUE) {
       return minCost[state][currentLocation];
     }
-
     double minimumDistance = Double.MAX_VALUE;
     int nextLocation = -1;
-
     // Finds which location should be visited next to the current location that will
     // give the shortest distance path from all the locations which are not visited
     // yet.

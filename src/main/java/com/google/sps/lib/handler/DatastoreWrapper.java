@@ -9,7 +9,9 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 
 /**
- * The wrapper for database related operations.
+ * The wrapper for database related operations. The class (and all its methods)
+ * is package-private because it is an implementation detail of the handler.
+ * Servlets must not try to instantiate this class.
  */
 class DatastoreWrapper {
 
@@ -32,8 +34,8 @@ class DatastoreWrapper {
     nJob.setProperty(DatastoreJobEntityParams.ENTITY_JOBID_PROPERTY_NAME, datastoreJob.getJobId());
     nJob.setProperty(DatastoreJobEntityParams.ENTITY_USER_PROPERTY_NAME, datastoreJob.getName());
     nJob.setProperty(DatastoreJobEntityParams.ENTITY_PHONE_PROPERTY_NAME, datastoreJob.getPhone());
-    nJob.setProperty(DatastoreJobEntityParams.ENTITY_LAT_PROPERTY_NAME, datastoreJob.getLatitude());
-    nJob.setProperty(DatastoreJobEntityParams.ENTITY_LONG_PROPERTY_NAME, datastoreJob.getLongitude());
+    nJob.setProperty(DatastoreJobEntityParams.ENTITY_LAT_PROPERTY_NAME, datastoreJob.getLatitudes());
+    nJob.setProperty(DatastoreJobEntityParams.ENTITY_LONG_PROPERTY_NAME, datastoreJob.getLongitudes());
     datastore.put(nJob);
   }
 

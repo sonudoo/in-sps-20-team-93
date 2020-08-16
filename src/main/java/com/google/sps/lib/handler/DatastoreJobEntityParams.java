@@ -15,7 +15,7 @@
 package com.google.sps.lib.handler;
 
 /**
- * Represents Datastore parameters for an Entity.
+ * Contains constants related to fields of a Job stored in database.
  */
 public class DatastoreJobEntityParams {
   public static final String ENTITY_JOBID_PROPERTY_NAME = "JobId";

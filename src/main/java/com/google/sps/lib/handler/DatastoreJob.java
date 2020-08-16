@@ -21,24 +21,24 @@ class DatastoreJob {
   private final String jobId;
   private final String name;
   private final String phone;
-  private final double latitude;
-  private final double longitude;
+  private final double latitudes;
+  private final double longitudes;
 
-  DatastoreJob(final String jobId, final String name, final String phone, final double latitude,
-      final double longitude) {
+  DatastoreJob(final String jobId, final String name, final String phone, final double latitudes,
+      final double longitudes) {
     this.jobId = jobId;
     this.name = name;
     this.phone = phone;
-    this.latitude = latitude;
-    this.longitude = longitude;
+    this.latitudes = latitudes;
+    this.longitudes = longitudes;
   }
 
-  public double getLongitude() {
-    return longitude;
+  public double getLongitudes() {
+    return longitudes;
   }
 
-  public double getLatitude() {
-    return latitude;
+  public double getLatitudes() {
+    return latitudes;
   }
 
   public String getPhone() {

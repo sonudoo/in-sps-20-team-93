@@ -26,12 +26,21 @@ import com.google.sps.lib.algorithm.tsp.TspDynamicProgrammingAlgorithm;
  * Gets the best path for all the jobs in the datastore.
  */
 public class GetPathHandler implements IRequestHandler {
+  /**
+   * The home latitudes and longitudes corresponds to India Gate, New Delhi. It is
+   * assumed to be the warehouse location from where the vehicle will start and
+   * end the delivery task.
+   */
   private final static double HOME_LATITUDES = 28.6129;
   private final static double HOME_LONGITUDES = 77.2295;
   private final static String HOME_NAME = "HOME";
 
   private final DatastoreWrapper datastoreWrapper;
 
+  /**
+   * The constructor is purposely kept package-private. Please use
+   * {@link JobHandlerFactory} to get an instance of this class.
+   */
   GetPathHandler(final DatastoreWrapper datastoreWrapper) {
     this.datastoreWrapper = datastoreWrapper;
   }
@@ -42,23 +51,35 @@ public class GetPathHandler implements IRequestHandler {
   @Override
   public HandlerResponse getResponse() {
     List<DatastoreJob> datastoreJobs = datastoreWrapper.getAllJobs();
+
+    // Get a list of {@link TravellingSalesmanTask} from all the jobs in the
+    // datastore. The task ids are generated serially from 0.
     List<TravellingSalesmanTask> travellingSalesmanTasks = new ArrayList<>();
     for (int i = 0; i < datastoreJobs.size(); i++) {
-      travellingSalesmanTasks.add(new TravellingSalesmanTask(/* taskId= */ i, datastoreJobs.get(i).getLatitude(),
-          datastoreJobs.get(i).getLongitude()));
+      travellingSalesmanTasks.add(new TravellingSalesmanTask(/* taskId= */ i, datastoreJobs.get(i).getLatitudes(),
+          datastoreJobs.get(i).getLongitudes()));
     }
+
+    // Create a TSP graph and get the optimum order of tasks.
     TravellingSalesmanGraph graph = new TravellingSalesmanGraph(travellingSalesmanTasks,
         new TspDynamicProgrammingAlgorithm(), new MapsApiDistanceCalculator(new URLWrapper()), HOME_LATITUDES,
         HOME_LONGITUDES);
     List<TravellingSalesmanTask> optimumTasks = graph.getMinimumPath();
 
+    // Create a list of {@link ResponseJob} from the ordered list of {@link
+    // TravellingSalesmanTask}.
     List<ResponseJob> responseJobs = new ArrayList<>();
+    // Add the home location to a response job.
     responseJobs.add(new ResponseJob(HOME_NAME, "", HOME_LATITUDES, HOME_LONGITUDES));
+    // Add all the response jobs corresponding to the ordered list.
     for (int i = 0; i < optimumTasks.size(); i++) {
+      // We will use the task id to get the {@link DatastoreJob} back from {@link
+      // TravellingSalesmanTask}.
       DatastoreJob datastoreJob = datastoreJobs.get(optimumTasks.get(i).getTaskId());
-      responseJobs.add(new ResponseJob(datastoreJob.getName(), datastoreJob.getPhone(), datastoreJob.getLatitude(),
-          datastoreJob.getLongitude()));
+      responseJobs.add(new ResponseJob(datastoreJob.getName(), datastoreJob.getPhone(), datastoreJob.getLatitudes(),
+          datastoreJob.getLongitudes()));
     }
+    // Add the home location to a response job again.
     responseJobs.add(new ResponseJob(HOME_NAME, "", HOME_LATITUDES, HOME_LONGITUDES));
     return new GetPathResponse(responseJobs);
   }

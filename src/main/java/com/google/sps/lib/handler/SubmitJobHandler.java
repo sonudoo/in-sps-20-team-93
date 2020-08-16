@@ -29,6 +29,10 @@ public class SubmitJobHandler implements IRequestHandler {
   private final DatastoreWrapper datastoreWrapper;
   private final HttpServletRequest request;
 
+  /**
+   * The constructor is purposely kept package-private. Please use
+   * {@link JobHandlerFactory} to get an instance of this class.
+   */
   SubmitJobHandler(final SubmitJobValidator submitJobValidator, final DatastoreWrapper datastoreWrapper,
       final HttpServletRequest request) {
     this.requestValidator = submitJobValidator;
