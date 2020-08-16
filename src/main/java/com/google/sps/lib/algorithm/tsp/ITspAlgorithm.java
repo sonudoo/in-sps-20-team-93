@@ -17,18 +17,19 @@ package com.google.sps.lib.algorithm.tsp;
 import java.util.List;
 
 /**
- * Contains method to find shortest path using TSP Algorithm.
+ * Contains method to find shortest path using TSP Algorithm. All
+ * implementations are required to implement a method tha returns a list of
+ * indices, visiting which in order will result in minimum distance covered.
  */
 public interface ITspAlgorithm {
-
   /**
    * Returns an order of index (as list) that can be visited in such a way that
    * all locations are visited and total distance travelled is minimized. The 0th
-   * index is assumed to be the starting location.
+   * index is assumed to be the starting and the ending location.
    * 
    * 
    * @param distanceMatix The matrix representing distance between different
-   * locations that are required to be visited. 
+   *                      locations that are required to be visited.
    */
   List<Integer> findShortestPath(double[][] distanceMatrix) throws InvalidDistanceMatrixException;
 }

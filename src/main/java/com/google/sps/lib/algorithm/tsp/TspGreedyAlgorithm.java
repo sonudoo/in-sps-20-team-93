@@ -23,6 +23,6 @@ public class TspGreedyAlgorithm implements ITspAlgorithm {
 
   @Override
   public List<Integer> findShortestPath(double[][] distanceMatrix) {
-    throw new RuntimeException("This method is unimplemented.");
+    throw new RuntimeException("This method is unimplemented. Please use TspDynamicProgrammingAlgorithm class.");
   }
 }
