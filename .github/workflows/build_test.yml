@@ -14,6 +14,12 @@ jobs:
         with:
           java-version: 1.8
 
+      - name: Place Google Maps API key in code
+        uses: jacobtomlinson/gha-find-replace@master
+        with:
+          find: "__GOOGLE_MAPS_API_KEY__"
+          replace: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+
       - name: Build backend with Maven
         run: mvn -B package --file pom.xml -DskipTests
 

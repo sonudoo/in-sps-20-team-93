@@ -18,6 +18,12 @@ jobs:
           project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
           service_account_key: ${{ secrets.GCLOUD_AUTH }}
 
+      - name: Place Google Maps API key in code
+        uses: jacobtomlinson/gha-find-replace@master
+        with:
+          find: "__GOOGLE_MAPS_API_KEY__"
+          replace: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.1
 
