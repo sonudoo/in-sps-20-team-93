@@ -18,7 +18,7 @@ jobs:
         uses: jacobtomlinson/gha-find-replace@master
         with:
           find: "__GOOGLE_MAPS_API_KEY__"
-          replace: "AIzaSyD7fbkjsX5jSL5_KvX6vaMLPb5a219UX1o"
+          replace: ${{ secrets.GOOGLE_MAPS_API_KEY }}
 
       - name: Build backend with Maven
         run: mvn -B package --file pom.xml -DskipTests
