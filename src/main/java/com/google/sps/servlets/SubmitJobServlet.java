@@ -19,32 +19,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.sps.lib.IResponse;
-import com.google.sps.lib.JobHandler;
-import com.google.sps.lib.LibUtils;
-import com.google.sps.lib.SubmitJobValidator;
+import com.google.sps.lib.handler.HandlerResponse;
+import com.google.sps.lib.handler.JobHandlerFactory;
 
 /**
- * Submits job provided by user to Database.
+ * Adds job provided by user to Database.
  */
 @WebServlet("/api/submitJob")
 public class SubmitJobServlet extends HttpServlet {
 
-  /**
-   * Handles server side POST requests.
-   */
+  private static final long serialVersionUID = 1L;
+
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    JobHandler jobHandler = new JobHandler();
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    SubmitJobValidator requestValidator = new SubmitJobValidator();
-
-    IResponse handlerResponse = jobHandler.addJobToDataStore(request, datastore, requestValidator);
-    String responseJson = LibUtils.convertResponseToJson(handlerResponse);
+    HandlerResponse handlerResponse = JobHandlerFactory.createSubmitJobHandler(request).getResponse();
     response.setStatus(handlerResponse.getStatus());
     response.setContentType("application/json;");
-    response.getWriter().println(responseJson);
+    response.getWriter().println(handlerResponse.getJson());
   }
 }
