@@ -15,22 +15,35 @@
 package com.google.sps.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Arrays;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.google.sps.lib.handler.JobHandlerFactory;
+import com.google.sps.lib.algorithm.distance.Coordinate;
+import com.google.sps.lib.algorithm.distance.MapsApiDistanceCalculator;
+import com.google.sps.lib.algorithm.distance.URLWrapper;
+import com.google.gson.Gson;
 
 /**
- * Gets the path to be followed.
+ * This servlet is not part of the application & solely for testing Matrix API.
  */
-@WebServlet("/api/getPath")
-public class GetPathServlet extends HttpServlet {
-  private static final long serialVersionUID = 1L;
+@WebServlet("/api/matrix")
+public class MatrixAPIServlet extends HttpServlet {
+  private static final long serialVersionUID = 2L;
 
+  /**
+   * Handles server side GET requests.
+   */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("application/json;");
-    response.getWriter().println(JobHandlerFactory.createGetPathHandler(request).getResponse().getJson());
+    List<Coordinate> coordinates = new ArrayList<>(
+        Arrays.asList(new Coordinate(28.6129, 77.2295), new Coordinate(28.6127, 77.2773)));
+    response.getWriter()
+        .write(new Gson().toJson(new MapsApiDistanceCalculator(new URLWrapper()).findDistance(coordinates)));
+    response.getWriter().flush();
+    response.getWriter().close();
   }
 }
