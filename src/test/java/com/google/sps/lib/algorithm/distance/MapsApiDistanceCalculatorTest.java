@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.sps.lib;
+package com.google.sps.lib.algorithm.distance;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -27,8 +27,6 @@ import java.net.HttpURLConnection;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import javax.servlet.http.HttpServletRequest;
-
 @RunWith(MockitoJUnitRunner.class)
 public class MapsApiDistanceCalculatorTest {
   @Mock
@@ -42,6 +40,7 @@ public class MapsApiDistanceCalculatorTest {
     // when(mockUrlWrapper.openConnection(any())).thenReturn(mockConnection);
     // when(mockConnection.getResponseCode()).thenReturn(200);
     // String apiResponse = "{}";
-    // when(mockConnection.getInputStream()).thenReturn(new ByteArrayInputStream(apiResponse.getBytes("UTF-8")));
+    // when(mockConnection.getInputStream()).thenReturn(new
+    // ByteArrayInputStream(apiResponse.getBytes("UTF-8")));
   }
 }

@@ -15,14 +15,9 @@
 package com.google.sps.lib.algorithm.distance;
 
 import java.util.List;
-
-import javax.lang.model.element.Element;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.io.IOException;
 import java.lang.RuntimeException;
 import com.google.gson.Gson;
@@ -33,7 +28,7 @@ import com.google.gson.Gson;
 public class MapsApiDistanceCalculator implements IDistanceCalculator {
 
   private static final String MATRIX_API_URL = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial";
-  private static final String API_KEY = "YOUR_API_KEY";
+  private static final String API_KEY = "AIzaSyD7fbkjsX5jSL5_KvX6vaMLPb5a219UX1o";
   URLWrapper urlWrapper;
 
   public MapsApiDistanceCalculator(URLWrapper urlWrapper) {
@@ -41,7 +36,7 @@ public class MapsApiDistanceCalculator implements IDistanceCalculator {
   }
 
   @Override
-  public double[][] findDistance(List<Task> taskList) {
+  public double[][] findDistance(List<Coordinate> taskList) {
     String matrixAPIResponse = getApiResponse(taskList);
     MatrixAPIResponse apiObject = parseJsonResponse(matrixAPIResponse);
     double distMatrix[][] = getDistanceMatrix(apiObject);
@@ -49,23 +44,52 @@ public class MapsApiDistanceCalculator implements IDistanceCalculator {
   }
 
   /**
+   * Calls the Matrix API and returns the response.
+   */
+  private String getApiResponse(List<Coordinate> coordinates) {
+
+    String requestUrl = getRequestUrl(coordinates);
+    try {
+      HttpURLConnection connection = urlWrapper.openConnection(requestUrl);
+      connection.setRequestMethod("GET");
+      int responseCode = connection.getResponseCode();
+
+      if (responseCode == HttpURLConnection.HTTP_OK) {
+        StringBuffer apiResponse = new StringBuffer();
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String inputLine;
+        while ((inputLine = in.readLine()) != null) {
+          apiResponse.append(inputLine);
+        }
+        in.close();
+        return apiResponse.toString();
+      } else {
+        return "";
+      }
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  /**
    * Builds a request URL based on matrix URL and Task list.
    */
-  private String findRequestUrl(List<Task> taskList) {
+  private String getRequestUrl(List<Coordinate> coordinates) {
     String requestURL = MATRIX_API_URL;
     StringBuilder origins = new StringBuilder("origins=");
     StringBuilder destinations = new StringBuilder("destinations=");
-    boolean isWarehouseAdded[] = { false }; // Single Warehouse Origin point location
+    boolean isWarehouseAdded = false; // Single Warehouse origin point location
 
-    for (Task currTask : taskList) {
-      if (!isWarehouseAdded[0]) {
-        origins.append(currTask.getStartLatitude() + "," + currTask.getStartLongitude());
-        destinations.append(currTask.getStartLatitude() + "," + currTask.getStartLongitude());
-        isWarehouseAdded[0] = true;
+    for (Coordinate currCoordinate : coordinates) {
+      if (!isWarehouseAdded) {
+        origins.append(currCoordinate.getLatutides() + "," + currCoordinate.getLongitudes());
+        destinations.append(currCoordinate.getLatutides() + "," + currCoordinate.getLongitudes());
+        isWarehouseAdded = true;
+      } else {
+
+        origins.append("|" + currCoordinate.getLatutides() + "," + currCoordinate.getLongitudes());
+        destinations.append("|" + currCoordinate.getLatutides() + "," + currCoordinate.getLongitudes());
       }
-
-      origins.append("|" + currTask.getEndLatitude() + "," + currTask.getEndLongitude());
-      destinations.append("|" + currTask.getEndLatitude() + "," + currTask.getStartLongitude());
     }
 
     requestURL += "&" + origins.toString() + "&" + destinations.toString() + "&key=" + API_KEY;
@@ -89,7 +113,6 @@ public class MapsApiDistanceCalculator implements IDistanceCalculator {
     int locationsSize = apiObject.getRows().size();
     double distMatrix[][] = new double[locationsSize][locationsSize];
     int row = 0, col = 0;
-
     for (Rows currRow : apiObject.getRows()) {
       col = 0;
       for (Elements currElement : currRow.getElements()) {
@@ -98,35 +121,6 @@ public class MapsApiDistanceCalculator implements IDistanceCalculator {
       }
       row++;
     }
-
     return distMatrix;
-  }
-
-  /**
-   * Calls the Matrix API and returns the response.
-   */
-  private String getApiResponse(List<Task> taskList) {
-
-    String requestUrl = findRequestUrl(taskList);
-    try {
-      HttpURLConnection connection = urlWrapper.openConnection(requestUrl);
-      connection.setRequestMethod("GET");
-      int responseCode = connection.getResponseCode();
-
-      if (responseCode == HttpURLConnection.HTTP_OK) {
-        StringBuffer apiResponse = new StringBuffer();
-        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String inputLine;
-        while ((inputLine = in.readLine()) != null) {
-          apiResponse.append(inputLine);
-        }
-        in.close();
-        return apiResponse.toString();
-      } else {
-        return "";
-      }
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
   }
 }

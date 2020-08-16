@@ -1,11 +1,11 @@
-package com.google.sps.lib;
+package com.google.sps.lib.algorithm.distance;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * TODO(shradha-khapra)
+ * A wrapper over {@link URL}.
  */
 public class URLWrapper {
 
