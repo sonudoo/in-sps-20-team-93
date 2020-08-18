@@ -31,7 +31,7 @@ public class EuclideanDistanceCalculator implements IDistanceCalculator {
       for (int j = 0; j < distanceMatrix[0].length; j++) {
         if (i != j) {
           final double xDistance = coordinateList.get(i).getLatutides() - coordinateList.get(j).getLongitudes();
-          final double yDistance = coordinateList.get(i).getLatutides() - coordinateList.get(j).getLongitudes();
+          final double yDistance = coordinateList.get(i).getLatutides() + coordinateList.get(j).getLongitudes();
           distanceMatrix[i][j] = Math.sqrt(((xDistance * xDistance) + (yDistance * yDistance)));
         }
       }
