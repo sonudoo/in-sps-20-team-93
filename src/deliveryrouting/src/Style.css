@@ -1,0 +1,77 @@
+.MapsContainer {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+.SubmitJobFormContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 50px;
+  width: 400px;
+}
+
+.InputContainer {
+  background-color: rgb(245, 245, 245);
+  border: 1px solid #e8eaed;
+  border-radius: 8px;
+  font-family: "Google Sans", "Roboto", "Noto Sans Devanagari UI",
+    "Noto Sans Bengali UI", "Noto Sans Telugu UI", "Noto Sans Tamil UI",
+    "Noto Sans Gujarati UI", "Noto Sans Kannada UI", "Noto Sans Malayalam UI",
+    "Noto Sans Gurmukhi UI", "Arial", "sans-serif";
+  font-size: 14px;
+  height: 48px;
+  margin: 10px;
+  text-indent: 3px;
+  width: 350px;
+}
+
+.InputContainer:focus {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 -1px 0px rgba(0, 0, 0, 0.02);
+  outline: none;
+}
+
+.HomePageBodyContainer {
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+}
+
+.SubmitButtonContainer {
+  background-color: rgb(245, 245, 245);
+  border: 1px solid #dadce0;
+  border-radius: 36px;
+  box-shadow: 0 1px 6px rgba(60, 64, 67, 0.28);
+  cursor: pointer;
+  font-family: "Google Sans", "Roboto", "Noto Sans Devanagari UI",
+    "Noto Sans Bengali UI", "Noto Sans Telugu UI", "Noto Sans Tamil UI",
+    "Noto Sans Gujarati UI", "Noto Sans Kannada UI", "Noto Sans Malayalam UI",
+    "Noto Sans Gurmukhi UI", "Arial", "sans-serif";
+  font-size: 15px;
+  font-weight: bold;
+  height: 36px;
+  margin-top: 20px;
+  width: 140px;
+}
+
+.SubmitButtonContainer:hover {
+  background-color: white;
+}
+
+.DisabledInputContainer {
+  background-color: rgb(240, 238, 238);
+  border: 1px solid #e8eaed;
+  border-radius: 8px;
+  cursor: not-allowed;
+  font-family: "Google Sans", "Roboto", "Noto Sans Devanagari UI",
+    "Noto Sans Bengali UI", "Noto Sans Telugu UI", "Noto Sans Tamil UI",
+    "Noto Sans Gujarati UI", "Noto Sans Kannada UI", "Noto Sans Malayalam UI",
+    "Noto Sans Gurmukhi UI", "Arial", "sans-serif";
+  font-size: 14px;
+  height: 42px;
+  margin: 10px;
+  text-indent: 3px;
+  width: 350px;
+}
