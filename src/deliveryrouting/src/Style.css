@@ -9,7 +9,7 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  margin-top: 50px;
+  margin-top: 10px;
   width: 400px;
 }
 
@@ -40,7 +40,7 @@
 }
 
 .SubmitButtonContainer {
-  background-color: rgb(245, 245, 245);
+  background-color: blue;
   border: 1px solid #dadce0;
   border-radius: 36px;
   box-shadow: 0 1px 6px rgba(60, 64, 67, 0.28);
@@ -51,13 +51,14 @@
     "Noto Sans Gurmukhi UI", "Arial", "sans-serif";
   font-size: 15px;
   font-weight: bold;
-  height: 36px;
+  height: 48px;
   margin-top: 20px;
-  width: 140px;
+  outline: none;
+  width: 240px;
 }
 
 .SubmitButtonContainer:hover {
-  background-color: white;
+  background-color: #4285f4;
 }
 
 .DisabledInputContainer {
@@ -74,4 +75,28 @@
   margin: 10px;
   text-indent: 3px;
   width: 350px;
+}
+
+.InstructionsContainer {
+  background-color: rgb(240, 238, 238);
+  box-shadow: 0 1px 6px rgba(60, 64, 67, 0.28);
+  color: rgba(0, 0, 0, 0.87);
+  font-family: "Google Sans", Roboto, "Noto Sans Devanagari UI",
+    "Noto Sans Bengali UI", "Noto Sans Telugu UI", "Noto Sans Tamil UI",
+    "Noto Sans Gujarati UI", "Noto Sans Kannada UI", "Noto Sans Malayalam UI",
+    "Noto Sans Gurmukhi UI", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5em;
+  margin-left: 25px;
+  margin-top: 30px;
+  padding-left: 8px;
+  padding-top: 5px;
+  width: 350px;
+}
+
+.HeadingContainer {
+  font-style: italic;
+  padding-left: 10px;
+  width: 400px;
 }

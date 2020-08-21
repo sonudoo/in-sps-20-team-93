@@ -24,7 +24,7 @@ import com.google.sps.lib.handler.DatastoreJobEntityParams;
  */
 public class SubmitJobValidator {
   private boolean isAlphabetic(String value) {
-    return Pattern.matches("[a-zA-Z]+", value);
+    return Pattern.matches("[a-zA-Z0-9 ,/.-]+", value);
   }
 
   private boolean isNumericDouble(String value) {
