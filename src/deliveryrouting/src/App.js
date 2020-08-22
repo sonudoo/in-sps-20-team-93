@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import GoogleMap from './GoogleMapComponent';
+import GetPathComponent from './GetPathComponent';
 
 function App() {
   return (
-    <GoogleMap />
+    <GetPathComponent />
   );
 }
 
