@@ -31,11 +31,15 @@ test('renders <input /> with placeholder Longitudes', () => {
 });
 
 it('calls the callback when $.ajax requests are finished', () => {
-  const { getByPlaceholderText } = render(<SubmitJobForm />);
+  const { getByText } = render(<SubmitJobForm />);
   const $ = require('jquery');
   const submitButton = document.getElementById('SubmitButton');
   submitButton.click();
   expect(ajaxArgument.type).toEqual('POST');
+  ajaxArgument.success();
+  const responseElement = getByText('Request Submitted!');
+  expect(responseElement).toBeInTheDocument();
+
 });
 
 
