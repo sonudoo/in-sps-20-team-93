@@ -1,6 +1,10 @@
 import React from 'react';
-import { render,getByPlaceholderText } from '@testing-library/react';
-import {SubmitJobForm }from './SubmitJobForm';
+import { render, getByPlaceholderText } from '@testing-library/react';
+import { SubmitJobForm } from './SubmitJobForm';
+
+let ajaxArgument;
+jest.mock('jquery', () => ({ ajax: (argument) => { ajaxArgument = argument } }));
+beforeEach(() => jest.resetModules());
 
 test('renders <input /> with placeholder Name', () => {
   const { getByPlaceholderText } = render(<SubmitJobForm />);
@@ -25,4 +29,14 @@ test('renders <input /> with placeholder Longitudes', () => {
   const linkElement = getByPlaceholderText('Longitudes');
   expect(linkElement).toBeInTheDocument();
 });
+
+it('calls the callback when $.ajax requests are finished', () => {
+  const { getByPlaceholderText } = render(<SubmitJobForm />);
+  const $ = require('jquery');
+  const submitButton = document.getElementById('SubmitButton');
+  submitButton.click();
+  expect(ajaxArgument.type).toEqual('POST');
+});
+
+
 

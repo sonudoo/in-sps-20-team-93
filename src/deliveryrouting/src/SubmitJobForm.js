@@ -1,5 +1,5 @@
 import React from "react";
-import $ from "jquery";
+const $ = require('jquery');
 import "./Style.css";
 
 export class SubmitJobForm extends React.Component {
@@ -27,10 +27,10 @@ export class SubmitJobForm extends React.Component {
         Latitude: this.props.latitudes,
         Longitude: this.props.longitudes,
       },
-      success: function (data) {
+      success: () => {
         alert("Request Submitted!");
       },
-      error: function (xhr, status, err) {
+      error: () => {
         alert("Bad Request!");
       },
     });
@@ -70,7 +70,7 @@ export class SubmitJobForm extends React.Component {
           value={this.props.longitudes}
           disabled={true}
         />
-        <input className="SubmitButtonContainer" type="submit" />
+        <input className="SubmitButtonContainer" id="SubmitButton" type="submit" />
       </form>
     );
   }
