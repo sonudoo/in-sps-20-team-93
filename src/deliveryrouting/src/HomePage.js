@@ -1,6 +1,7 @@
 import React from "react";
 import { Map, GoogleApiWrapper, InfoWindow, Marker } from "google-maps-react";
 import Geocode from "react-geocode";
+import Grid from '@material-ui/core/Grid';
 import "./Style.css";
 import { SubmitJobForm } from "./SubmitJobForm";
 
@@ -10,8 +11,8 @@ export class SubmitJobContainer extends React.Component {
     this.state = {
       showInfoWindow: false,
       activeMarker: {},
-      name: "NewDelhi",
       marker: {
+        locationName: "NewDelhi",
         position: {
           lat: 28.6129,
           lng: 77.2295,
@@ -19,6 +20,7 @@ export class SubmitJobContainer extends React.Component {
       },
     };
   };
+  
   onMarkerClick = (props, marker, e) => {
     this.setState({
       selectedPlace: props,
@@ -26,6 +28,7 @@ export class SubmitJobContainer extends React.Component {
       showingInfoWindow: true,
     });
   }
+
   onClose = (props) => {
     if (this.state.showingInfoWindow) {
       this.setState({
@@ -35,7 +38,7 @@ export class SubmitJobContainer extends React.Component {
     }
   }
 
-  onMarkerDragEnd= (coord) => {
+  onMarkerDragEnd = (coord) => {
     const { latLng } = coord;
     let newPosition = {
       lat: latLng.lat().toFixed(5),
@@ -47,8 +50,8 @@ export class SubmitJobContainer extends React.Component {
       response => {
         newLocation = response.results[0].formatted_address;
         this.setState({
-          name: newLocation,
           marker: {
+            locationName: newLocation,
             position: newPosition,
           },
         });
@@ -63,8 +66,8 @@ export class SubmitJobContainer extends React.Component {
     return (
       <div className="HomePageBodyContainer">
         <div>
-        <h3 className="HeadingContainer">Welcome to DELIVERY SYSTEM!😃</h3>
-        <h4 className="HeadingContainer">Get the shortest route possible to complete all your deliveries!🚛</h4>
+        <h3 className="HeadingContainer">Welcome to DELIVERY SYSTEM!<span>😃</span></h3>
+        <h4 className="HeadingContainer">Get the shortest route possible to complete all your deliveries!<span>🚛</span></h4>
         <div className="InstructionsContainer">
           <p>To add the delivery location, follow the instructions below</p>
           <ul type="circle">
@@ -78,7 +81,7 @@ export class SubmitJobContainer extends React.Component {
           <SubmitJobForm
             latitudes={this.state.marker.position.lat}
             longitudes={this.state.marker.position.lng}
-            name={this.state.name}
+            name={this.state.marker.locationName}
           />
         </div>
         <div>
@@ -107,6 +110,9 @@ export class SubmitJobContainer extends React.Component {
                 <h4>
                   {this.state.marker.position.lat},
                   {this.state.marker.position.lng}
+                </h4>
+                <h4>
+                  {this.state.marker.locationName}
                 </h4>
               </div>
             </InfoWindow>

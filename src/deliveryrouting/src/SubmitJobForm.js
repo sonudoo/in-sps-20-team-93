@@ -6,10 +6,7 @@ export class SubmitJobForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: this.props.name,
       phone: "",
-      latitudes: this.props.latitudes,
-      longitudes: this.props.longitudes,
     };
   }
 
@@ -34,10 +31,11 @@ export class SubmitJobForm extends React.Component {
         alert("Request Submitted!");
       },
       error: function (xhr, status, err) {
-        alert(err + "!");
+        alert("Bad Request!");
       },
     });
   };
+
   render() {
     return (
       <form className="SubmitJobFormContainer" onSubmit={this.onSubmitHandler}>
