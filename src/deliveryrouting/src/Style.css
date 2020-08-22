@@ -44,6 +44,7 @@
   border: 1px solid #dadce0;
   border-radius: 36px;
   box-shadow: 0 1px 6px rgba(60, 64, 67, 0.28);
+  color: white;
   cursor: pointer;
   font-family: "Google Sans", "Roboto", "Noto Sans Devanagari UI",
     "Noto Sans Bengali UI", "Noto Sans Telugu UI", "Noto Sans Tamil UI",
@@ -58,6 +59,11 @@
 }
 
 .SubmitButtonContainer:hover {
+  background-color: #4285f4;
+  color: black;
+}
+
+.SubmitButtonContainer:focus {
   background-color: #4285f4;
 }
 
@@ -90,13 +96,13 @@
   line-height: 1.5em;
   margin-left: 25px;
   margin-top: 30px;
-  padding-left: 8px;
+  padding-bottom: 5px;
   padding-top: 5px;
+  text-indent: 4px;
   width: 350px;
 }
 
 .HeadingContainer {
-  font-style: italic;
   padding-left: 10px;
-  width: 400px;
+  width: 380px;
 }

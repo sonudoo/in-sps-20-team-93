@@ -1,7 +1,6 @@
 import React from "react";
 import { Map, GoogleApiWrapper, InfoWindow, Marker } from "google-maps-react";
 import Geocode from "react-geocode";
-import Grid from '@material-ui/core/Grid';
 import "./Style.css";
 import { SubmitJobForm } from "./SubmitJobForm";
 
@@ -12,7 +11,7 @@ export class SubmitJobContainer extends React.Component {
       showInfoWindow: false,
       activeMarker: {},
       marker: {
-        locationName: "NewDelhi",
+        locationName: "New Delhi",
         position: {
           lat: 28.6129,
           lng: 77.2295,
@@ -67,14 +66,14 @@ export class SubmitJobContainer extends React.Component {
       <div className="HomePageBodyContainer">
         <div>
         <h3 className="HeadingContainer">Welcome to DELIVERY SYSTEM!<span>😃</span></h3>
-        <h4 className="HeadingContainer">Get the shortest route possible to complete all your deliveries!<span>🚛</span></h4>
+        <h4 className="HeadingContainer">Get the shortest route possible to complete all your deliveries !<span>🚛</span></h4>
         <div className="InstructionsContainer">
           <p>To add the delivery location, follow the instructions below</p>
           <ul type="circle">
             <li>Enter your phone number.</li>
             <li>Move the marker  on the map 
             to the location where you want to deliver your goods.</li>
-            <li>Press submit Button.</li>
+            <li>Press Submit button.</li>
           </ul>
           <p>And you are all done!</p>
           </div>
@@ -88,7 +87,7 @@ export class SubmitJobContainer extends React.Component {
           <Map
             className="MapsContainer"
             google={this.props.google}
-            zoom={6}
+            zoom={13}
             initialCenter={{
               lat: 28.6129,
               lng: 77.2295,

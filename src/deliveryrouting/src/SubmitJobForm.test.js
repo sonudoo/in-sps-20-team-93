@@ -1,6 +1,6 @@
 import React from 'react';
-import { render,getByPlaceholderText } from '@testing-library/react';
-import {SubmitJobForm }from './SubmitJobForm';
+import { render } from '@testing-library/react';
+import { SubmitJobForm }from './SubmitJobForm';
 
 test('renders <input /> with placeholder Name', () => {
   const { getByPlaceholderText } = render(<SubmitJobForm />);
