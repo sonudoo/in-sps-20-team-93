@@ -28,11 +28,15 @@ import com.google.gson.Gson;
 public class MapsApiDistanceCalculator implements IDistanceCalculator {
 
   private static final String MATRIX_API_URL = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial";
-  private static final String API_KEY = "__GOOGLE_MAPS_API_KEY__";
+  private static final String API_KEY = "YOUR_API_KEY";
   private final URLWrapper urlWrapper;
 
   public MapsApiDistanceCalculator(final URLWrapper urlWrapper) {
     this.urlWrapper = urlWrapper;
+  }
+
+  public static String getApiKey() {
+    return API_KEY;
   }
 
   @Override

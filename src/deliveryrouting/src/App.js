@@ -1,9 +1,10 @@
 import React from 'react';
 import './App.css';
+import GoogleMap from './GoogleMapComponent';
 
 function App() {
   return (
-    <span>Hey There!</span>
+    <GoogleMap />
   );
 }
 

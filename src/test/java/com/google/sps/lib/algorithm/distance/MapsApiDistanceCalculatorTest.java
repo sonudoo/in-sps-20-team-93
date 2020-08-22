@@ -76,7 +76,8 @@ public class MapsApiDistanceCalculatorTest {
     when(mockConnection.getInputStream()).thenReturn(new ByteArrayInputStream(apiResponse.getBytes("UTF-8")));
     List<Coordinate> coordinates = new ArrayList<>(Arrays.asList(new Coordinate(28.6129, 77.2295),
         new Coordinate(22.5726, 88.3639), new Coordinate(19.0760, 72.8777)));
-    String expectedRequestUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=28.6129,77.2295|22.5726,88.3639|19.076,72.8777&destinations=28.6129,77.2295|22.5726,88.3639|19.076,72.8777&key=__GOOGLE_MAPS_API_KEY__";
+    String apiKey = MapsApiDistanceCalculator.getApiKey();
+    String expectedRequestUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=28.6129,77.2295|22.5726,88.3639|19.076,72.8777&destinations=28.6129,77.2295|22.5726,88.3639|19.076,72.8777&key=" + apiKey;
 
     new MapsApiDistanceCalculator(mockUrlWrapper).findDistance(coordinates);
 
