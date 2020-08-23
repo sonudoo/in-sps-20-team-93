@@ -16,10 +16,10 @@ test('renders <GetPathComponent /> with Path Information Success Message', () =>
   expect(linkElement).toBeInTheDocument();
 });
 
-test('renders <GetPathComponent /> with Path Information Failure Message', () => {
+test('renders <GetPathComponent /> with Path Information Processing Message', () => {
   const { getByTitle } = render(<GetPathComponent />);
 
-  const linkElement = getByTitle('Path Info Failure');
+  const linkElement = getByTitle('Path Info Processing');
 
   expect(linkElement).toBeInTheDocument();
 });

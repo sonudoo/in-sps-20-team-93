@@ -24,15 +24,15 @@ const GoogleMapComponent = withScriptjs(withGoogleMap((props) =>
 
 /**
  * This class renders all the delivery paths for shortest distance.
-*/
+ */
 export default class GetPathComponent extends Component {
   constructor(props) {
     super(props);
     // Location initially remains invalid to indicate that no path has been returned from server yet.
     this.state = {
       directions: {},
-      currStartLocation: "Invalid Location",
-      currEndLocation: "Invalid Location",
+      currStartLocation: "",
+      currEndLocation: "",
       currStartIdx: 0,
       currEndIdx: 1,
     };
@@ -56,14 +56,15 @@ export default class GetPathComponent extends Component {
           mapElement={<div style={{ height: '100%' }} />}
         />
         <p className="PathInformation" title="Path Info Success"
-          style={this.state.currStartLocation === 'Invalid Location' ? { display: 'none' } : {}}>
+          style={this.state.currStartLocation === '' ? { display: 'none' } : {}}>
+          {this.state.currEndIdx}/{this.responseJobs_.length}
           This delivery path goes from {this.state.currStartLocation} to {this.state.currEndLocation}.
           <br></br>
           (Click on markers for more location information)
         </p>
-        <p className="PathInformation" title="Path Info Failure"
-          style={this.state.currStartLocation === 'Invalid Location' ? {} : { display: 'none' }}>
-          Looks like there are no pending deliveries in the system!
+        <p className="PathInformation" title="Path Info Processing"
+          style={this.state.currStartLocation === '' ? {} : { display: 'none' }}>
+          Fetching deliveries. Please wait!
         </p>
         <div className="ButtonContainer">
           <button tabIndex="0" className="PreviousPathButton"
@@ -82,19 +83,11 @@ export default class GetPathComponent extends Component {
   }
 
   onPreviousClick = () => {
-    this.setState({
-      currStartIdx: this.state.currStartIdx - 1,
-      currEndIdx: this.state.currEndIdx - 1,
-    });
-    this.displayDirections_(this.state.currStartIdx, this.state.currEndIdx);
+    this.displayDirections_(this.state.currStartIdx - 1, this.state.currEndIdx - 1);
   }
 
   onNextClick = () => {
-    this.setState({
-      currStartIdx: this.state.currStartIdx + 1,
-      currEndIdx: this.state.currEndIdx + 1,
-    });
-    this.displayDirections_(this.state.currStartIdx, this.state.currEndIdx);
+    this.displayDirections_(this.state.currStartIdx + 1, this.state.currEndIdx + 1);
   }
 
   fetchJobCoordinates_ = async () => {
