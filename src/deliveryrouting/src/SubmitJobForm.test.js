@@ -71,8 +71,3 @@ it('calls the callback error when $.ajax requests are finished', () => {
   
   expect(errorResponseElement).toBeInTheDocument();
 });
-
-
-
-
-
