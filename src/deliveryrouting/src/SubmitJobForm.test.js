@@ -2,6 +2,12 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { SubmitJobForm } from './SubmitJobForm';
 
+global.fetch = jest.fn(() =>
+  Promise.resolve({
+    json: () => Promise.resolve({}),
+  })
+);
+
 let ajaxArgument;
 jest.mock('jquery', () => ({ ajax: (argument) => { ajaxArgument = argument } }));
 beforeEach(() => jest.resetModules());
