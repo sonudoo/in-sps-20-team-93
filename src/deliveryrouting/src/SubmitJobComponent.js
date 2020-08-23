@@ -9,7 +9,7 @@ const MAPS_API_KEY = getMapsApiKey();
 const MAP_CENTRE = getMapCentre();
 
 /**
- * Displays Map with marker to submit location coordinates.
+ * This class displays map with marker to submit location coordinates.
  */
 export class SubmitJobComponent extends React.Component {
   constructor(props) {
@@ -20,8 +20,8 @@ export class SubmitJobComponent extends React.Component {
       marker: {
         locationName: MAP_CENTRE.locationName,
         position: {
-          /* location's latitude */ lat: MAP_CENTRE.lat,
-          /* location's longitude */ lng: MAP_CENTRE.lng,
+          lat: MAP_CENTRE.lat,
+          lng: MAP_CENTRE.lng,
         },
       },
     };
@@ -29,8 +29,8 @@ export class SubmitJobComponent extends React.Component {
 
   /**
    * Displays the infoWindow when marker is clicked.
-   * @param {object} props
-   * @param {object} marker
+   * @param {!Object} props
+   * @param {!Object} marker
    */
   onMarkerClick = (props, marker) => {
     this.setState({
@@ -54,7 +54,7 @@ export class SubmitJobComponent extends React.Component {
   /**
    * Gets the new location's latitudes, longitudes and name whenever the marker
    * is dragged and sets the values of locationName and position.
-   * @param {object} coord
+   * @param {!Object} coord
    */
   onMarkerDragEnd = (coord) => {
     const { latLng } = coord;
@@ -75,7 +75,7 @@ export class SubmitJobComponent extends React.Component {
         });
       },
       (error) => {
-        console.error(error);
+        throw error(error);
       }
     );
   };

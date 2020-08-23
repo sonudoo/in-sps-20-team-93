@@ -12,7 +12,7 @@ const REQUEST_SUBMITTED_RESPONSE = getSubmittedRequestResponse();
 const BAD_REQUEST_RESPONSE = getBadRequestResponse();
 
 /**
- * Displays a form to submit job details.
+ * This class displays a form to submit job details.
  */
 export class SubmitJobForm extends React.Component {
   constructor(props) {
@@ -27,7 +27,7 @@ export class SubmitJobForm extends React.Component {
 
   /**
    * Sets the value of phone to value entered by user.
-   * @param {object} event
+   * @param {!Object} event
    */
   onPhoneNumberChangeHandler = (event) => {
     this.setState({
@@ -38,7 +38,7 @@ export class SubmitJobForm extends React.Component {
   /**
    * Calls the $.ajax request when Submit button is clicked to submit the
    * job details.
-   * @param {object} event
+   * @param {!Object} event
    */
   onSubmitHandler = (event) => {
     event.preventDefault();

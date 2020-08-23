@@ -48,7 +48,7 @@ it('calls the $.ajax requests when submit button is clicked', () => {
   expect(ajaxArgument.type).toEqual('POST');
 });
 
-it('calls the callback success when $.ajax requests are finished', () => {
+it('Request Submitted is displayed when success callback is called', () => {
   const { getByText } = render(<SubmitJobForm />);
   const $ = require('jquery');
   const submitButton = document.getElementById('SubmitButton');
@@ -60,7 +60,7 @@ it('calls the callback success when $.ajax requests are finished', () => {
   expect(successResponseElement).toBeInTheDocument();
 });
 
-it('calls the callback error when $.ajax requests are finished', () => {
+it('Bad Request is displayed when success callback is called', () => {
   const { getByText } = render(<SubmitJobForm />);
   const $ = require('jquery');
   const submitButton = document.getElementById('SubmitButton');
