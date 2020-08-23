@@ -6,17 +6,18 @@ import {
   withScriptjs,
   DirectionsRenderer,
 } from "react-google-maps";
+import { getMapsApiKey, getMapsApiUrl, getMapCentre, getServerApiUrl } from './Config';
+import './GetPathComponent.css';
 
-const MAPS_API_KEY = "";
-const MAPS_API_URL = `https://maps.googleapis.com/maps/api/js?key=${MAPS_API_KEY}&callback=initMap`;
+const MAPS_API_KEY = getMapsApiKey();
+const MAPS_API_URL = getMapsApiUrl();
 
 const GoogleMapComponent = withScriptjs(withGoogleMap((props) =>
   <GoogleMap
     defaultZoom={1}
-    defaultCenter={{
-      lat: 28.6143,
-      lng: 77.1994
-    }}
+    defaultCenter={
+      getMapCentre()
+    }
   >
     <DirectionsRenderer
       directions={props.directions}
@@ -27,7 +28,13 @@ const GoogleMapComponent = withScriptjs(withGoogleMap((props) =>
 export default class GetPathComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = { directions: {} };
+    this.state = { 
+      directions: {},
+      currStartLocation: "Invalid Location",
+      currEndLocation: "Invalid Location",
+      currStartIdx: 0,
+      currEndIdx: 1,
+    };
     this.responseJobs_ = [];
     this.directionsService_ = {};
   }
@@ -40,20 +47,50 @@ export default class GetPathComponent extends Component {
 
   render() {
     return (
-      <GoogleMapComponent directions={this.state.directions}
-        googleMapURL={MAPS_API_URL}
-        loadingElement={<div style={{ height: `100px` }} />}
-        containerElement={<div style={{ height: `1000px` }} />}
-        mapElement={<div style={{ height: `1000px` }} />}
-      />
+      <div>
+        <GoogleMapComponent directions={this.state.directions}
+          googleMapURL={MAPS_API_URL}
+          loadingElement={<div/>}
+          containerElement={<div style={{ height: '80vh'}} />}
+          mapElement={<div style={{ height: '100%' }} />}
+        />
+        <p className="PathInformation" title="PathInfoSuccess" style={this.state.currStartLocation === 'Invalid Location' ? { display: 'none' } : {}}>
+          This delivery path goes from {this.state.currStartLocation} to {this.state.currEndLocation}.
+          <br></br>
+          (Click on markers for more location information)
+        </p>
+        <p className="PathInformation" titel="PathInfoFailure" style={this.state.currStartLocation === 'Invalid Location' ? {} : { display: 'none' }}>
+          Looks like there are no pending deliveries in the system!
+        </p>
+        <div className="ButtonContainer">
+          <button tabIndex="0" className="PreviousPathButton" role="DisplayPreviousPath" onClick={this.onPreviousClick} disabled={this.state.currStartIdx <= 0}> Previous Path </button>
+          <button tabIndex="0" className="NextPathButton" role="DisplayNextPath" onClick={this.onNextClick} disabled={this.state.currEndIdx >= this.responseJobs_.length - 1}> Next Path </button>
+        </div>
+     </div>
     );
   }
 
+  onPreviousClick = () => { 
+    this.setState({
+      currStartIdx: this.state.currStartIdx - 1,
+      currEndIdx: this.state.currEndIdx - 1,
+    });
+    this.displayDirections_(this.state.currStartIdx, this.state.currEndIdx);
+  }
+
+  onNextClick = () => {
+    this.setState({
+      currStartIdx: this.state.currStartIdx + 1,
+      currEndIdx: this.state.currEndIdx + 1,
+    });
+    this.displayDirections_(this.state.currStartIdx, this.state.currEndIdx);
+  }
+
   async fetchJobCoordinates_() {
-    return fetch('http://localhost:8080/api/getPath')
+    return fetch(getServerApiUrl())
       .then(response => response.json())
       .then(responseJson => {
-        this.responseJobs_ = responseJson.responseJobs
+        this.responseJobs_ = responseJson.responseJobs;
       });
   }
 
@@ -65,7 +102,7 @@ export default class GetPathComponent extends Component {
     });
   }
 
-  displayDirections_(startIdx, endIdx) {
+  displayDirections_ = (startIdx, endIdx) => {
     this.directionsService_.route(
       {
         origin: { lat: this.responseJobs_[startIdx].latitude, lng: this.responseJobs_[startIdx].longitude },
@@ -74,7 +111,11 @@ export default class GetPathComponent extends Component {
       },
       (result, status) => {
         if (status === google.maps.DirectionsStatus.OK) {
-          this.setState({ directions: result });
+          this.setState({
+            directions: result,
+            currStartLocation: this.responseJobs_[startIdx].name,
+            currEndLocation: this.responseJobs_[endIdx].name, 
+          });
         } else {
           this.setState({ error: result });
         }
