@@ -6,17 +6,17 @@ import {
   withScriptjs,
   DirectionsRenderer,
 } from "react-google-maps";
-import { getMapsApiKey, getMapsApiUrl, getMapCentre, getServerApiUrl } from './Config';
+import { MapsApi } from './config';
 import './GetPathComponent.css';
 
-const MAPS_API_KEY = getMapsApiKey();
-const MAPS_API_URL = getMapsApiUrl();
+const MAPS_API_KEY = MapsApi.MAPS_API_KEY;
+const MAPS_API_URL = MapsApi.MAPS_API_URL;
 
 const GoogleMapComponent = withScriptjs(withGoogleMap((props) =>
   <GoogleMap
     defaultZoom={1}
     defaultCenter={
-      getMapCentre()
+      MapsApi.MAP_CENTRE
     }
   >
     <DirectionsRenderer
@@ -25,6 +25,9 @@ const GoogleMapComponent = withScriptjs(withGoogleMap((props) =>
   </GoogleMap>
 ));
 
+/**
+ * This class renders all the delivery paths for shortest distance.
+ */
 export default class GetPathComponent extends Component {
   constructor(props) {
     super(props);
@@ -39,7 +42,7 @@ export default class GetPathComponent extends Component {
     this.directionsService_ = {};
   }
 
-  async componentDidMount() {
+  componentDidMount = async () => {
     await Promise.all([this.fetchJobCoordinates_(), this.waitForMapsApiToLoad_()]);
     this.directionsService_ = new google.maps.DirectionsService();
     this.displayDirections_(0, 1);
@@ -49,7 +52,7 @@ export default class GetPathComponent extends Component {
     return (
       <div>
         <GoogleMapComponent directions={this.state.directions}
-          googleMapURL={MAPS_API_URL}
+          googleMapURL={MapsApi.MAPS_API_URL}
           loadingElement={<div/>}
           containerElement={<div style={{ height: '80vh'}} />}
           mapElement={<div style={{ height: '100%' }} />}
@@ -86,15 +89,15 @@ export default class GetPathComponent extends Component {
     this.displayDirections_(this.state.currStartIdx, this.state.currEndIdx);
   }
 
-  async fetchJobCoordinates_() {
-    return fetch(getServerApiUrl())
+  fetchJobCoordinates_ = async () => {
+    return fetch(MapsApi.SERVER_API_URL)
       .then(response => response.json())
       .then(responseJson => {
         this.responseJobs_ = responseJson.responseJobs;
       });
   }
 
-  async waitForMapsApiToLoad_() {
+  waitForMapsApiToLoad_ = async () => {
     return new Promise((resolve, _) => {
       window.initMap = () => {
         resolve();
