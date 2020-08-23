@@ -23,15 +23,15 @@ const GoogleMapComponent = withScriptjs(withGoogleMap((props) =>
 ));
 
 /**
-  * This class renders all the delivery paths for shortest distance.
-  */
+ * This class renders all the delivery paths for shortest distance.
+*/
 export default class GetPathComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    // Location initially remains invalid to indicate that no path has been returned from server yet.
+    this.state = {
       directions: {},
-      //location initially remains invalid to indicate that no path has been returned from server yet.
-      currStartLocation: "Invalid Location", 
+      currStartLocation: "Invalid Location",
       currEndLocation: "Invalid Location",
       currStartIdx: 0,
       currEndIdx: 1,
@@ -51,27 +51,37 @@ export default class GetPathComponent extends Component {
       <div>
         <GoogleMapComponent directions={this.state.directions}
           googleMapURL={MapsApi.MAPS_API_URL}
-          loadingElement={<div/>}
-          containerElement={<div style={{ height: '80vh'}} />}
+          loadingElement={<div />}
+          containerElement={<div style={{ height: '80vh' }} />}
           mapElement={<div style={{ height: '100%' }} />}
         />
-        <p className="PathInformation" title="PathInfoSuccess" style={this.state.currStartLocation === 'Invalid Location' ? { display: 'none' } : {}}>
+        <p className="PathInformation" title="Path Info Success"
+          style={this.state.currStartLocation === 'Invalid Location' ? { display: 'none' } : {}}>
           This delivery path goes from {this.state.currStartLocation} to {this.state.currEndLocation}.
           <br></br>
           (Click on markers for more location information)
         </p>
-        <p className="PathInformation" title="PathInfoFailure" style={this.state.currStartLocation === 'Invalid Location' ? {} : { display: 'none' }}>
+        <p className="PathInformation" title="Path Info Failure"
+          style={this.state.currStartLocation === 'Invalid Location' ? {} : { display: 'none' }}>
           Looks like there are no pending deliveries in the system!
         </p>
         <div className="ButtonContainer">
-          <button tabIndex="0" className="PreviousPathButton" id="PreviousPathButton" onClick={this.onPreviousClick} disabled={this.state.currStartIdx <= 0}> Previous Path </button>
-          <button tabIndex="0" className="NextPathButton" id="NextPathButton" onClick={this.onNextClick} disabled={this.state.currEndIdx >= this.responseJobs_.length - 1}> Next Path </button>
+          <button tabIndex="0" className="PreviousPathButton"
+            id="PreviousPathButton" onClick={this.onPreviousClick}
+            disabled={this.state.currStartIdx <= 0}>
+            Previous Path
+          </button>
+          <button tabIndex="0" className="NextPathButton"
+            id="NextPathButton" onClick={this.onNextClick}
+            disabled={this.state.currEndIdx >= this.responseJobs_.length - 1}>
+            Next Path
+          </button>
         </div>
-     </div>
+      </div>
     );
   }
 
-  onPreviousClick = () => { 
+  onPreviousClick = () => {
     this.setState({
       currStartIdx: this.state.currStartIdx - 1,
       currEndIdx: this.state.currEndIdx - 1,
@@ -115,7 +125,7 @@ export default class GetPathComponent extends Component {
           this.setState({
             directions: result,
             currStartLocation: this.responseJobs_[startIdx].name,
-            currEndLocation: this.responseJobs_[endIdx].name, 
+            currEndLocation: this.responseJobs_[endIdx].name,
           });
         } else {
           this.setState({ error: result });
