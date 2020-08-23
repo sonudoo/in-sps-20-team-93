@@ -73,7 +73,7 @@ export default class GetPathComponent extends Component {
           </button>
           <button tabIndex="0" className="NextPathButton"
             id="NextPathButton" onClick={this.onNextClick}
-            disabled={this.state.currEndIdx >= this.responseJobs_.length - 1}>
+            disabled={this.state.currEndIdx >= this.responseJobs_.length}>
             Next Path
           </button>
         </div>
