@@ -57,7 +57,7 @@ export default class GetPathComponent extends Component {
         />
         <p className="PathInformation" title="Path Info Success"
           style={this.state.currStartLocation === '' ? { display: 'none' } : {}}>
-          {this.state.currEndIdx}/{this.responseJobs_.length}
+          {this.state.currEndIdx}/{this.responseJobs_.length}&nbsp;
           This delivery path goes from {this.state.currStartLocation} to {this.state.currEndLocation}.
           <br></br>
           (Click on markers for more location information)
@@ -74,7 +74,7 @@ export default class GetPathComponent extends Component {
           </button>
           <button tabIndex="0" className="NextPathButton"
             id="NextPathButton" onClick={this.onNextClick}
-            disabled={this.state.currEndIdx >= this.responseJobs_.length}>
+            disabled={this.state.currEndIdx >= this.responseJobs_.length - 1}>
             Next Path
           </button>
         </div>
@@ -91,7 +91,7 @@ export default class GetPathComponent extends Component {
   }
 
   fetchJobCoordinates_ = async () => {
-    return fetch(ServerApi.SERVER_API_URL)
+    return fetch(ServerApi.SERVER_GET_PATH_URL)
       .then(response => response.json())
       .then(responseJson => {
         this.responseJobs_ = responseJson.responseJobs;
@@ -119,6 +119,8 @@ export default class GetPathComponent extends Component {
             directions: result,
             currStartLocation: this.responseJobs_[startIdx].name,
             currEndLocation: this.responseJobs_[endIdx].name,
+            currStartIdx: startIdx,
+            currEndIdx: endIdx,
           });
         } else {
           this.setState({ error: result });
