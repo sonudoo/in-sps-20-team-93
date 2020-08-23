@@ -57,7 +57,7 @@ export default class GetPathComponent extends Component {
         />
         <p className="PathInformation" title="Path Info Success"
           style={this.state.currStartLocation === '' ? { display: 'none' } : {}}>
-          {this.state.currEndIdx}/{this.responseJobs_.length}&nbsp;
+          {this.state.currEndIdx}/{this.responseJobs_.length - 1}&nbsp;
           This delivery path goes from {this.state.currStartLocation} to {this.state.currEndLocation}.
           <br></br>
           (Click on markers for more location information)
