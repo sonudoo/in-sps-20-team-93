@@ -2,6 +2,12 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import GetPathComponent from './GetPathComponent';
 
+global.fetch = jest.fn(() =>
+  Promise.resolve({
+    json: () => Promise.resolve({}),
+  })
+);
+
 test('renders <GetPathComponent /> with Path Information Success Message', () => {
   const { getByTitle } = render(<GetPathComponent />);
   
