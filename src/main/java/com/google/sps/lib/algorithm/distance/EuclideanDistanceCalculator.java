@@ -24,16 +24,12 @@ public class EuclideanDistanceCalculator implements IDistanceCalculator {
 
   @Override
   public double[][] findDistance(final List<Coordinate> coordinateList) {
-
     final double[][] distanceMatrix = new double[coordinateList.size()][coordinateList.size()];
-
     for (int i = 0; i < distanceMatrix.length; i++) {
       for (int j = 0; j < distanceMatrix[0].length; j++) {
-        if (i != j) {
-          final double xDistance = coordinateList.get(i).getLatutides() - coordinateList.get(j).getLongitudes();
-          final double yDistance = coordinateList.get(i).getLatutides() - coordinateList.get(j).getLongitudes();
-          distanceMatrix[i][j] = Math.sqrt(((xDistance * xDistance) + (yDistance * yDistance)));
-        }
+        final double xDistance = coordinateList.get(i).getLatutides() - coordinateList.get(j).getLatutides();
+        final double yDistance = coordinateList.get(i).getLongitudes() - coordinateList.get(j).getLongitudes();
+        distanceMatrix[i][j] = Math.sqrt(((xDistance * xDistance) + (yDistance * yDistance)));
       }
     }
     return distanceMatrix;

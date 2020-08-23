@@ -17,13 +17,17 @@ package com.google.sps.lib.algorithm.distance;
 import java.util.List;
 
 /**
- * Contains method for calculating distance between the locations.
+ * Contains method for calculating distance between the locations. All
+ * implementations of this interface are required to implement a method which
+ * takes a list of coordinates and returns a matrix representing distance
+ * between them.
  */
 public interface IDistanceCalculator {
   /**
    * Returns a matrix of distance between all the coordinates.
    * 
-   * @param coordinateList
+   * @param coordinateList List of coordinates between which the distance needs to
+   *                       be computed.
    */
   double[][] findDistance(List<Coordinate> coordinateList);
 }

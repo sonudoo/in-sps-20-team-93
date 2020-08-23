@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.sps.lib.handler.JobHandlerFactory;
 
 /**
- * Gets the path to be followed.
+ * Gets the path to be followed to complete all the delivery tasks.
  */
 @WebServlet("/api/getPath")
 public class GetPathServlet extends HttpServlet {

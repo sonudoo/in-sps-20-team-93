@@ -23,11 +23,16 @@ import java.lang.RuntimeException;
 import com.google.gson.Gson;
 
 /**
- * Calculates the distance between every node using google maps API.
+ * The distance calculator between every node using Google maps API.
  */
 public class MapsApiDistanceCalculator implements IDistanceCalculator {
 
   private static final String MATRIX_API_URL = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial";
+  /**
+   * The value of this API key is provided by the Github deployment pipeline. The
+   * string should be "__GOOGLE_MAPS_API_KEY__" for deployment pipeline to replace
+   * it with the actual Google Maps API key from thhe Github secrets.
+   */
   private static final String API_KEY = "__GOOGLE_MAPS_API_KEY__";
   private final URLWrapper urlWrapper;
 
@@ -42,7 +47,7 @@ public class MapsApiDistanceCalculator implements IDistanceCalculator {
   @Override
   public double[][] findDistance(final List<Coordinate> taskList) {
     final String matrixAPIResponse = getApiResponse(taskList);
-    final MatrixAPIResponse apiObject = parseJsonResponse(matrixAPIResponse);
+    final MatrixApiResponse apiObject = parseJsonResponse(matrixAPIResponse);
     final double distMatrix[][] = getDistanceMatrix(apiObject);
     return distMatrix;
   }
@@ -56,7 +61,6 @@ public class MapsApiDistanceCalculator implements IDistanceCalculator {
       final HttpURLConnection connection = urlWrapper.openConnection(requestUrl);
       connection.setRequestMethod("GET");
       final int responseCode = connection.getResponseCode();
-
       if (responseCode == HttpURLConnection.HTTP_OK) {
         final StringBuffer apiResponse = new StringBuffer();
         final BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -75,26 +79,23 @@ public class MapsApiDistanceCalculator implements IDistanceCalculator {
   }
 
   /**
-   * Builds a request URL based on matrix URL and Task list.
+   * Builds a request URL based on matrix URL and Coodinate list.
    */
   private String getRequestUrl(final List<Coordinate> coordinates) throws IOException {
     String requestURL = MATRIX_API_URL;
     final StringBuilder origins = new StringBuilder("origins=");
     final StringBuilder destinations = new StringBuilder("destinations=");
     boolean isWarehouseAdded = false; // Single Warehouse origin point location
-
     for (final Coordinate currCoordinate : coordinates) {
       if (!isWarehouseAdded) {
         origins.append(currCoordinate.getLatutides() + "," + currCoordinate.getLongitudes());
         destinations.append(currCoordinate.getLatutides() + "," + currCoordinate.getLongitudes());
         isWarehouseAdded = true;
       } else {
-
         origins.append("|" + currCoordinate.getLatutides() + "," + currCoordinate.getLongitudes());
         destinations.append("|" + currCoordinate.getLatutides() + "," + currCoordinate.getLongitudes());
       }
     }
-
     requestURL += "&" + origins.toString() + "&" + destinations.toString() + "&key=" + API_KEY;
     return requestURL;
   }
@@ -102,17 +103,17 @@ public class MapsApiDistanceCalculator implements IDistanceCalculator {
   /**
    * Parses API json response to Response object.
    */
-  private MatrixAPIResponse parseJsonResponse(final String response) {
-    MatrixAPIResponse apiResponseObj = new MatrixAPIResponse();
+  private MatrixApiResponse parseJsonResponse(final String response) {
+    MatrixApiResponse apiResponseObj = new MatrixApiResponse();
     final Gson gson = new Gson();
-    apiResponseObj = gson.fromJson(response, MatrixAPIResponse.class);
+    apiResponseObj = gson.fromJson(response, MatrixApiResponse.class);
     return apiResponseObj;
   }
 
   /**
    * Builds a distance matrix from API response object.
    */
-  private double[][] getDistanceMatrix(final MatrixAPIResponse apiObject) {
+  private double[][] getDistanceMatrix(final MatrixApiResponse apiObject) {
     final int locationsSize = apiObject.getRows().size();
     final double distMatrix[][] = new double[locationsSize][locationsSize];
     int row = 0, col = 0;

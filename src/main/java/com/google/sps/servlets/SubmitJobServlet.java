@@ -23,7 +23,7 @@ import com.google.sps.lib.handler.HandlerResponse;
 import com.google.sps.lib.handler.JobHandlerFactory;
 
 /**
- * Adds job provided by user to Database.
+ * Adds job provided by user to Datastore.
  */
 @WebServlet("/api/submitJob")
 public class SubmitJobServlet extends HttpServlet {

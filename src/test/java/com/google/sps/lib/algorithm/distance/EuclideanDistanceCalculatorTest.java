@@ -30,13 +30,13 @@ public class EuclideanDistanceCalculatorTest {
     List<Coordinate> coordinates = new ArrayList<>(
         Arrays.asList(new Coordinate(67.09, 23.65), new Coordinate(68.34, 24.5), new Coordinate(68.38, 26.4)));
     IDistanceCalculator distanceCalculator = new EuclideanDistanceCalculator();
-    double[][] expectedDistanceMatrix = { { 0, 60.231355, 57.544349 }, { 63.201204, 0, 59.3121168 },
-        { 63.257772, 62.0556911, 0 } };
+    double[][] expectedDistanceMatrix = { { 0, 1.511621, 3.037531 }, { 1.511621, 0, 1.900421 },
+        { 3.037531, 1.900421, 0 } };
 
     double[][] distanceMatrix = distanceCalculator.findDistance(coordinates);
 
     for (int i = 0; i < expectedDistanceMatrix.length; i++) {
-      assertArrayEquals(expectedDistanceMatrix[i], distanceMatrix[i], /* delta = */ 0.000001);
+      assertArrayEquals(expectedDistanceMatrix[i], distanceMatrix[i], /* delta= */ 0.000001);
     }
   }
 }

@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * Represents a path list response.
+ * Represents a path list response that can be rendered by the frontend.
  */
 class GetPathResponse extends HandlerResponse {
 
@@ -28,6 +28,9 @@ class GetPathResponse extends HandlerResponse {
   private final ResponseMessage message;
   private final List<ResponseJob> responseJobs;
 
+  /**
+   * @param responseJobs Ordered list of jobs.
+   */
   GetPathResponse(List<ResponseJob> responseJobs) {
     this.status = HttpServletResponse.SC_OK;
     this.message = ResponseMessage.create(RESPONSE_MESSAGE_TITLE, "");

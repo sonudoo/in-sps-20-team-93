@@ -14,6 +14,11 @@
 
 package com.google.sps.lib.algorithm.tsp;
 
+/**
+ * The exception representing and invalid distance matrix which contains a
+ * negative cycle. This is required because it is not possible to find the
+ * shortest distance in a graph with negative cycle.
+ */
 public class InvalidDistanceMatrixException extends Exception {
   private static final long serialVersionUID = 1L;
 

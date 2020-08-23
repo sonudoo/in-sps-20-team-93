@@ -17,9 +17,9 @@ package com.google.sps.lib.algorithm.distance;
 import java.util.List;
 
 /**
- * The Java class for Google Maps Matrix API response.
+ * The POJO class for Google Maps Matrix API response.
  */
-public class MatrixAPIResponse {
+public class MatrixApiResponse {
   private List<String> destinationAddresses;
   private List<String> originAddresses;
   private List<Rows> rows;

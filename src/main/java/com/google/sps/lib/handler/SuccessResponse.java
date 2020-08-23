@@ -26,6 +26,10 @@ class SuccessResponse extends HandlerResponse {
   private final int status;
   private final ResponseMessage message;
 
+  /**
+   * The constructor is package-private because its instance can only be created
+   * by request handlers.
+   */
   SuccessResponse() {
     this.status = HttpServletResponse.SC_OK;
     this.message = ResponseMessage.create(RESPONSE_MESSAGE_TITLE, "");

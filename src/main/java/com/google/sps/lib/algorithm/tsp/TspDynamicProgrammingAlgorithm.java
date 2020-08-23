@@ -35,11 +35,11 @@ public class TspDynamicProgrammingAlgorithm implements ITspAlgorithm {
     for (int i = 0; i < minCost.length; i++) {
       Arrays.fill(minCost[i], Double.MAX_VALUE);
     }
-
     if (checkNegativeDistance(distanceMatrix)) {
       throw new InvalidDistanceMatrixException("Distance matrix has a negative cycle.");
     }
-
+    // Starting location is assumed to be the one at 0th index and so the initial
+    // state is represented by the integer 1.
     shortestPathDistanceCalculator(distanceMatrix, /* state= */ 1, /* currentLocation= */ 0, path, minCost);
     return getShortestPath(path);
   }
@@ -67,13 +67,11 @@ public class TspDynamicProgrammingAlgorithm implements ITspAlgorithm {
     if (minCost[state][currentLocation] != Double.MAX_VALUE) {
       return minCost[state][currentLocation];
     }
-
     double minimumDistance = Double.MAX_VALUE;
     int nextLocation = -1;
-
-    // Finds which location should be visited next to the current
-    // location that will give the shortest distance path from all the locations
-    // which are not visited yet.
+    // Finds which location should be visited next to the current location that will
+    // give the shortest distance path from all the locations which are not visited
+    // yet.
     for (int location = 0; location < distanceMatrix.length; location++) {
 
       // Checks if the location is visited or not.
@@ -98,15 +96,13 @@ public class TspDynamicProgrammingAlgorithm implements ITspAlgorithm {
 
   /**
    * Gets the path to be followed giving the minimum distance.
-   * 
-   * @param path
    */
   private List<Integer> getShortestPath(final Integer[][] path) {
     final List<Integer> shortestDistancePath = new ArrayList<>();
 
     // Represents the initial state when only starting location is visited.
     int state = 1;
-
+    // Starting from the 0th index.
     int currentLocationIndex = 0;
 
     // Gets the next location to be visited from the path array.
@@ -122,16 +118,13 @@ public class TspDynamicProgrammingAlgorithm implements ITspAlgorithm {
       currentLocationIndex = nextLocationIndex;
     }
 
-    // Add back the starting index
+    // Finally, add back the starting index
     shortestDistancePath.add(0);
-
     return shortestDistancePath;
   }
 
   /**
-   * Checks the negative distance cycle using floyd warshall algorithm.
-   * 
-   * @param distanceMatrix
+   * Checks the negative distance cycle using Floyd Warshall algorithm.
    */
   private boolean checkNegativeDistance(final double[][] distanceMatrix) {
 

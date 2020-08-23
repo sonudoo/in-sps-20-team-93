@@ -17,7 +17,11 @@ package com.google.sps.lib.handler;
 import com.google.appengine.repackaged.com.google.gson.Gson;
 
 /**
- * The handler response interface.
+ * The handler response. All child classes are required to implement two methods
+ * <p>
+ * 1. One which returns the HTTP response status code and
+ * <p>
+ * 2. Other that returns a {@link ResponseMessage}.
  */
 public abstract class HandlerResponse {
   /**
@@ -31,7 +35,7 @@ public abstract class HandlerResponse {
   public abstract ResponseMessage getMessage();
 
   /**
-   * Returns the object as Json.
+   * Returns the response object as json string.
    */
   public String getJson() {
     return new Gson().toJson(this);

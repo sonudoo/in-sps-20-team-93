@@ -17,6 +17,12 @@ package com.google.sps.lib.handler;
 import javax.servlet.http.HttpServletRequest;
 import com.google.sps.lib.validator.SubmitJobValidator;
 
+/**
+ * The factory for creating instances of {@link IRequestHandler}. The factory
+ * has single instance of all the classes required by request handlers such as
+ * {@link DatastoreWrapper} and {@link SubmitJobValidator}. These global objects
+ * fed to the constructor of the handlers when their instances are created.
+ */
 public class JobHandlerFactory {
 
   private static final DatastoreWrapper databaseWrapper = new DatastoreWrapper();
