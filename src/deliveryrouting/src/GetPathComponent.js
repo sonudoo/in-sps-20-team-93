@@ -9,7 +9,6 @@ import {
 import { MapsApi } from './config';
 import './GetPathComponent.css';
 
-const MAPS_API_KEY = MapsApi.MAPS_API_KEY;
 const MAPS_API_URL = MapsApi.MAPS_API_URL;
 
 const GoogleMapComponent = withScriptjs(withGoogleMap((props) =>
@@ -52,7 +51,7 @@ export default class GetPathComponent extends Component {
     return (
       <div>
         <GoogleMapComponent directions={this.state.directions}
-          googleMapURL={MapsApi.MAPS_API_URL}
+          googleMapURL={MAPS_API_URL}
           loadingElement={<div/>}
           containerElement={<div style={{ height: '80vh'}} />}
           mapElement={<div style={{ height: '100%' }} />}
