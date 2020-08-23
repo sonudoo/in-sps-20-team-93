@@ -10,32 +10,32 @@ global.fetch = jest.fn(() =>
 
 test('renders <GetPathComponent /> with Path Information Success Message', () => {
   const { getByTitle } = render(<GetPathComponent />);
-  
-  const linkElement = getByTitle('PathInfoSuccess');
-  
+
+  const linkElement = getByTitle('Path Info Success');
+
   expect(linkElement).toBeInTheDocument();
 });
 
-test('renders <GetPathComponent /> with Path Information Failure Message', () => {
+test('renders <GetPathComponent /> with Path Information Processing Message', () => {
   const { getByTitle } = render(<GetPathComponent />);
-    
-  const linkElement = getByTitle('PathInfoFailure');
-    
+
+  const linkElement = getByTitle('Path Info Processing');
+
   expect(linkElement).toBeInTheDocument();
 });
 
 test('renders <GetPathComponent /> with Previous Path Button', () => {
-  const { } = render(<GetPathComponent />);
-  
+  render(<GetPathComponent />);
+
   const linkElement = document.getElementById('PreviousPathButton');
-  
+
   expect(linkElement).toBeInTheDocument();
 });
 
 test('renders <GetPathComponent /> with Next Path Button', () => {
-  const { } = render(<GetPathComponent />);
-  
+  render(<GetPathComponent />);
+
   const linkElement = document.getElementById('NextPathButton');
-  
+
   expect(linkElement).toBeInTheDocument();
 });
