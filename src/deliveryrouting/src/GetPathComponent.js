@@ -61,12 +61,12 @@ export default class GetPathComponent extends Component {
           <br></br>
           (Click on markers for more location information)
         </p>
-        <p className="PathInformation" titel="PathInfoFailure" style={this.state.currStartLocation === 'Invalid Location' ? {} : { display: 'none' }}>
+        <p className="PathInformation" title="PathInfoFailure" style={this.state.currStartLocation === 'Invalid Location' ? {} : { display: 'none' }}>
           Looks like there are no pending deliveries in the system!
         </p>
         <div className="ButtonContainer">
-          <button tabIndex="0" className="PreviousPathButton" role="DisplayPreviousPath" onClick={this.onPreviousClick} disabled={this.state.currStartIdx <= 0}> Previous Path </button>
-          <button tabIndex="0" className="NextPathButton" role="DisplayNextPath" onClick={this.onNextClick} disabled={this.state.currEndIdx >= this.responseJobs_.length - 1}> Next Path </button>
+          <button tabIndex="0" className="PreviousPathButton" role="button" id="PreviousPathButton" onClick={this.onPreviousClick} disabled={this.state.currStartIdx <= 0}> Previous Path </button>
+          <button tabIndex="0" className="NextPathButton" role="button" id="NextPathButton" onClick={this.onNextClick} disabled={this.state.currEndIdx >= this.responseJobs_.length - 1}> Next Path </button>
         </div>
      </div>
     );

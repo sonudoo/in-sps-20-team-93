@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, getByRole } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import GetPathComponent from './GetPathComponent';
 
 test('renders <GetPathComponent /> with Path Information Success Message', () => {
@@ -19,17 +19,17 @@ test('renders <GetPathComponent /> with Path Information Failure Message', () =>
 });
 
 test('renders <GetPathComponent /> with Previous Path Button', () => {
-  const { getByRole } = render(<GetPathComponent />);
+  const { } = render(<GetPathComponent />);
   
-  const linkElement = getByRole('DisplayPreviousPath');
+  const linkElement = document.getElementById('PreviousPathButton');
   
   expect(linkElement).toBeInTheDocument();
 });
 
 test('renders <GetPathComponent /> with Next Path Button', () => {
-  const { getByRole } = render(<GetPathComponent />);
+  const { } = render(<GetPathComponent />);
   
-  const linkElement = getByRole('DisplayNextPath');
+  const linkElement = document.getElementById('NextPathButton');
   
   expect(linkElement).toBeInTheDocument();
 });
