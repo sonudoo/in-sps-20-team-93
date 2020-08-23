@@ -1,10 +1,14 @@
-import React from 'react';
-import HomePage from './HomePage';
+import React from "react";
+import SubmitJobComponent from "./SubmitJobComponent";
+import { Route, Switch } from "react-router-dom";
 
 function App() {
   return (
-    <HomePage/>
+    <main>
+      <Switch>
+        <Route path="/" component={SubmitJobComponent} />
+      </Switch>
+    </main>
   );
 }
-
 export default App;

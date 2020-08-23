@@ -1,25 +1,49 @@
 import React from "react";
-import $ from "jquery";
 import "./Style.css";
+import {
+  getServerApiUrl,
+  getBadRequestResponse,
+  getSubmittedRequestResponse,
+} from "./Config";
+const $ = require("jquery");
 
+const SERVER_API_URL = getServerApiUrl();
+const REQUEST_SUBMITTED_RESPONSE = getSubmittedRequestResponse();
+const BAD_REQUEST_RESPONSE = getBadRequestResponse();
+
+/**
+ * Displays a form to submit job details.
+ */
 export class SubmitJobForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       phone: "",
+      responseMessage: "",
+      showResponse: false,
+      disablePhone: false,
     };
   }
 
+  /**
+   * Sets the value of phone to value entered by user.
+   * @param {object} event
+   */
   onPhoneNumberChangeHandler = (event) => {
     this.setState({
       phone: event.target.value,
     });
   };
 
+  /**
+   * Calls the $.ajax request when Submit button is clicked to submit the
+   * job details.
+   * @param {object} event
+   */
   onSubmitHandler = (event) => {
     event.preventDefault();
     $.ajax({
-      url: "http://localhost:8080/api/submitJob",
+      url: SERVER_API_URL,
       type: "POST",
       data: {
         Name: this.props.name,
@@ -27,18 +51,51 @@ export class SubmitJobForm extends React.Component {
         Latitude: this.props.latitudes,
         Longitude: this.props.longitudes,
       },
-      success: function (data) {
-        alert("Request Submitted!");
+      success: () => {
+        this.setState({
+          responseMessage: REQUEST_SUBMITTED_RESPONSE,
+          showResponse: true,
+          disablePhone: true,
+        });
       },
-      error: function (xhr, status, err) {
-        alert("Bad Request!");
+      error: () => {
+        this.setState({
+          responseMessage: BAD_REQUEST_RESPONSE,
+          showResponse: true,
+          disablePhone: true,
+        });
       },
+    });
+  };
+
+  /**
+   * Removes the response message from the screen when OK button
+   * is clicked.
+   */
+  removeResponseMessage = () => {
+    this.setState({
+      showResponse: false,
+      disablePhone: false,
     });
   };
 
   render() {
     return (
       <form className="SubmitJobFormContainer" onSubmit={this.onSubmitHandler}>
+        {this.state.showResponse ? (
+          <div className="ResponseContainer">
+            {this.state.responseMessage}
+            <button
+              className="ButtonContainer"
+              onClick={this.removeResponseMessage}
+              title="Click to submit new request"
+            >
+              <b>OK</b>
+            </button>
+          </div>
+        ) : (
+          <div></div>
+        )}
         <input
           className="DisabledInputContainer"
           name="Name"
@@ -53,6 +110,7 @@ export class SubmitJobForm extends React.Component {
           type="string"
           placeholder="Phone"
           onChange={this.onPhoneNumberChangeHandler}
+          disabled={this.state.disablePhone}
         />
         <input
           className="DisabledInputContainer"
@@ -70,8 +128,12 @@ export class SubmitJobForm extends React.Component {
           value={this.props.longitudes}
           disabled={true}
         />
-        <input className="SubmitButtonContainer" type="submit" />
+        <input
+          className="SubmitButtonContainer"
+          id="SubmitButton"
+          type="submit"
+        />
       </form>
     );
-  }
-}
+  };
+};
