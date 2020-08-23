@@ -16,7 +16,7 @@ const SERVER_GET_PATH_URL = '/api/getPath';
 /**
  *  @const {string} Server Api Url for submitting job
  */
-const SERVER_SUBMIT_JOB_URL = '/api/submitJob';
+const SERVER_SUBMIT_JOB_URL = 'http://localhost:8080/api/submitJob';
 
 /**
  *  @const {!Object} Google Map centre Coordinates

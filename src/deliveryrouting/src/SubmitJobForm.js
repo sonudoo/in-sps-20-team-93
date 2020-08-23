@@ -35,7 +35,7 @@ export class SubmitJobForm extends React.Component {
   onSubmitHandler = (event) => {
     event.preventDefault();
     $.ajax({
-      url: ServerApi.SUBMIT_JOB_SERVER_API_URL,
+      url: ServerApi.SERVER_SUBMIT_JOB_URL,
       type: "POST",
       data: {
         Name: this.props.name,
