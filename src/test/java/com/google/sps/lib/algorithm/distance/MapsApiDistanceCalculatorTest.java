@@ -15,6 +15,7 @@
 package com.google.sps.lib.algorithm.distance;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
@@ -25,6 +26,8 @@ import java.io.ByteArrayInputStream;
 import java.lang.Exception;
 import java.net.HttpURLConnection;
 import org.mockito.Mock;
+import org.mockito.Captor;
+import org.mockito.ArgumentCaptor;
 import org.mockito.runners.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +40,10 @@ public class MapsApiDistanceCalculatorTest {
 
   @Mock
   URLWrapper mockUrlWrapper;
+
+  @Captor
+  ArgumentCaptor<String> urlCaptor;
+
 
   @Test
   public void findDistance_successResponse_matrixAsExpected() throws Exception {
@@ -76,10 +83,12 @@ public class MapsApiDistanceCalculatorTest {
     when(mockConnection.getInputStream()).thenReturn(new ByteArrayInputStream(apiResponse.getBytes("UTF-8")));
     List<Coordinate> coordinates = new ArrayList<>(Arrays.asList(new Coordinate(28.6129, 77.2295),
         new Coordinate(22.5726, 88.3639), new Coordinate(19.0760, 72.8777)));
-    String expectedRequestUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=28.6129,77.2295|22.5726,88.3639|19.076,72.8777&destinations=28.6129,77.2295|22.5726,88.3639|19.076,72.8777&key=__GOOGLE_MAPS_API_KEY__";
+    String expectedRequestUrl = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=28.6129,77.2295|22.5726,88.3639|19.076,72.8777&destinations=28.6129,77.2295|22.5726,88.3639|19.076,72.8777&";
 
     new MapsApiDistanceCalculator(mockUrlWrapper).findDistance(coordinates);
 
-    verify(mockUrlWrapper).openConnection(expectedRequestUrl);
+    verify(mockUrlWrapper).openConnection(urlCaptor.capture());
+    String requestUrl = urlCaptor.getValue();
+    assertEquals(expectedRequestUrl, requestUrl.split("key")[0]);
   }
 }

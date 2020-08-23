@@ -1,4 +1,4 @@
-@media (min-width: 200px) and (max-width: 600px) {
+@media (max-width: 600px) {
   .SubmitJobFormContainer {
     align-items: center;
     display: flex;
@@ -23,10 +23,6 @@
     background-color: rgb(245, 245, 245);
     border: 1px solid #e8eaed;
     border-radius: 8px;
-    font-family: "Google Sans", "Roboto", "Noto Sans Devanagari UI",
-      "Noto Sans Bengali UI", "Noto Sans Telugu UI", "Noto Sans Tamil UI",
-      "Noto Sans Gujarati UI", "Noto Sans Kannada UI", "Noto Sans Malayalam UI",
-      "Noto Sans Gurmukhi UI", "Arial", "sans-serif";
     font-size: 14px;
     height: 48px;
     margin: 10px;
@@ -44,10 +40,6 @@
     border: 1px solid #e8eaed;
     border-radius: 8px;
     cursor: not-allowed;
-    font-family: "Google Sans", "Roboto", "Noto Sans Devanagari UI",
-      "Noto Sans Bengali UI", "Noto Sans Telugu UI", "Noto Sans Tamil UI",
-      "Noto Sans Gujarati UI", "Noto Sans Kannada UI", "Noto Sans Malayalam UI",
-      "Noto Sans Gurmukhi UI", "Arial", "sans-serif";
     font-size: 14px;
     height: 42px;
     margin: 10%;
@@ -62,10 +54,6 @@
     box-shadow: 0 1px 6px rgba(60, 64, 67, 0.28);
     color: white;
     cursor: pointer;
-    font-family: "Google Sans", "Roboto", "Noto Sans Devanagari UI",
-      "Noto Sans Bengali UI", "Noto Sans Telugu UI", "Noto Sans Tamil UI",
-      "Noto Sans Gujarati UI", "Noto Sans Kannada UI", "Noto Sans Malayalam UI",
-      "Noto Sans Gurmukhi UI", "Arial", "sans-serif";
     font-size: 15px;
     font-weight: bold;
     height: 48px;
@@ -88,10 +76,6 @@
     background-color: rgb(240, 238, 238);
     box-shadow: 0 1px 6px rgba(60, 64, 67, 0.28);
     color: rgba(0, 0, 0, 0.87);
-    font-family: "Google Sans", Roboto, "Noto Sans Devanagari UI",
-      "Noto Sans Bengali UI", "Noto Sans Telugu UI", "Noto Sans Tamil UI",
-      "Noto Sans Gujarati UI", "Noto Sans Kannada UI", "Noto Sans Malayalam UI",
-      "Noto Sans Gurmukhi UI", Arial, sans-serif;
     font-size: 13px;
     font-weight: 400;
     line-height: 1.5em;
@@ -138,10 +122,6 @@
     border: 1px solid #e8eaed;
     border-radius: 8px;
     cursor: not-allowed;
-    font-family: "Google Sans", "Roboto", "Noto Sans Devanagari UI",
-      "Noto Sans Bengali UI", "Noto Sans Telugu UI", "Noto Sans Tamil UI",
-      "Noto Sans Gujarati UI", "Noto Sans Kannada UI", "Noto Sans Malayalam UI",
-      "Noto Sans Gurmukhi UI", "Arial", "sans-serif";
     font-size: 14px;
     height: 42px;
     margin: 10px;
@@ -164,10 +144,6 @@
     background-color: rgb(245, 245, 245);
     border: 1px solid #e8eaed;
     border-radius: 8px;
-    font-family: "Google Sans", "Roboto", "Noto Sans Devanagari UI",
-      "Noto Sans Bengali UI", "Noto Sans Telugu UI", "Noto Sans Tamil UI",
-      "Noto Sans Gujarati UI", "Noto Sans Kannada UI", "Noto Sans Malayalam UI",
-      "Noto Sans Gurmukhi UI", "Arial", "sans-serif";
     font-size: 14px;
     height: 48px;
     margin: 10px;
@@ -184,10 +160,6 @@
     background-color: rgb(240, 238, 238);
     box-shadow: 0 1px 6px rgba(60, 64, 67, 0.28);
     color: rgba(0, 0, 0, 0.87);
-    font-family: "Google Sans", Roboto, "Noto Sans Devanagari UI",
-      "Noto Sans Bengali UI", "Noto Sans Telugu UI", "Noto Sans Tamil UI",
-      "Noto Sans Gujarati UI", "Noto Sans Kannada UI", "Noto Sans Malayalam UI",
-      "Noto Sans Gurmukhi UI", Arial, sans-serif;
     font-size: 13px;
     font-weight: 400;
     line-height: 1.5em;
@@ -219,10 +191,6 @@
     box-shadow: 0 1px 6px rgba(60, 64, 67, 0.28);
     color: white;
     cursor: pointer;
-    font-family: "Google Sans", "Roboto", "Noto Sans Devanagari UI",
-      "Noto Sans Bengali UI", "Noto Sans Telugu UI", "Noto Sans Tamil UI",
-      "Noto Sans Gujarati UI", "Noto Sans Kannada UI", "Noto Sans Malayalam UI",
-      "Noto Sans Gurmukhi UI", "Arial", "sans-serif";
     font-size: 15px;
     font-weight: bold;
     height: 48px;

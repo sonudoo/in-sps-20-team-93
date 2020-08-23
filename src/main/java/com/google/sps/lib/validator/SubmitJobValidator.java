@@ -23,10 +23,7 @@ import com.google.sps.lib.handler.DatastoreJobEntityParams;
  * The validator for submit job requests.
  */
 public class SubmitJobValidator {
-  private boolean isAlphabetic(String value) {
-    return Pattern.matches("[a-zA-Z0-9 ,/.-]+", value);
-  }
-
+  
   private boolean isNumericDouble(String value) {
     try {
       Double.parseDouble(value);
@@ -71,7 +68,7 @@ public class SubmitJobValidator {
    */
   public ValidationStatus validate(HttpServletRequest request) {
     String nName = request.getParameter(DatastoreJobEntityParams.ENTITY_USER_PROPERTY_NAME);
-    if (!isNullOrEmpty(nName) || !isAlphabetic(nName)) {
+    if (!isNullOrEmpty(nName)) {
       return ValidationStatus.create(ValidationStatusCode.FAILURE, "Name should not be empty");
     }
 

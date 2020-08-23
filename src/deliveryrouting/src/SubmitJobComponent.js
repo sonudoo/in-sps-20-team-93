@@ -2,11 +2,8 @@ import React from "react";
 import { Map, GoogleApiWrapper, InfoWindow, Marker } from "google-maps-react";
 import Geocode from "react-geocode";
 import { SubmitJobForm } from "./SubmitJobForm";
-import { getMapsApiKey, getMapCentre } from "./Config";
+import { MapsApi } from "./config";
 import "./Style.css";
-
-const MAPS_API_KEY = getMapsApiKey();
-const MAP_CENTRE = getMapCentre();
 
 /**
  * This class displays map with marker to submit location coordinates.
@@ -18,10 +15,10 @@ export class SubmitJobComponent extends React.Component {
       showInfoWindow: false,
       activeMarker: {},
       marker: {
-        locationName: MAP_CENTRE.locationName,
+        locationName: MapsApi.MAP_CENTRE_LOCATION_NAME,
         position: {
-          lat: MAP_CENTRE.lat,
-          lng: MAP_CENTRE.lng,
+          lat: MapsApi.MAP_CENTRE.lat,
+          lng: MapsApi.MAP_CENTRE.lng,
         },
       },
     };
@@ -63,7 +60,7 @@ export class SubmitJobComponent extends React.Component {
       lng: latLng.lng().toFixed(5),
     };
     let newLocation = "";
-    Geocode.setApiKey(MAPS_API_KEY);
+    Geocode.setApiKey(MapsApi.MAPS_API_KEY);
     Geocode.fromLatLng(newPosition.lat, newPosition.lng).then(
       (response) => {
         newLocation = response.results[0].formatted_address;
@@ -126,10 +123,7 @@ export class SubmitJobComponent extends React.Component {
             className="MapsContainer"
             google={this.props.google}
             zoom={13}
-            initialCenter={{
-              lat: MAP_CENTRE.lat,
-              lng: MAP_CENTRE.lng,
-            }}
+            initialCenter={MapsApi.MAP_CENTRE}
           >
             <Marker
               onClick={this.onMarkerClick}
@@ -155,9 +149,9 @@ export class SubmitJobComponent extends React.Component {
         </div>
       </div>
     );
-  };
-};
+  }
+}
 
 export default GoogleApiWrapper({
-  apiKey: MAPS_API_KEY,
+  apiKey: MapsApi.MAPS_API_KEY,
 })(SubmitJobComponent);

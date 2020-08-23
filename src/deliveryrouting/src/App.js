@@ -1,12 +1,15 @@
-import React from "react";
-import SubmitJobComponent from "./SubmitJobComponent";
-import { Route, Switch } from "react-router-dom";
+import React from 'react';
+import './App.css';
+import SubmitJobComponent from './SubmitJobComponent';
+import GetPathComponent from './GetPathComponent';
+import { Route, Switch } from 'react-router-dom';
 
 function App() {
   return (
     <main>
       <Switch>
-        <Route path="/" component={SubmitJobComponent} />
+        <Route path="/" component={SubmitJobComponent} exact/>
+        <Route path="/admin" component={GetPathComponent} />
       </Switch>
     </main>
   );

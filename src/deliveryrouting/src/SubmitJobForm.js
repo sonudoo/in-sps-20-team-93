@@ -1,15 +1,7 @@
 import React from "react";
 import "./Style.css";
-import {
-  getServerApiUrl,
-  getBadRequestResponse,
-  getSubmittedRequestResponse,
-} from "./Config";
+import { ServerApi, RequestResponse } from "./config";
 const $ = require("jquery");
-
-const SERVER_API_URL = getServerApiUrl();
-const REQUEST_SUBMITTED_RESPONSE = getSubmittedRequestResponse();
-const BAD_REQUEST_RESPONSE = getBadRequestResponse();
 
 /**
  * This class displays a form to submit job details.
@@ -43,7 +35,7 @@ export class SubmitJobForm extends React.Component {
   onSubmitHandler = (event) => {
     event.preventDefault();
     $.ajax({
-      url: SERVER_API_URL,
+      url: ServerApi.SUBMIT_JOB_SERVER_API_URL,
       type: "POST",
       data: {
         Name: this.props.name,
@@ -53,14 +45,14 @@ export class SubmitJobForm extends React.Component {
       },
       success: () => {
         this.setState({
-          responseMessage: REQUEST_SUBMITTED_RESPONSE,
+          responseMessage: RequestResponse.SUBMITTED_REQUEST_RESPONSE,
           showResponse: true,
           disablePhone: true,
         });
       },
       error: () => {
         this.setState({
-          responseMessage: BAD_REQUEST_RESPONSE,
+          responseMessage: RequestResponse.BAD_REQUEST_RESPONSE,
           showResponse: true,
           disablePhone: true,
         });
@@ -135,5 +127,5 @@ export class SubmitJobForm extends React.Component {
         />
       </form>
     );
-  };
-};
+  }
+}
