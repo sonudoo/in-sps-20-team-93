@@ -83,13 +83,13 @@ export class SubmitJobComponent extends React.Component {
         <div className="InnerBodyContainer">
           <div>
             <h3 className="HeadingContainer">
-              Welcome to DELIVERY SYSTEM!<span>😃</span>
+              Welcome to DELIVERY SYSTEM!
             </h3>
           </div>
           <div>
             <h4 className="HeadingContainer">
               Get the shortest route possible to complete all your deliveries !
-              <span>🚛</span>
+              <span role="img" aria-label="delivery">🚛</span>
             </h4>
           </div>
           <div className="InstructionsContainer">
