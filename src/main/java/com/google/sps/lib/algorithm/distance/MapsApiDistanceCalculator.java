@@ -40,10 +40,6 @@ public class MapsApiDistanceCalculator implements IDistanceCalculator {
     this.urlWrapper = urlWrapper;
   }
 
-  public static String getApiKey() {
-    return API_KEY;
-  }
-
   @Override
   public double[][] findDistance(final List<Coordinate> taskList) {
     final String matrixAPIResponse = getApiResponse(taskList);

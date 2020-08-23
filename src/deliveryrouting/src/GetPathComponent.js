@@ -6,10 +6,8 @@ import {
   withScriptjs,
   DirectionsRenderer,
 } from "react-google-maps";
-import { MapsApi } from './config';
+import { MapsApi, ServerApi } from './config';
 import './GetPathComponent.css';
-
-const MAPS_API_URL = MapsApi.MAPS_API_URL;
 
 const GoogleMapComponent = withScriptjs(withGoogleMap((props) =>
   <GoogleMap
@@ -25,14 +23,15 @@ const GoogleMapComponent = withScriptjs(withGoogleMap((props) =>
 ));
 
 /**
- * This class renders all the delivery paths for shortest distance.
- */
+  * This class renders all the delivery paths for shortest distance.
+  */
 export default class GetPathComponent extends Component {
   constructor(props) {
     super(props);
     this.state = { 
       directions: {},
-      currStartLocation: "Invalid Location",
+      //location initially remains invalid to indicate that no path has been returned from server yet.
+      currStartLocation: "Invalid Location", 
       currEndLocation: "Invalid Location",
       currStartIdx: 0,
       currEndIdx: 1,
@@ -51,7 +50,7 @@ export default class GetPathComponent extends Component {
     return (
       <div>
         <GoogleMapComponent directions={this.state.directions}
-          googleMapURL={MAPS_API_URL}
+          googleMapURL={MapsApi.MAPS_API_URL}
           loadingElement={<div/>}
           containerElement={<div style={{ height: '80vh'}} />}
           mapElement={<div style={{ height: '100%' }} />}
@@ -89,7 +88,7 @@ export default class GetPathComponent extends Component {
   }
 
   fetchJobCoordinates_ = async () => {
-    return fetch(MapsApi.SERVER_API_URL)
+    return fetch(ServerApi.SERVER_API_URL)
       .then(response => response.json())
       .then(responseJson => {
         this.responseJobs_ = responseJson.responseJobs;

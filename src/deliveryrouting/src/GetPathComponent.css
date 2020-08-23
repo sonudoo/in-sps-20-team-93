@@ -11,10 +11,6 @@
   border-radius: 36px;
   box-shadow: 0 1px 6px rgba(60, 64, 67, 0.28);
   cursor: pointer;
-  font-family: "Google Sans", "Roboto", "Noto Sans Devanagari UI",
-    "Noto Sans Bengali UI", "Noto Sans Telugu UI", "Noto Sans Tamil UI",
-    "Noto Sans Gujarati UI", "Noto Sans Kannada UI", "Noto Sans Malayalam UI",
-    "Noto Sans Gurmukhi UI", "Arial", "sans-serif";
   font-size: 15px;
   font-weight: bold;
   height: 30px;
@@ -32,10 +28,6 @@
 }
 
 .PathInformation {
-  font-family: "Google Sans", "Roboto", "Noto Sans Devanagari UI",
-    "Noto Sans Bengali UI", "Noto Sans Telugu UI", "Noto Sans Tamil UI",
-    "Noto Sans Gujarati UI", "Noto Sans Kannada UI", "Noto Sans Malayalam UI",
-    "Noto Sans Gurmukhi UI", "Arial", "sans-serif";
   font-size: 15px;
   text-align: center;
 }
