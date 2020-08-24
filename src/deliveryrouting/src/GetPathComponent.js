@@ -66,7 +66,7 @@ export default class GetPathComponent extends Component {
           style={this.state.currStartLocation === '' ? {} : { display: 'none' }}>
           Fetching deliveries. Please wait!
         </p>
-        <div className="ButtonContainer">
+        <div className="ControlButtonContainer">
           <button tabIndex="0" className="PreviousPathButton"
             id="PreviousPathButton" onClick={this.onPreviousClick}
             disabled={this.state.currStartIdx <= 0}>
