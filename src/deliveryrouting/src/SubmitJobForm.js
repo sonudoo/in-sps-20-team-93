@@ -1,7 +1,6 @@
 import React from "react";
 import "./SubmitJobComponent.css";
 import { ServerApi, RequestResponse } from "./config";
-import { Link } from "react-router-dom";
 const $ = require("jquery");
 
 /**
@@ -130,9 +129,6 @@ export class SubmitJobForm extends React.Component {
             id="SubmitButton"
             type="submit"
           />
-          <Link to="/admin" title="Link to Admin DashBoard">
-            Admin Dashboard
-          </Link>
         </form>
       </div>
     );

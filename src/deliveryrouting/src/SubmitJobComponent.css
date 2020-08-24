@@ -1,4 +1,20 @@
 @media (max-width: 600px) {
+  .ButtonContainer {
+    background-color: black;
+    border: none;
+    color: white;
+    cursor: pointer;
+    height: 25px;
+    margin-left: 25px;
+    margin-top: 5px;
+    padding: 5px;
+    width: 30px;
+  }
+
+  .ButtonContainer:hover {
+    background-color: gray;
+  }
+
   .SubmitJobFormContainer {
     align-items: center;
     display: flex;
@@ -100,6 +116,11 @@
     align-items: center;
     width: 100%;
   }
+
+  .LinkContainer {
+    margin-left: 1%;
+    color: black;
+  }
 }
 
 @media (min-width: 600px) {
@@ -173,10 +194,14 @@
     width: 350px;
   }
 
+  .LinkContainer {
+    margin-left: 35%;
+    color: black;
+  }
+
   .MapsContainer {
     height: 100%;
-    margin-left: 0;
-    position: absolute;
+    position: relative;
     width: 100%;
   }
 
@@ -196,6 +221,7 @@
     font-size: 15px;
     font-weight: bold;
     height: 48px;
+    margin-bottom: 10px;
     margin-top: 20px;
     outline: none;
     width: 240px;

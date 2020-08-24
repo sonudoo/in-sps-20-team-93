@@ -3,6 +3,7 @@ import { Map, GoogleApiWrapper, InfoWindow, Marker } from "google-maps-react";
 import Geocode from "react-geocode";
 import { SubmitJobForm } from "./SubmitJobForm";
 import { MapsApi } from "./config";
+import { Link } from "react-router-dom";
 import "./SubmitJobComponent.css";
 
 /**
@@ -82,14 +83,14 @@ export class SubmitJobComponent extends React.Component {
       <div className="HomePageBodyContainer">
         <div className="InnerBodyContainer">
           <div>
-            <h3 className="HeadingContainer">
-              Welcome to DELIVERY SYSTEM!
-            </h3>
+            <h3 className="HeadingContainer">Welcome to DELIVERY SYSTEM!</h3>
           </div>
           <div>
             <h4 className="HeadingContainer">
               Get the shortest route possible to complete all your deliveries !
-              <span role="img" aria-label="delivery">🚛</span>
+              <span role="img" aria-label="delivery">
+                🚛
+              </span>
             </h4>
           </div>
           <div className="InstructionsContainer">
@@ -117,6 +118,13 @@ export class SubmitJobComponent extends React.Component {
               name={this.state.marker.locationName}
             />
           </div>
+          <Link
+            to="/admin"
+            className="LinkContainer"
+            title="Link to Admin DashBoard"
+          >
+            Admin Dashboard
+          </Link>
         </div>
         <div>
           <Map
