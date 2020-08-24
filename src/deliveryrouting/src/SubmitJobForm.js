@@ -45,7 +45,7 @@ export class SubmitJobForm extends React.Component {
         Latitude: this.props.latitudes,
         Longitude: this.props.longitudes,
       },
-      success: (data) => {
+      success: () => {
         this.setState({
           responseMessage: RequestResponse.SUBMITTED_REQUEST_RESPONSE,
           responseStatus: "1",
