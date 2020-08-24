@@ -35,4 +35,8 @@ public class JobHandlerFactory {
   public static GetPathHandler createGetPathHandler(HttpServletRequest request) {
     return new GetPathHandler(databaseWrapper);
   }
+
+  public static CleanDatastoreHandler createCleanDatastoreHandler(HttpServletRequest request) {
+    return new CleanDatastoreHandler(databaseWrapper);
+  }
 }

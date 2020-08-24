@@ -60,4 +60,15 @@ class DatastoreWrapper {
     }
     return datastoreJobs.stream().skip(Math.max(0, datastoreJobs.size() - maximumJobs)).collect(Collectors.toList());
   }
+
+  /**
+   * Deletes all entries from the datastore.
+   */  
+  void cleanDataStore() {
+    Query query = new Query(DatastoreJobEntityParams.ENTITY_NAME);
+    PreparedQuery results = datastore.prepare(query);
+    for (Entity entity : results.asIterable()) {
+      datastore.delete(entity.getKey());
+    }
+  }
 }
