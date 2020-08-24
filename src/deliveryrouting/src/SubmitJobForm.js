@@ -1,5 +1,5 @@
 import React from "react";
-import "./Style.css";
+import "./SubmitJobComponent.css";
 import { ServerApi, RequestResponse } from "./config";
 const $ = require("jquery");
 

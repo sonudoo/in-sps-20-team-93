@@ -66,7 +66,7 @@ it('Request Submitted is displayed when success callback is called', () => {
   expect(successResponseElement).toBeInTheDocument();
 });
 
-it('Bad Request is displayed when success callback is called', () => {
+it('Bad Request is displayed when error callback is called', () => {
   const { getByText } = render(<SubmitJobForm />);
   const $ = require('jquery');
   const submitButton = document.getElementById('SubmitButton');

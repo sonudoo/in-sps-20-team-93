@@ -3,7 +3,7 @@ import { Map, GoogleApiWrapper, InfoWindow, Marker } from "google-maps-react";
 import Geocode from "react-geocode";
 import { SubmitJobForm } from "./SubmitJobForm";
 import { MapsApi } from "./config";
-import "./Style.css";
+import "./SubmitJobComponent.css";
 
 /**
  * This class displays map with marker to submit location coordinates.
@@ -72,7 +72,7 @@ export class SubmitJobComponent extends React.Component {
         });
       },
       (error) => {
-        throw error(error);
+        throw new Error(error);
       }
     );
   };
