@@ -2,10 +2,11 @@
   align-items: center;
   display: flex;
   height: 100%;
-  justify-content: center;   
+  justify-content: center;
 }
 
-.PreviousPathButton, .NextPathButton {
+.PreviousPathButton,
+.NextPathButton {
   background-color: blue;
   border: 1px solid #dadce0;
   border-radius: 36px;
@@ -19,12 +20,19 @@
   outline: none;
   width: 200px;
 }
-  
-.PreviousPathButton:hover, .NextPathButton:hover {
+
+.PreviousPathButton:hover,
+.NextPathButton:hover {
   background-color: #4285f4;
 }
 
-.PreviousPathButton:disabled, .NextPathButton:disabled {
+.PreviousPathButton:focus,
+.NextPathButton:focus {
+  background-color: #4285f4;
+}
+
+.PreviousPathButton:disabled,
+.NextPathButton:disabled {
   background-color: darkgrey;
 }
 

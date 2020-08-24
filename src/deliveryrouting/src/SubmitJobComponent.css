@@ -1,4 +1,15 @@
 @media (max-width: 600px) {
+  .BadReqContainer {
+    align-items: center;
+    background-color: rgba(128, 0, 0, 0.2);
+    border: 1px solid rgb(128, 0, 0);
+    color: black;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 5px;
+    padding: 10px;
+  }
+
   .ButtonContainer {
     background-color: black;
     border: none;
@@ -6,6 +17,7 @@
     cursor: pointer;
     height: 25px;
     margin-left: 25px;
+    margin-right: 25px;
     margin-top: 5px;
     padding: 5px;
     width: 30px;
@@ -15,17 +27,38 @@
     background-color: gray;
   }
 
-  .SubmitJobFormContainer {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
+  .DisabledInputContainer {
+    background-color: rgb(240, 238, 238);
+    border: 1px solid #e8eaed;
+    border-radius: 8px;
+    cursor: not-allowed;
+    font-size: 14px;
+    height: 42px;
+    margin: 10%;
+    text-indent: 3px;
     width: 100%;
   }
 
-  .MapsContainer {
-    height: 100%;
-    position: absolute;
+  .DisabledSubmitButtonContainer {
+    background-color: rgb(240, 238, 238);
+    border: 1px solid #dadce0;
+    border-radius: 36px;
+    box-shadow: 0 1px 6px rgba(60, 64, 67, 0.28);
+    color: black;
+    cursor: not-allowed;
+    font-size: 15px;
+    font-weight: bold;
+    height: 48px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    outline: none;
     width: 100%;
+  }
+
+  .HeadingContainer {
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 93%;
   }
 
   .HomePageBodyContainer {
@@ -51,16 +84,46 @@
     outline: none;
   }
 
-  .DisabledInputContainer {
+  .InstructionsContainer {
+    align-items: center;
     background-color: rgb(240, 238, 238);
-    border: 1px solid #e8eaed;
-    border-radius: 8px;
-    cursor: not-allowed;
-    font-size: 14px;
-    height: 42px;
-    margin: 10%;
-    text-indent: 3px;
+    box-shadow: 0 1px 6px rgba(60, 64, 67, 0.28);
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.5em;
+    margin-left: 25%;
+    margin-right: 20%;
+    margin-top: 30px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    text-indent: 4px;
+    width: 80%;
+  }
+
+  .InnerBodyContainer {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
     width: 100%;
+  }
+
+  .LinkContainer {
+    color: black;
+    margin-bottom: 1%;
+    margin-left: 1%;
+  }
+
+  .MapsContainer {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+  }
+
+  .ResponseContainer {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
   }
 
   .SubmitButtonContainer {
@@ -87,43 +150,36 @@
     background-color: #4285f4;
   }
 
-  .InstructionsContainer {
+  .SubmitJobFormContainer {
     align-items: center;
-    background-color: rgb(240, 238, 238);
-    box-shadow: 0 1px 6px rgba(60, 64, 67, 0.28);
-    color: rgba(0, 0, 0, 0.87);
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 1.5em;
-    margin-left: 17%;
-    margin-right: 20%;
-    margin-top: 30px;
-    padding-bottom: 5px;
-    padding-top: 5px;
-    text-indent: 4px;
-    width: 80%;
-  }
-
-  .HeadingContainer {
-    margin-left: 10%;
-    margin-right: 10%;
-    width: 93%;
-  }
-
-  .InnerBodyContainer {
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 100%;
   }
 
-  .LinkContainer {
-    margin-left: 1%;
+  .SubmittedReqContainer {
+    align-items: center;
+    background-color: rgba(0, 128, 0, 0.2);
+    border: 1px solid rgb(0, 128, 0);
     color: black;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 5px;
+    padding: 10px;
   }
 }
 
 @media (min-width: 600px) {
+  .BadReqContainer {
+    align-items: center;
+    background-color: rgba(128, 0, 0, 0.2);
+    border: 1px solid rgb(128, 0, 0);
+    color: black;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+
   .ButtonContainer {
     background-color: black;
     border: none;
@@ -149,6 +205,22 @@
     margin: 10px;
     text-indent: 3px;
     width: 350px;
+  }
+
+  .DisabledSubmitButtonContainer {
+    background-color: darkgray;
+    border: 1px solid #dadce0;
+    border-radius: 36px;
+    box-shadow: 0 1px 6px rgba(60, 64, 67, 0.28);
+    color: #fff;
+    cursor: not-allowed;
+    font-size: 15px;
+    font-weight: bold;
+    height: 48px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    outline: none;
+    width: 240px;
   }
 
   .HeadingContainer {
@@ -195,8 +267,8 @@
   }
 
   .LinkContainer {
-    margin-left: 35%;
     color: black;
+    margin-left: 35%;
   }
 
   .MapsContainer {
@@ -242,5 +314,15 @@
     justify-content: center;
     margin-top: 10px;
     width: 400px;
+  }
+
+  .SubmittedReqContainer {
+    align-items: center;
+    background-color: rgba(0, 128, 0, 0.2);
+    border: 1px solid rgb(0, 128, 0);
+    color: black;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
   }
 }

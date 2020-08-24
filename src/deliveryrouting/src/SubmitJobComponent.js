@@ -87,7 +87,7 @@ export class SubmitJobComponent extends React.Component {
           </div>
           <div>
             <h4 className="HeadingContainer">
-              Get the shortest route possible to complete all your deliveries !
+              Get the shortest route possible to complete all your deliveries!
               <span role="img" aria-label="delivery">
                 🚛
               </span>
