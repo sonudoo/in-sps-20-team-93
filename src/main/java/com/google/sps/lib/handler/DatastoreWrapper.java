@@ -2,6 +2,8 @@ package com.google.sps.lib.handler;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -40,9 +42,11 @@ class DatastoreWrapper {
   }
 
   /**
-   * Returns all the jobs from the datastore.
+   * Returns all the jobs from the datastore. If the number of jobs exceeds a
+   * maximum {@param maximumJobs}, then the list will be trimmed to contain the
+   * last {@param maximumJobs} elements.
    */
-  List<DatastoreJob> getAllJobs() {
+  List<DatastoreJob> getAllJobs(int maximumJobs) {
     Query query = new Query(DatastoreJobEntityParams.ENTITY_NAME);
     PreparedQuery results = datastore.prepare(query);
     List<DatastoreJob> datastoreJobs = new ArrayList<>();
@@ -54,6 +58,6 @@ class DatastoreWrapper {
       double longitudes = (double) entity.getProperty(DatastoreJobEntityParams.ENTITY_LONG_PROPERTY_NAME);
       datastoreJobs.add(new DatastoreJob(jobId, name, phone, latitudes, longitudes));
     }
-    return datastoreJobs;
+    return datastoreJobs.stream().skip(Math.max(0, datastoreJobs.size() - maximumJobs)).collect(Collectors.toList());
   }
 }
