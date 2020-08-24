@@ -1,6 +1,7 @@
 import React from "react";
 import "./SubmitJobComponent.css";
 import { ServerApi, RequestResponse } from "./config";
+import { Link } from "react-router-dom";
 const $ = require("jquery");
 
 /**
@@ -73,59 +74,67 @@ export class SubmitJobForm extends React.Component {
 
   render() {
     return (
-      <form className="SubmitJobFormContainer" onSubmit={this.onSubmitHandler}>
-        {this.state.showResponse ? (
-          <div className="ResponseContainer">
-            {this.state.responseMessage}
-            <button
-              className="ButtonContainer"
-              onClick={this.removeResponseMessage}
-              title="Click to submit new request"
-            >
-              <b>OK</b>
-            </button>
-          </div>
-        ) : (
-          <div></div>
-        )}
-        <input
-          className="DisabledInputContainer"
-          name="Name"
-          type="string"
-          placeholder="Name"
-          value={this.props.name}
-          disabled={true}
-        />
-        <input
-          className="InputContainer"
-          name="Phone"
-          type="string"
-          placeholder="Phone"
-          onChange={this.onPhoneNumberChangeHandler}
-          disabled={this.state.disablePhone}
-        />
-        <input
-          className="DisabledInputContainer"
-          type="number"
-          placeholder="Latitudes"
-          name="Latitude"
-          value={this.props.latitudes}
-          disabled={true}
-        />
-        <input
-          className="DisabledInputContainer"
-          type="number"
-          placeholder="Longitudes"
-          name="Longitude"
-          value={this.props.longitudes}
-          disabled={true}
-        />
-        <input
-          className="SubmitButtonContainer"
-          id="SubmitButton"
-          type="submit"
-        />
-      </form>
+      <div>
+        <form
+          className="SubmitJobFormContainer"
+          onSubmit={this.onSubmitHandler}
+        >
+          {this.state.showResponse ? (
+            <div className="ResponseContainer">
+              {this.state.responseMessage}
+              <button
+                className="ButtonContainer"
+                onClick={this.removeResponseMessage}
+                title="Click to submit new request"
+              >
+                <b>OK</b>
+              </button>
+            </div>
+          ) : (
+            <div></div>
+          )}
+          <input
+            className="DisabledInputContainer"
+            name="Name"
+            type="string"
+            placeholder="Name"
+            value={this.props.name}
+            disabled={true}
+          />
+          <input
+            className="InputContainer"
+            name="Phone"
+            type="string"
+            placeholder="Phone"
+            onChange={this.onPhoneNumberChangeHandler}
+            disabled={this.state.disablePhone}
+          />
+          <input
+            className="DisabledInputContainer"
+            type="number"
+            placeholder="Latitudes"
+            name="Latitude"
+            value={this.props.latitudes}
+            disabled={true}
+          />
+          <input
+            className="DisabledInputContainer"
+            type="number"
+            placeholder="Longitudes"
+            name="Longitude"
+            value={this.props.longitudes}
+            disabled={true}
+          />
+          <input
+            className="SubmitButtonContainer"
+            id="SubmitButton"
+            type="submit"
+          />
+          <Link to="/admin" title="Link to Admin DashBoard">
+            Admin Dashboard
+          </Link>
+        </form>
+      </div>
     );
   }
 }
