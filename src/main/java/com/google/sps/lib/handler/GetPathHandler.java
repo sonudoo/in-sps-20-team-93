@@ -35,6 +35,14 @@ public class GetPathHandler implements IRequestHandler {
   private final static double HOME_LONGITUDES = 77.2295;
   private final static String HOME_NAME = "HOME";
 
+  /**
+   * This limit comes from the fact that Google Maps Distance Matrix Api can only
+   * allow a maximum of 10 origins and 10 destination. One of the origin is HOME
+   * coordinates itself.
+   * https://developers.google.com/maps/documentation/distance-matrix/usage-and-billing#other-usage-limits
+   */
+  private static final int MAXIMUM_NUMBER_OF_JOBS = 9;
+
   private final DatastoreWrapper datastoreWrapper;
 
   /**
@@ -50,7 +58,7 @@ public class GetPathHandler implements IRequestHandler {
    */
   @Override
   public HandlerResponse getResponse() {
-    List<DatastoreJob> datastoreJobs = datastoreWrapper.getAllJobs();
+    List<DatastoreJob> datastoreJobs = datastoreWrapper.getAllJobs(MAXIMUM_NUMBER_OF_JOBS);
 
     // Get a list of {@link TravellingSalesmanTask} from all the jobs in the
     // datastore. The task ids are generated serially from 0.
