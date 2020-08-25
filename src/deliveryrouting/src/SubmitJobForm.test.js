@@ -73,7 +73,7 @@ it('Bad Request is displayed when error callback is called', () => {
 
   submitButton.click();
   ajaxArgument.error();
-  const errorResponseElement = getByText('Bad Request');
+  const errorResponseElement = getByText('Phone is empty or incorrect');
   
   expect(errorResponseElement).toBeInTheDocument();
 });

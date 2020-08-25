@@ -31,7 +31,7 @@ const MAP_CENTRE_LOCATION_NAME = 'India Gate, New Delhi, India';
 /**
  *  @const {string} Bad Request Response message
  */
-const BAD_REQUEST_RESPONSE = 'Bad Request';
+const BAD_REQUEST_RESPONSE = 'Phone is empty or incorrect';
 
 /**
  *  @const {string} Request Submitted response message

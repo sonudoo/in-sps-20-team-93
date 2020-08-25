@@ -13,7 +13,9 @@ export class SubmitJobForm extends React.Component {
       phone: "",
       responseMessage: "",
       showResponse: false,
+      responseStatus: "",
       disablePhone: false,
+      disableSubmitButton: false,
     };
   }
 
@@ -46,15 +48,19 @@ export class SubmitJobForm extends React.Component {
       success: () => {
         this.setState({
           responseMessage: RequestResponse.SUBMITTED_REQUEST_RESPONSE,
+          responseStatus: "1",
           showResponse: true,
           disablePhone: true,
+          disableSubmitButton: true,
         });
       },
       error: () => {
         this.setState({
           responseMessage: RequestResponse.BAD_REQUEST_RESPONSE,
+          responseStatus: "0",
           showResponse: true,
           disablePhone: true,
+          disableSubmitButton: true,
         });
       },
     });
@@ -67,7 +73,9 @@ export class SubmitJobForm extends React.Component {
   removeResponseMessage = () => {
     this.setState({
       showResponse: false,
+      responseStatus: "",
       disablePhone: false,
+      disableSubmitButton: false,
     });
   };
 
@@ -80,14 +88,31 @@ export class SubmitJobForm extends React.Component {
         >
           {this.state.showResponse ? (
             <div className="ResponseContainer">
-              {this.state.responseMessage}
-              <button
-                className="ButtonContainer"
-                onClick={this.removeResponseMessage}
-                title="Click to submit new request"
+              <div
+                className={
+                  this.state.responseStatus === "1"
+                    ? "SubmittedReqContainer"
+                    : "BadReqContainer"
+                }
               >
-                <b>OK</b>
-              </button>
+                {this.state.responseStatus === "1" ? (
+                  <span role="img" aria-label="RequestSubmit">
+                    ✅
+                  </span>
+                ) : (
+                  <span role="img" aria-label="BadRequest">
+                    ❌
+                  </span>
+                )}
+                {this.state.responseMessage}
+                <button
+                  className="ButtonContainer"
+                  onClick={this.removeResponseMessage}
+                  title="Click to submit new request"
+                >
+                  <b>OK</b>
+                </button>
+              </div>
             </div>
           ) : (
             <div></div>
@@ -125,9 +150,14 @@ export class SubmitJobForm extends React.Component {
             disabled={true}
           />
           <input
-            className="SubmitButtonContainer"
+            className={
+              this.state.disableSubmitButton
+                ? "DisabledSubmitButtonContainer"
+                : "SubmitButtonContainer"
+            }
             id="SubmitButton"
             type="submit"
+            disabled={this.state.disableSubmitButton}
           />
         </form>
       </div>
